@@ -169,15 +169,21 @@
                     </div>
 
                     <button type="submit" class="apply-btn" id="submitBtn">Submit Application</button>
-                    <div id="loadingSpinner">Transmitting Profile... Please wait.</div>
+                    <div id="loadingSpinner">Submitting your application... Please wait.</div>
                 </form>
             </div>
 
             <div id="successScreen" class="success-screen">
-                <h3>Application Tracked!</h3>
-                <p>Your profile is now under review with our team.</p>
-                <p style="margin-top: 15px; font-size: 0.95rem; color: #4B5563;">To verify your application immediately, you can call our hiring coordinators directly.</p>
-                <a href="tel:+916002413305" class="apply-btn" style="display:block; text-decoration:none; margin-top:20px; background:var(--brand-red);">📞 Call 60024 13305</a>
+                <h3>Application Submitted Successfully!</h3>
+                <p>We have received your details.</p>
+                <p style="margin-top: 15px; font-size: 0.95rem; color: #4B5563;">To confirm your application immediately, please call us directly.</p>
+                <a href="tel:+916002413305" class="apply-btn" style="display:flex; justify-content:center; align-items:center; text-decoration:none; margin-top:20px; background:var(--brand-red);">
+                    <!-- Pure White SVG Phone Icon -->
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;">
+                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                    </svg>
+                    Call 60024 13305
+                </a>
             </div>
         </div>
     </div>
@@ -185,10 +191,7 @@
     <script>
         // === CONFIGURATION ===
         const SHEET_ID = "19N7jV-E8nE5OrEEFS2w5GxqlzFAS3RHER6JIv0ipDZg"; 
-        
-        // PASTE YOUR NEW APPS SCRIPT URL HERE AFTER DEPLOYING STEP 1
         const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbx4_A9GMJA-2h_2gS_u9-e4iHgDCOLfWIUMQ_AjD4p18oXQKcduqkDIART6KwnxjnKA/exec"; 
-        
         const SHEET_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=Listings`;
 
         let allJobs = [];
