@@ -15,10 +15,7 @@
         }
         
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', system-ui, sans-serif; }
-        
-        /* Enables the buttery smooth scroll when clicking the hero arrow */
         html { scroll-behavior: smooth; }
-        
         body { background-color: var(--brand-light); color: var(--brand-dark); line-height: 1.5; -webkit-font-smoothing: antialiased; }
 
         /* ==================== ZOMATO-STYLE FULL-SCREEN HERO ==================== */
@@ -32,7 +29,7 @@
             align-items: center;
             overflow: hidden;
             text-align: center;
-            padding: 25px 20px;
+            padding: 25px 20px 80px 20px; /* Added bottom padding to accommodate curve */
         }
 
         .hero-video-bg {
@@ -64,7 +61,7 @@
             flex-direction: column;
             align-items: center;
             gap: 12px;
-            margin-bottom: 35px;
+            margin-bottom: 25px;
         }
 
         .hero-title {
@@ -99,10 +96,10 @@
 
         .scroll-indicator {
             position: absolute;
-            bottom: 10px;
+            bottom: 40px; /* Adjusted to sit above the curve */
             left: 50%;
             transform: translateX(-50%);
-            z-index: 3;
+            z-index: 4; /* Ensure it's above the curve */
             color: #fff;
             font-size: 0.7rem;
             font-weight: 600;
@@ -122,12 +119,32 @@
             60% { transform: translate(-50%, -2px); }
         }
 
+        /* Zomato-style Curved Divider */
+        .hero-curve {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
+            z-index: 3;
+        }
+        .hero-curve svg {
+            display: block;
+            width: calc(100% + 1.3px);
+            height: 40px; /* Adjust height for the curve's steepness */
+        }
+        .hero-curve .shape-fill {
+            fill: #FFFFFF; /* Match this to the background color of the next section */
+        }
+
         @media(min-width: 768px) {
-            .hero-section { justify-content: center; }
+            .hero-section { justify-content: center; padding-bottom: 120px; }
             .hero-content { margin-bottom: 0; }
             .hero-title { font-size: 3rem; }
             .hero-search-box { max-width: 500px; padding: 16px; }
-            .scroll-indicator { bottom: 20px; font-size: 0.8rem; }
+            .scroll-indicator { bottom: 80px; font-size: 0.8rem; }
+            .hero-curve svg { height: 80px; } /* Taller curve for desktop */
         }
 
         /* ==================== STICKY FILTER BAR ==================== */
@@ -135,9 +152,7 @@
             position: sticky;
             top: 0;
             z-index: 99;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
+            background: #fff; /* Ensure this matches the curve's fill color */
             border-bottom: 1px solid var(--border-color);
             box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
             padding: 15px 20px;
@@ -166,27 +181,32 @@
         }
 
         /* ==================== PORTAL BODY & CARDS ==================== */
-        .container { max-width: 1100px; margin: 30px auto; padding: 0 15px; }
+        /* Changed container background to white to match the curve transition */
+        .content-wrapper {
+            background-color: #fff; 
+            padding-bottom: 40px;
+        }
+        .container { max-width: 1100px; margin: 0 auto; padding: 30px 15px; }
         .section-title { font-size: 1.4rem; font-weight: 800; margin-bottom: 20px; }
         
         .job-grid { display: grid; grid-template-columns: 1fr; gap: 15px; }
         @media(min-width: 768px) { .job-grid { grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 20px; } }
         
         .job-card { 
-            background: #fff; 
+            background: var(--brand-light); /* Cards get a slight off-white to stand out from the white background */
             border: 1px solid var(--border-color); 
             border-radius: 12px; 
             padding: 22px; 
             display: flex; 
             flex-direction: column; 
             box-shadow: 0 2px 4px rgba(0,0,0,0.02); 
-            /* Added Buttery Smooth Entrance Animation */
+            
+            /* Buttery Smooth Entrance Animation */
             opacity: 0;
             transform: translateY(20px);
-            transition: opacity 0.5s ease-out, transform 0.5s ease-out, box-shadow 0.2s ease, transform 0.2s ease;
+            transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease;
         }
         
-        /* The class applied when the card scrolls into view */
         .job-card.fade-in {
             opacity: 1;
             transform: translateY(0);
@@ -201,7 +221,7 @@
         .job-subtitle { font-size: 0.9rem; font-weight: 700; color: #111827; margin-top: 3px; }
         
         .meta-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
-        .tag { background: var(--brand-light); padding: 5px 10px; border-radius: 6px; font-size: 0.8rem; font-weight: 600; color: #4B5563; }
+        .tag { background: #fff; border: 1px solid var(--border-color); padding: 5px 10px; border-radius: 6px; font-size: 0.8rem; font-weight: 600; color: #4B5563; }
         
         .salary-box { margin-bottom: 15px; border-bottom: 1px dashed var(--border-color); padding-bottom: 14px; }
         .salary-main { font-size: 1.2rem; font-weight: 800; color: var(--brand-red); display: flex; align-items: center; gap: 4px; }
@@ -216,7 +236,7 @@
         .apply-btn:active { transform: scale(0.98); }
         .apply-btn.applied { background: var(--success-green); cursor: default; }
         
-        /* Modal */
+        /* ==================== MODAL ==================== */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.75); backdrop-filter: blur(3px); display: none; align-items: flex-end; z-index: 1000; }
         .modal-content { background: #fff; padding: 25px 20px 40px 20px; border-radius: 20px 20px 0 0; width: 100%; max-height: 90vh; overflow-y: auto; position: relative; animation: slideUp 0.3s ease-out; }
         @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
@@ -248,7 +268,7 @@
 </head>
 <body>
 
-    <!-- Zomato-Style Full Screen Hero -->
+    <!-- Zomato-Style Full Screen Hero with Curved Transition -->
     <header class="hero-section">
         <video class="hero-video-bg" autoplay loop muted playsinline>
             <source src="DESKTOP_HORIZONTAL_VIDEO.mp4" media="(min-width: 768px)">
@@ -270,22 +290,31 @@
             <span>Scroll to explore roles</span>
             <span>↓</span>
         </a>
+
+        <!-- The Zomato-style Curved SVG Divider -->
+        <div class="hero-curve">
+            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V0c45.54,23.3,95.53,44.75,147.2,56.24,53.84,12,110.15,10.63,164.71,5.25Z" class="shape-fill"></path>
+            </svg>
+        </div>
     </header>
 
-    <!-- Sticky Filter Bar -->
-    <div class="sticky-filter-wrapper" id="openings">
-        <div class="filter-container">
-            <select id="filterType" onchange="filterJobs()"><option value="all">All Job Types</option></select>
-            <select id="filterExperience" onchange="filterJobs()"><option value="all">All Experience Levels</option></select>
-            <select id="filterLocation" onchange="filterJobs()"><option value="all">All Locations</option></select>
+    <div class="content-wrapper">
+        <!-- Sticky Filter Bar -->
+        <div class="sticky-filter-wrapper" id="openings">
+            <div class="filter-container">
+                <select id="filterType" onchange="filterJobs()"><option value="all">All Job Types</option></select>
+                <select id="filterExperience" onchange="filterJobs()"><option value="all">All Experience Levels</option></select>
+                <select id="filterLocation" onchange="filterJobs()"><option value="all">All Locations</option></select>
+            </div>
         </div>
-    </div>
 
-    <!-- Main Content Area -->
-    <div class="container">
-        <h2 class="section-title">Current Openings</h2>
-        <div class="job-grid" id="jobGrid">
-            <div class="empty-state">Loading jobs...</div>
+        <!-- Main Content Area -->
+        <div class="container">
+            <h2 class="section-title">Current Openings</h2>
+            <div class="job-grid" id="jobGrid">
+                <div class="empty-state">Loading jobs...</div>
+            </div>
         </div>
     </div>
 
@@ -367,6 +396,7 @@
 
         document.addEventListener("DOMContentLoaded", fetchJobs);
 
+        // Robust CSV parser to handle line breaks and commas inside cells
         function parseCSV(csvText) {
             const rows = [];
             let currentRow = [];
@@ -431,7 +461,6 @@
                     requirements: (row[6] || "").trim(),
                     status: (row[8] || "").trim()
                 })).filter(job => {
-                    // EXCLUSION FILTER: Actively deletes PCConstruction and PSConstruction from ever showing up
                     const rawData = JSON.stringify(job).toLowerCase();
                     const hasBannedWords = rawData.includes("pcconstruction site") || rawData.includes("psconstruction site");
                     
@@ -542,7 +571,7 @@
             
             grid.innerHTML = htmlString;
             
-            // Intersection Observer to trigger the fade-in animation
+            // Intersection Observer to trigger the fade-in animation as you scroll down
             const cards = grid.querySelectorAll('.job-card');
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
