@@ -24,14 +24,13 @@
             height: 100dvh; 
             display: flex;
             flex-direction: column;
-            justify-content: flex-end; /* Pushes content down to the bottom */
+            justify-content: flex-end;
             align-items: center;
             overflow: hidden;
             text-align: center;
             padding: 25px 20px;
         }
 
-        /* Background Video Layer */
         .hero-video-bg {
             position: absolute;
             top: 0;
@@ -42,7 +41,6 @@
             z-index: 1;
         }
 
-        /* Cinematic Gradient Overlay (Darker at bottom for text readability) */
         .hero-overlay {
             position: absolute;
             top: 0;
@@ -53,7 +51,6 @@
             z-index: 2;
         }
 
-        /* Overlaid Hero Content (Now anchored to the bottom) */
         .hero-content {
             position: relative;
             z-index: 3;
@@ -63,7 +60,7 @@
             flex-direction: column;
             align-items: center;
             gap: 12px;
-            margin-bottom: 35px; /* Leaves room for scroll indicator */
+            margin-bottom: 35px;
         }
 
         .hero-title {
@@ -84,7 +81,6 @@
             font-weight: 800;
         }
 
-        /* Clean Single Search Bar */
         .hero-search-box {
             width: 100%;
             padding: 14px 20px;
@@ -97,7 +93,6 @@
             text-align: center;
         }
 
-        /* Scroll Down Indicator */
         .scroll-indicator {
             position: absolute;
             bottom: 10px;
@@ -123,7 +118,7 @@
         }
 
         @media(min-width: 768px) {
-            .hero-section { justify-content: center; } /* Centers on desktop where horizontal video has more width */
+            .hero-section { justify-content: center; }
             .hero-content { margin-bottom: 0; }
             .hero-title { font-size: 3rem; }
             .hero-search-box { max-width: 500px; padding: 16px; }
@@ -161,22 +156,30 @@
             .filter-container { grid-template-columns: repeat(3, 1fr); }
         }
 
-        /* ==================== PORTAL BODY & CARDS ==================== */
+        /* ==================== PORTAL BODY & CARDS (DESIGN MATCH) ==================== */
         .container { max-width: 1100px; margin: 30px auto; padding: 0 15px; }
         .section-title { font-size: 1.4rem; font-weight: 800; margin-bottom: 20px; }
         
         .job-grid { display: grid; grid-template-columns: 1fr; gap: 15px; }
         @media(min-width: 768px) { .job-grid { grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 20px; } }
         
-        .job-card { background: #fff; border: 1px solid var(--border-color); border-radius: 12px; padding: 20px; display: flex; flex-direction: column; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
-        .job-title { font-size: 1.25rem; font-weight: 800; line-height: 1.2; margin-bottom: 12px; color: var(--brand-dark); }
+        .job-card { background: #fff; border: 1px solid var(--border-color); border-radius: 12px; padding: 22px; display: flex; flex-direction: column; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
         
-        .meta-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 15px; }
+        .job-title-area { margin-bottom: 12px; }
+        .job-title { font-size: 1.25rem; font-weight: 800; line-height: 1.2; color: var(--brand-dark); }
+        .job-subtitle { font-size: 0.9rem; font-weight: 700; color: #4B5563; margin-top: 2px; }
+        
+        .meta-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
         .tag { background: var(--brand-light); padding: 5px 10px; border-radius: 6px; font-size: 0.8rem; font-weight: 600; color: #4B5563; }
         
-        .salary { font-size: 1.1rem; font-weight: 700; color: var(--brand-red); margin-bottom: 12px; border-bottom: 1px dashed var(--border-color); padding-bottom: 12px; }
+        /* Two-Tier Salary Design matching screenshot */
+        .salary-box { margin-bottom: 15px; border-bottom: 1px dashed var(--border-color); padding-bottom: 14px; }
+        .salary-main { font-size: 1.2rem; font-weight: 800; color: var(--brand-red); display: flex; align-items: center; gap: 4px; }
+        .salary-sub { font-size: 0.75rem; font-weight: 800; color: #111827; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 3px; }
+
         .requirements { flex-grow: 1; font-size: 0.95rem; color: #4B5563; margin-bottom: 20px; }
-        .requirements ul { padding-left: 20px; margin-top: 5px; }
+        .requirements ul { padding-left: 18px; margin-top: 5px; }
+        .requirements li { margin-bottom: 4px; }
         
         .apply-btn { background: var(--brand-dark); color: #fff; font-weight: 700; font-size: 1rem; padding: 14px; border: none; border-radius: 8px; cursor: pointer; width: 100%; transition: background 0.2s; }
         .apply-btn:hover { background: var(--brand-red); }
@@ -213,7 +216,7 @@
 </head>
 <body>
 
-    <!-- Zomato-Style Full Screen Hero (Content shifted cleanly to bottom) -->
+    <!-- Zomato-Style Full Screen Hero -->
     <header class="hero-section">
         <video class="hero-video-bg" autoplay loop muted playsinline>
             <source src="DESKTOP_HORIZONTAL_VIDEO.mp4" media="(min-width: 768px)">
@@ -404,22 +407,40 @@
             jobsToRender.forEach(job => {
                 const isApplied = appliedJobs.includes(job.id);
                 
+                // Parse Title & Subtitle if pipe is used (e.g. Marketing Executive | (Male))
+                let titleParts = (job.title || 'Untitled Role').split('|');
+                let mainTitle = titleParts[0].trim();
+                let subTitle = titleParts[1] ? titleParts[1].trim() : '';
+
+                // Parse Salary into Main and Sub-line (Perks/Allowances)
+                let salaryParts = (job.salary || '').split('\n');
+                let salaryMain = salaryParts[0] ? salaryParts[0].trim() : '';
+                let salarySub = salaryParts[1] ? salaryParts[1].trim() : '';
+
                 let metaTags = '';
                 if(job.location) metaTags += `<span class="tag">📍 ${job.location}</span>`;
                 if(job.type) metaTags += `<span class="tag">⏱️ ${job.type}</span>`;
                 if(job.experience) metaTags += `<span class="tag">🎓 ${job.experience}</span>`;
 
                 const reqListHtml = job.requirements 
-                    ? job.requirements.split('|').slice(0, 3).map(r => `<li>${r.trim()}</li>`).join('')
+                    ? job.requirements.split('|').map(r => `<li>${r.trim()}</li>`).join('')
                     : `<li>Details provided upon application</li>`;
 
                 const cardHTML = `
                     <div class="job-card">
-                        <div class="job-title">${job.title || 'Untitled Role'}</div>
+                        <div class="job-title-area">
+                            <div class="job-title">${mainTitle}</div>
+                            ${subTitle ? `<div class="job-subtitle">${subTitle}</div>` : ''}
+                        </div>
                         
                         ${metaTags ? `<div class="meta-tags">${metaTags}</div>` : ''}
                         
-                        ${job.salary ? `<div class="salary">₹ ${job.salary}</div>` : ''}
+                        ${salaryMain ? `
+                            <div class="salary-box">
+                                <div class="salary-main">₹ ${salaryMain}</div>
+                                ${salarySub ? `<div class="salary-sub">${salarySub}</div>` : ''}
+                            </div>
+                        ` : ''}
                         
                         <div class="requirements">
                             <strong>Key Requirements:</strong>
@@ -428,7 +449,7 @@
                         
                         ${isApplied 
                             ? `<button class="apply-btn applied" disabled>✓ Application Submitted</button>`
-                            : `<button class="apply-btn" onclick="openModal('${job.id}', '${job.title || 'Role'}')">Apply Now</button>`
+                            : `<button class="apply-btn" onclick="openModal('${job.id}', '${mainTitle}')">Apply Now</button>`
                         }
                     </div>
                 `;
