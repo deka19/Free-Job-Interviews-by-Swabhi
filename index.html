@@ -8,16 +8,13 @@
         :root {
             --brand-red: #DC2626; 
             --brand-red-hover: #B91C1C;
-            --brand-red-soft: #FEF2F2;
             --brand-dark: #111827; 
-            --brand-light: #F9FAFB;
+            --brand-light: #F3F4F6;
             --border-color: #E5E7EB;
-            --text-muted: #6B7280;
             --success-green: #059669;
         }
         
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', system-ui, -apple-system, sans-serif; }
-        html { scroll-behavior: smooth; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', system-ui, sans-serif; }
         body { background-color: var(--brand-light); color: var(--brand-dark); line-height: 1.5; -webkit-font-smoothing: antialiased; }
 
         /* ==================== ZOMATO-STYLE FULL-SCREEN HERO ==================== */
@@ -50,7 +47,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.1) 20%, rgba(0,0,0,0.6) 60%, rgba(0,0,0,0.92) 100%);
+            background: linear-gradient(to bottom, rgba(0,0,0,0.1) 20%, rgba(0,0,0,0.6) 60%, rgba(0,0,0,0.9) 100%);
             z-index: 2;
         }
 
@@ -67,7 +64,7 @@
         }
 
         .hero-title {
-            font-size: 1.85rem;
+            font-size: 1.75rem;
             font-weight: 900;
             color: #fff;
             text-transform: uppercase;
@@ -80,7 +77,7 @@
             font-size: 1rem;
             display: block;
             letter-spacing: 2px;
-            margin-top: 5px;
+            margin-top: 4px;
             font-weight: 800;
         }
 
@@ -89,10 +86,10 @@
             padding: 14px 20px;
             border-radius: 50px;
             border: none;
-            font-size: 0.95rem;
+            font-size: 1rem;
             outline: none;
             background: #fff;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.45);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
             text-align: center;
         }
 
@@ -112,9 +109,7 @@
             align-items: center;
             gap: 2px;
             animation: bounce 2s infinite;
-            opacity: 0.85;
-            cursor: pointer;
-            text-decoration: none;
+            opacity: 0.8;
         }
         @keyframes bounce {
             0%, 20%, 50%, 80%, 100% { transform: translate(-50%, 0); }
@@ -130,297 +125,98 @@
             .scroll-indicator { bottom: 20px; font-size: 0.8rem; }
         }
 
-        /* ==================== SLEEK STICKY FILTER BAR ==================== */
+        /* ==================== STICKY FILTER BAR ==================== */
         .sticky-filter-wrapper {
             position: sticky;
             top: 0;
             z-index: 99;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(8px);
+            background: #fff;
             border-bottom: 1px solid var(--border-color);
-            padding: 10px 15px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
+            padding: 15px 20px;
         }
         .filter-container {
             max-width: 1100px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
+            grid-template-columns: 1fr;
+            gap: 10px;
         }
         .filter-container select {
             width: 100%;
-            padding: 9px 8px;
-            border-radius: 50px;
+            padding: 12px;
+            border-radius: 8px;
             border: 1px solid var(--border-color);
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: #374151;
+            font-size: 0.95rem;
             outline: none;
             cursor: pointer;
-            background: #fff;
-            text-overflow: ellipsis;
-        }
-        .filter-container select:focus {
-            border-color: var(--brand-red);
+            background: var(--brand-light);
         }
         @media(min-width: 768px) {
-            .sticky-filter-wrapper { padding: 14px 20px; }
-            .filter-container { gap: 12px; }
-            .filter-container select { padding: 11px 16px; font-size: 0.9rem; }
+            .filter-container { grid-template-columns: repeat(3, 1fr); }
         }
 
-        /* ==================== PORTAL BODY & STRUCTURED CARDS ==================== */
-        .container { max-width: 1100px; margin: 32px auto; padding: 0 16px; }
+        /* ==================== PORTAL BODY & CARDS ==================== */
+        .container { max-width: 1100px; margin: 30px auto; padding: 0 15px; }
+        .section-title { font-size: 1.4rem; font-weight: 800; margin-bottom: 20px; }
         
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            margin-bottom: 20px;
-        }
-        .eyebrow {
-            font-size: 0.72rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 1.2px;
-            color: var(--brand-red);
-            margin-bottom: 4px;
-        }
-        .section-title { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.3px; line-height: 1.15; }
-        .role-count-pill {
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: var(--text-muted);
-            background: #fff;
-            border: 1px solid var(--border-color);
-            padding: 6px 12px;
-            border-radius: 50px;
-        }
-        
-        .job-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+        .job-grid { display: grid; grid-template-columns: 1fr; gap: 15px; }
         @media(min-width: 768px) { .job-grid { grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 20px; } }
         
-        .job-card {
-            background: #fff;
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-            transition: transform 0.15s ease, box-shadow 0.15s ease;
-        }
-        .job-card:hover {
-            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
-        }
+        .job-card { background: #fff; border: 1px solid var(--border-color); border-radius: 12px; padding: 22px; display: flex; flex-direction: column; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+        
+        .job-title-area { margin-bottom: 12px; }
+        .job-title { font-size: 1.25rem; font-weight: 800; line-height: 1.2; color: var(--brand-dark); }
+        .job-subtitle { font-size: 0.9rem; font-weight: 700; color: #4B5563; margin-top: 2px; }
+        
+        .meta-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+        .tag { background: var(--brand-light); padding: 5px 10px; border-radius: 6px; font-size: 0.8rem; font-weight: 600; color: #4B5563; }
+        
+        .salary-box { margin-bottom: 15px; border-bottom: 1px dashed var(--border-color); padding-bottom: 14px; }
+        .salary-main { font-size: 1.2rem; font-weight: 800; color: var(--brand-red); display: flex; align-items: center; gap: 4px; }
+        .salary-sub { font-size: 0.75rem; font-weight: 800; color: #111827; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 3px; }
 
-        /* Top Badge Row (Initials Monogram + Job Type) */
-        .card-top-bar {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 12px;
-        }
-        .role-monogram {
-            width: 36px;
-            height: 36px;
-            border-radius: 10px;
-            background: var(--brand-red);
-            color: #fff;
-            font-weight: 800;
-            font-size: 0.85rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            letter-spacing: 0.5px;
-            flex-shrink: 0;
-        }
-        .role-type-label {
-            font-size: 0.82rem;
-            font-weight: 600;
-            color: var(--text-muted);
-        }
-        
-        .job-title-area { margin-bottom: 10px; }
-        .job-title { font-size: 1.2rem; font-weight: 800; line-height: 1.25; color: var(--brand-dark); }
-        .job-subtitle { font-size: 0.88rem; font-weight: 700; color: #4B5563; margin-top: 2px; }
-        
-        /* Meta Info Row (Location, Openings, Experience) */
-        .meta-row {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 14px;
-            font-size: 0.82rem;
-            font-weight: 600;
-            color: var(--text-muted);
-        }
-        .meta-item {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-        }
-        
-        /* Two-Tier Salary Box */
-        .salary-box {
-            margin-bottom: 14px;
-            background: var(--brand-light);
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
-            padding: 10px 12px;
-        }
-        .salary-main { font-size: 1.15rem; font-weight: 800; color: var(--brand-red); display: flex; align-items: center; gap: 4px; line-height: 1.2; }
-        .salary-sub { font-size: 0.72rem; font-weight: 800; color: var(--brand-dark); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 3px; }
-
-        .requirements { flex-grow: 1; font-size: 0.88rem; color: #4B5563; margin-bottom: 18px; }
-        .requirements strong { color: var(--brand-dark); font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.4px; }
-        .requirements ul { padding-left: 18px; margin-top: 6px; }
+        .requirements { flex-grow: 1; font-size: 0.95rem; color: #4B5563; margin-bottom: 20px; }
+        .requirements ul { padding-left: 18px; margin-top: 5px; }
         .requirements li { margin-bottom: 4px; }
         
-        .apply-btn { background: var(--brand-dark); color: #fff; font-weight: 700; font-size: 0.95rem; padding: 13px; border: none; border-radius: 10px; cursor: pointer; width: 100%; transition: background 0.2s; }
+        .apply-btn { background: var(--brand-dark); color: #fff; font-weight: 700; font-size: 1rem; padding: 14px; border: none; border-radius: 8px; cursor: pointer; width: 100%; transition: background 0.2s; }
         .apply-btn:hover { background: var(--brand-red); }
         .apply-btn.applied { background: var(--success-green); cursor: default; }
-
-        /* ==================== HOW IT WORKS SECTION ==================== */
-        .steps-section {
-            max-width: 1100px;
-            margin: 50px auto 30px auto;
-            padding: 0 16px;
-        }
-        .steps-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 14px;
-            margin-top: 18px;
-        }
-        @media(min-width: 768px) {
-            .steps-grid { grid-template-columns: repeat(3, 1fr); gap: 20px; }
-        }
-        .step-card {
-            background: #fff;
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 22px;
-        }
-        .step-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            background: var(--brand-red-soft);
-            color: var(--brand-red);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 14px;
-        }
-        .step-card h3 { font-size: 1.05rem; font-weight: 800; margin-bottom: 6px; color: var(--brand-dark); }
-        .step-card p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.5; }
-
-        /* ==================== BOTTOM RED CTA BANNER ==================== */
-        .cta-wrapper {
-            max-width: 1100px;
-            margin: 35px auto;
-            padding: 0 16px;
-        }
-        .cta-box {
-            background: linear-gradient(135deg, #DC2626 0%, #991B1B 100%);
-            color: #fff;
-            border-radius: 20px;
-            padding: 32px 22px;
-            text-align: center;
-            box-shadow: 0 12px 25px -5px rgba(220, 38, 38, 0.35);
-        }
-        .cta-box h2 { font-size: 1.5rem; font-weight: 900; margin-bottom: 8px; line-height: 1.2; }
-        .cta-box p { font-size: 0.92rem; opacity: 0.9; max-width: 480px; margin: 0 auto 22px auto; }
-        .cta-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            max-width: 320px;
-            margin: 0 auto;
-        }
-        @media(min-width: 600px) {
-            .cta-box { padding: 45px 30px; }
-            .cta-box h2 { font-size: 1.85rem; }
-            .cta-buttons { flex-direction: row; max-width: 440px; justify-content: center; }
-        }
-        .cta-btn-white {
-            background: #fff;
-            color: var(--brand-dark);
-            font-weight: 700;
-            font-size: 0.92rem;
-            padding: 13px 20px;
-            border-radius: 50px;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-        }
-        .cta-btn-outline {
-            background: rgba(255,255,255,0.12);
-            color: #fff;
-            border: 1px solid rgba(255,255,255,0.35);
-            font-weight: 700;
-            font-size: 0.92rem;
-            padding: 13px 20px;
-            border-radius: 50px;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-
-        /* ==================== FOOTER ==================== */
-        .site-footer {
-            background: #fff;
-            border-top: 1px solid var(--border-color);
-            padding: 28px 16px;
-            margin-top: 40px;
-            text-align: center;
-            font-size: 0.85rem;
-            color: var(--text-muted);
-        }
-        .footer-brand { font-weight: 900; color: var(--brand-dark); font-size: 1rem; letter-spacing: -0.3px; }
-        .footer-brand span { color: var(--brand-red); }
-        .footer-links { margin: 12px 0; display: flex; justify-content: center; gap: 18px; flex-wrap: wrap; }
-        .footer-links a { color: var(--brand-dark); text-decoration: none; font-weight: 600; }
-
-        /* ==================== MODAL ==================== */
+        
+        /* Modal */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.75); backdrop-filter: blur(3px); display: none; align-items: flex-end; z-index: 1000; }
-        .modal-content { background: #fff; padding: 25px 20px 35px 20px; border-radius: 20px 20px 0 0; width: 100%; max-height: 90vh; overflow-y: auto; position: relative; animation: slideUp 0.25s ease-out; }
+        .modal-content { background: #fff; padding: 25px 20px 40px 20px; border-radius: 20px 20px 0 0; width: 100%; max-height: 90vh; overflow-y: auto; position: relative; animation: slideUp 0.3s ease-out; }
         @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
         
         @media(min-width: 768px) {
             .modal-overlay { align-items: center; justify-content: center; padding: 20px; }
-            .modal-content { border-radius: 16px; max-width: 460px; padding: 32px; }
+            .modal-content { border-radius: 12px; max-width: 480px; padding: 35px; }
             @keyframes slideUp { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
         }
 
-        .close-modal { position: absolute; top: 15px; right: 20px; font-size: 1.4rem; cursor: pointer; color: #9CA3AF; padding: 5px; }
+        .close-modal { position: absolute; top: 15px; right: 20px; font-size: 1.5rem; cursor: pointer; color: #9CA3AF; padding: 5px; }
         
-        .modal-title { font-size: 1.25rem; font-weight: 800; margin-bottom: 4px; }
-        .modal-subtitle { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 18px; padding-bottom: 12px; border-bottom: 1px solid var(--border-color); }
+        .modal-title { font-size: 1.3rem; font-weight: 800; margin-bottom: 5px; }
+        .modal-subtitle { font-size: 0.95rem; color: #6B7280; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid var(--border-color); }
         
-        .form-group { margin-bottom: 14px; }
-        .form-group label { display: block; font-weight: 600; margin-bottom: 5px; font-size: 0.85rem; color: #374151; }
-        .form-group input, .form-group select { width: 100%; padding: 11px 12px; border: 1px solid #D1D5DB; border-radius: 8px; font-size: 0.95rem; outline: none; background: #fff; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; font-weight: 600; margin-bottom: 6px; font-size: 0.9rem; color: #374151; }
+        .form-group input, .form-group select { width: 100%; padding: 12px; border: 1px solid #D1D5DB; border-radius: 8px; font-size: 1rem; outline: none; background: #fff; }
         .form-group input:focus, .form-group select:focus { border-color: var(--brand-red); box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.1); }
         .form-group input[type="file"] { padding: 8px; background: var(--brand-light); border: 1px dashed var(--border-color); }
         
-        .success-screen { display: none; text-align: center; padding: 15px 0; }
-        .success-screen h3 { color: var(--success-green); font-size: 1.35rem; margin-bottom: 8px; }
+        .success-screen { display: none; text-align: center; padding: 20px 0; }
+        .success-screen h3 { color: var(--success-green); font-size: 1.4rem; margin-bottom: 10px; }
         
-        #loadingSpinner { display: none; text-align: center; color: var(--brand-red); font-weight: bold; margin-top: 14px; font-size: 0.95rem; }
-        .empty-state { text-align: center; padding: 40px 20px; color: var(--text-muted); font-size: 0.95rem; background: #fff; border-radius: 12px; border: 1px dashed #D1D5DB; grid-column: 1 / -1; }
+        #loadingSpinner { display: none; text-align: center; color: var(--brand-red); font-weight: bold; margin-top: 15px; font-size: 1rem; }
+        .empty-state { text-align: center; padding: 40px 20px; color: #6B7280; font-size: 1rem; background: #fff; border-radius: 12px; border: 1px dashed #D1D5DB; }
     </style>
 </head>
 <body>
 
-    <!-- ZOMATO-STYLE FULL SCREEN HERO (UNCHANGED & KEPT FRONT AND CENTER) -->
-    <header class="hero-section" id="top">
+    <!-- Zomato-Style Full Screen Hero -->
+    <header class="hero-section">
         <video class="hero-video-bg" autoplay loop muted playsinline>
             <source src="DESKTOP_HORIZONTAL_VIDEO.mp4" media="(min-width: 768px)">
             <source src="MOBILE_VERTICAL_VIDEO.mp4">
@@ -437,95 +233,30 @@
             <input type="text" id="searchInput" class="hero-search-box" placeholder="Search job titles or keywords..." onkeyup="filterJobs()">
         </div>
 
-        <a href="#openings" class="scroll-indicator">
+        <div class="scroll-indicator">
             <span>Scroll to explore roles</span>
             <span>↓</span>
-        </a>
+        </div>
     </header>
 
-    <!-- SLEEK STICKY 3-COLUMN FILTER BAR -->
-    <div class="sticky-filter-wrapper" id="openings">
+    <!-- Sticky Filter Bar -->
+    <div class="sticky-filter-wrapper">
         <div class="filter-container">
-            <select id="filterType" onchange="filterJobs()"><option value="all">Job Type</option></select>
-            <select id="filterExperience" onchange="filterJobs()"><option value="all">Experience</option></select>
-            <select id="filterLocation" onchange="filterJobs()"><option value="all">Location</option></select>
+            <select id="filterType" onchange="filterJobs()"><option value="all">All Job Types</option></select>
+            <select id="filterExperience" onchange="filterJobs()"><option value="all">All Experience Levels</option></select>
+            <select id="filterLocation" onchange="filterJobs()"><option value="all">All Locations</option></select>
         </div>
     </div>
 
-    <!-- MAIN JOB LISTINGS SECTION -->
+    <!-- Main Content Area -->
     <div class="container">
-        <div class="section-header">
-            <div>
-                <div class="eyebrow">Fresh Listings</div>
-                <h2 class="section-title">Latest opportunities</h2>
-            </div>
-            <div class="role-count-pill" id="roleCount">Loading...</div>
-        </div>
-
+        <h2 class="section-title">Current Openings</h2>
         <div class="job-grid" id="jobGrid">
-            <div class="empty-state">Loading available roles...</div>
+            <div class="empty-state">Loading jobs...</div>
         </div>
     </div>
 
-    <!-- HOW IT WORKS SECTION -->
-    <section class="steps-section">
-        <div class="eyebrow">How It Works</div>
-        <h2 class="section-title">Three steps to your next role</h2>
-        
-        <div class="steps-grid">
-            <div class="step-card">
-                <div class="step-icon">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                </div>
-                <h3>1. Find the right role</h3>
-                <p>Search by job title or filter by location and job type. Every listing is verified and active.</p>
-            </div>
-
-            <div class="step-card">
-                <div class="step-icon">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-                </div>
-                <h3>2. Apply in one minute</h3>
-                <p>Fill out a quick form with your name, phone number, and experience. No account or password needed.</p>
-            </div>
-
-            <div class="step-card">
-                <div class="step-icon">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-                </div>
-                <h3>3. Get a call back</h3>
-                <p>Your profile goes straight to our hiring team, who will call you—or you can call us directly anytime.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- BOTTOM RED CTA CARD -->
-    <section class="cta-wrapper">
-        <div class="cta-box">
-            <h2>Ready to find your next role?</h2>
-            <p>Browse our latest job openings above, or talk to our hiring team right now.</p>
-            <div class="cta-buttons">
-                <a href="#openings" class="cta-btn-white">Browse all jobs ↑</a>
-                <a href="tel:+916002413305" class="cta-btn-outline">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-                    Call +91 60024 13305
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer class="site-footer">
-        <div class="footer-brand">FREE JOB INTERVIEWS <span>BY SWABHI</span></div>
-        <div class="footer-links">
-            <a href="#top">Top</a>
-            <a href="#openings">Open Roles</a>
-            <a href="tel:+916002413305">📞 +91 60024 13305</a>
-        </div>
-        <div>© 2026 Swabhi. All rights reserved.</div>
-    </footer>
-
-    <!-- APPLY MODAL -->
+    <!-- Apply Modal -->
     <div class="modal-overlay" id="applyModal" onclick="closeModalOutside(event)">
         <div class="modal-content" id="modalBox">
             <span class="close-modal" onclick="closeModal()">✖</span>
@@ -581,7 +312,7 @@
             <div id="successScreen" class="success-screen">
                 <h3>Application Submitted Successfully!</h3>
                 <p>We have received your details.</p>
-                <p style="margin-top: 15px; font-size: 0.9rem; color: #4B5563;">To confirm your application immediately, please call us directly.</p>
+                <p style="margin-top: 15px; font-size: 0.95rem; color: #4B5563;">To confirm your application immediately, please call us directly.</p>
                 
                 <a href="tel:+916002413305" class="apply-btn" style="display:flex; justify-content:center; align-items:center; text-decoration:none; margin-top:20px; background:var(--brand-red);">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;">
@@ -605,15 +336,6 @@
 
         const getVal = (row, idx) => (row.c && row.c[idx] && row.c[idx].v != null) ? String(row.c[idx].v) : "";
 
-        // Generates 2-letter monogram from job title (e.g. "Marketing Executive" -> "ME")
-        function getMonogram(title) {
-            const words = title.replace(/[^a-zA-Z\s]/g, '').trim().split(/\s+/);
-            if (words.length >= 2) {
-                return (words[0][0] + words[1][0]).toUpperCase();
-            }
-            return title.slice(0, 2).toUpperCase() || "JB";
-        }
-
         function fetchJobs() {
             fetch(SHEET_URL)
             .then(res => res.text())
@@ -629,7 +351,6 @@
                     location: getVal(row, 4),
                     salary: getVal(row, 5),
                     requirements: getVal(row, 6),
-                    vacancies: getVal(row, 7),
                     status: getVal(row, 8) 
                 })).filter(job => job.status.toLowerCase() === "open" || job.status === ""); 
 
@@ -675,11 +396,8 @@
 
         function renderJobs(jobsToRender) {
             const grid = document.getElementById("jobGrid");
-            const countBadge = document.getElementById("roleCount");
             grid.innerHTML = ""; 
             
-            countBadge.innerText = `${jobsToRender.length} ${jobsToRender.length === 1 ? 'role' : 'roles'}`;
-
             if(jobsToRender.length === 0) {
                 grid.innerHTML = `<div class="empty-state">No roles match your current search criteria.</div>`;
                 return;
@@ -688,7 +406,7 @@
             jobsToRender.forEach(job => {
                 const isApplied = appliedJobs.includes(job.id);
                 
-                // Parse Title & Subtitle using pipe |
+                // Bulletproof title parser: handles missing subtitles safely
                 let rawTitle = job.title || 'Untitled Role';
                 let mainTitle = rawTitle;
                 let subTitle = '';
@@ -699,41 +417,29 @@
                     subTitle = parts[1] ? parts[1].trim() : '';
                 }
 
-                const monogram = getMonogram(mainTitle);
-
-                // Parse Salary: supports both newline (\n) AND pipe (|) for perks
+                // Clean Salary: automatically strips out any typed '₹' so it doesn't duplicate
                 let rawSalary = (job.salary || '').replace(/₹/g, '').trim();
-                let salaryParts = rawSalary.split(/\n|\|/);
+                let salaryParts = rawSalary.split('\n');
                 let salaryMain = salaryParts[0] ? salaryParts[0].trim() : '';
                 let salarySub = salaryParts[1] ? salaryParts[1].trim() : '';
 
-                // Meta items (Location, Vacancies, Experience)
-                let metaHTML = '';
-                if(job.location) metaHTML += `<span class="meta-item">📍 ${job.location}</span>`;
-                if(job.vacancies) {
-                    const vCount = parseInt(job.vacancies, 10);
-                    const vText = (!isNaN(vCount) && vCount === 1) ? '1 opening' : `${job.vacancies} openings`;
-                    metaHTML += `<span class="meta-item">👥 ${vText}</span>`;
-                }
-                if(job.experience) metaHTML += `<span class="meta-item">🎓 ${job.experience}</span>`;
+                let metaTags = '';
+                if(job.location) metaTags += `<span class="tag">📍 ${job.location}</span>`;
+                if(job.type) metaTags += `<span class="tag">⏱️ ${job.type}</span>`;
+                if(job.experience) metaTags += `<span class="tag">🎓 ${job.experience}</span>`;
 
                 const reqListHtml = job.requirements 
-                    ? job.requirements.split('|').filter(r => r.trim() !== '').map(r => `<li>${r.trim()}</li>`).join('')
+                    ? job.requirements.split('|').map(r => `<li>${r.trim()}</li>`).join('')
                     : `<li>Details provided upon application</li>`;
 
                 const cardHTML = `
                     <div class="job-card">
-                        <div class="card-top-bar">
-                            <div class="role-monogram">${monogram}</div>
-                            ${job.type ? `<span class="role-type-label">${job.type}</span>` : ''}
-                        </div>
-
                         <div class="job-title-area">
                             <div class="job-title">${mainTitle}</div>
                             ${subTitle ? `<div class="job-subtitle">${subTitle}</div>` : ''}
                         </div>
                         
-                        ${metaHTML ? `<div class="meta-row">${metaHTML}</div>` : ''}
+                        ${metaTags ? `<div class="meta-tags">${metaTags}</div>` : ''}
                         
                         ${salaryMain ? `
                             <div class="salary-box">
@@ -749,7 +455,7 @@
                         
                         ${isApplied 
                             ? `<button class="apply-btn applied" disabled>✓ Application Submitted</button>`
-                            : `<button class="apply-btn" onclick="openModal('${job.id}', '${mainTitle.replace(/'/g, "\\'")}')">Apply Now</button>`
+                            : `<button class="apply-btn" onclick="openModal('${job.id}', '${mainTitle}')">Apply Now</button>`
                         }
                     </div>
                 `;
