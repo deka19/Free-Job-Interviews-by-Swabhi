@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>We Are Hiring</title>
+    <style>
+        /* CSS styling matching your aggressive red/black brand guidelines */
+        :root {
+            --brand-red: #FF0000;
+            --brand-black: #000000;
+            --bg-gray: #f9f9f9;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: var(--bg-gray); padding: 20px; color: var(--brand-black); }
+        
+        .header { text-align: center; margin-bottom: 40px; margin-top: 20px; }
+        .header h1 { font-size: 3rem; font-weight: 900; letter-spacing: 2px; }
+        
+        /* CSS Grid for Job Cards */
+        .job-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; max-width: 1200px; margin: 0 auto; }
+        
+        .job-card {
+            background: #fff;
+            border: 2px solid var(--brand-black);
+            padding: 25px;
+            position: relative;
+            box-shadow: 6px 6px 0px var(--brand-black);
+            transition: transform 0.1s;
+        }
+        .job-card:hover { transform: translate(-2px, -2px); box-shadow: 8px 8px 0px var(--brand-black); }
+        
+        .urgency-tag {
+            background: var(--brand-red);
+            color: #fff;
+            padding: 5px 12px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+        
+        .job-title { font-size: 2.2rem; font-weight: 900; color: var(--brand-red); line-height: 1.1; margin-bottom: 15px; text-transform: uppercase; }
+        .salary { font-size: 1.8rem; font-weight: 900; margin-bottom: 5px; }
+        .perks { font-size: 1rem; font-weight: bold; margin-bottom: 20px; text-transform: uppercase; }
+        
+        .requirements-title { font-size: 1.2rem; font-weight: 900; text-decoration: underline; margin-bottom: 10px; text-transform: uppercase; }
+        .requirements-list { margin-left: 20px; margin-bottom: 25px; font-size: 1.1rem; line-height: 1.5; }
+        .requirements-list li { margin-bottom: 5px; }
+        
+        .location { font-size: 1.2rem; font-weight: 900; margin-bottom: 20px; text-transform: uppercase; }
+        
+        .apply-btn {
+            background: var(--brand-black); color: #fff; font-size: 1.2rem; font-weight: bold; width: 100%;
+            padding: 15px; border: none; cursor: pointer; text-transform: uppercase;
+        }
+        .apply-btn:hover { background: var(--brand-red); }
+
+        /* Modal Overlay */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8);
+            display: none; justify-content: center; align-items: center; z-index: 1000; padding: 20px;
+        }
+        .modal-content { background: #fff; padding: 40px 30px; border: 4px solid var(--brand-black); width: 100%; max-width: 450px; position: relative; }
+        .close-modal { position: absolute; top: 10px; right: 15px; font-size: 1.5rem; font-weight: bold; cursor: pointer; }
+        
+        .modal-title { font-size: 1.8rem; font-weight: 900; margin-bottom: 5px; text-transform: uppercase; }
+        .modal-subtitle { font-size: 1rem; color: #555; margin-bottom: 25px; }
+        
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; font-weight: bold; margin-bottom: 8px; font-size: 1.1rem; }
+        .form-group input { width: 100%; padding: 12px; border: 2px solid var(--brand-black); font-size: 1.1rem; outline: none; }
+        .form-group input:focus { border-color: var(--brand-red); }
+        
+        /* Success State */
+        .success-screen { display: none; text-align: center; }
+        .success-title { font-size: 2rem; font-weight: 900; color: #000; margin-bottom: 10px; }
+        .success-subtitle { font-size: 1.2rem; margin-bottom: 30px; }
+        
+        .call-btn {
+            display: inline-block; background: var(--brand-red); color: #fff; text-decoration: none;
+            font-size: 1.5rem; font-weight: 900; padding: 20px; width: 100%; border-radius: 8px;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.03); } 100% { transform: scale(1); } }
+        
+        #loadingSpinner { display: none; text-align: center; font-weight: bold; font-size: 1.2rem; margin-top: 15px; color: var(--brand-red); }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>WE ARE HIRING</h1>
+    </div>
+
+    <div class="job-grid" id="jobGrid">
+        <h2 style="text-align:center; width:100%;">Loading open positions...</h2>
+    </div>
+
+    <!-- Apply Popup Modal -->
+    <div class="modal-overlay" id="applyModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">X</span>
+            
+            <!-- Step 1: The Form -->
+            <div id="formScreen">
+                <div class="modal-title">Apply Now</div>
+                <div class="modal-subtitle" id="modalJobTitle">Job Title Placeholder</div>
+                <form id="applyForm" onsubmit="submitApplication(event)">
+                    <input type="hidden" id="jobIdInput">
+                    <input type="hidden" id="jobTitleInput">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" id="applicantName" required placeholder="Enter your full name">
+                    </div>
+                    <div class="form-group">
+                        <label>Phone Number</label>
+                        <input type="tel" id="applicantPhone" required placeholder="e.g. 9876543210">
+                    </div>
+                    <button type="submit" class="apply-btn" id="submitBtn">Submit Application</button>
+                    <div id="loadingSpinner">Sending application...</div>
+                </form>
+            </div>
+
+            <!-- Step 2: The Success Screen -->
+            <div id="successScreen" class="success-screen">
+                <div class="success-title">APPLICATION RECEIVED!</div>
+                <div class="success-subtitle">Step 2: Call us right now to confirm your interview.</div>
+                <a href="tel:+916002413305" class="call-btn">📞 CALL: 60024 13305</a>
+                <p style="margin-top: 15px; font-weight: bold;">(Call between 10 AM to 5 PM)</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==========================================
+        // 1. ADD YOUR IDS HERE
+        // ==========================================
+        const SHEET_ID = "YOUR_GOOGLE_SHEET_ID_HERE"; 
+        const WEB_APP_URL = "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE";
+        
+        // Google Sheets API endpoint for public data reading
+        const SHEET_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=Listings`;
+
+        // Load jobs immediately when page opens
+        document.addEventListener("DOMContentLoaded", fetchJobs);
+
+        function fetchJobs() {
+            fetch(SHEET_URL)
+            .then(res => res.text())
+            .then(text => {
+                // Remove Google's weird function wrapper to get clean JSON
+                const jsonStr = text.match(/(?<=.*\().*(?=\);)/s)[0];
+                const data = JSON.parse(jsonStr);
+                const rows = data.table.rows;
+                
+                const grid = document.getElementById("jobGrid");
+                grid.innerHTML = ""; // Clear loading text
+
+                rows.forEach(row => {
+                    const status = row.c[7] ? row.c[7].v : "";
+                    
+                    // ONLY SHOW JOBS WHERE STATUS IS "Open"
+                    if (status.toLowerCase() === "open") {
+                        const id = row.c[0] ? row.c[0].v : "";
+                        const title = row.c[1] ? row.c[1].v : "";
+                        const salary = row.c[2] ? row.c[2].v : "";
+                        const perks = row.c[3] ? row.c[3].v : "";
+                        const reqs = row.c[4] ? row.c[4].v : "";
+                        const location = row.c[5] ? row.c[5].v : "";
+                        const vacancies = row.c[6] ? row.c[6].v : "";
+
+                        // Convert requirement string separated by | into HTML list items
+                        const reqListHtml = reqs.split('|').map(r => `<li>${r.trim()}</li>`).join('');
+
+                        const cardHTML = `
+                            <div class="job-card">
+                                <div class="urgency-tag">🔥 Only ${vacancies} vacancies left!</div>
+                                <div class="job-title">${title}</div>
+                                <div class="salary">SALARY up to ${salary}</div>
+                                <div class="perks">+ ${perks}</div>
+                                
+                                <div class="requirements-title">Requirement</div>
+                                <ul class="requirements-list">
+                                    ${reqListHtml}
+                                </ul>
+                                
+                                <div class="location">LOCATION: ${location}</div>
+                                
+                                <button class="apply-btn" onclick="openModal('${id}', '${title}')">Apply Now</button>
+                            </div>
+                        `;
+                        grid.insertAdjacentHTML('beforeend', cardHTML);
+                    }
+                });
+
+                if(grid.innerHTML === "") {
+                    grid.innerHTML = "<h2 style='text-align:center; width:100%;'>No open positions right now. Check back later!</h2>";
+                }
+            })
+            .catch(error => console.error("Error fetching jobs:", error));
+        }
+
+        function openModal(id, title) {
+            document.getElementById("jobIdInput").value = id;
+            document.getElementById("jobTitleInput").value = title;
+            document.getElementById("modalJobTitle").innerText = "For: " + title;
+            
+            // Reset screens
+            document.getElementById("formScreen").style.display = "block";
+            document.getElementById("successScreen").style.display = "none";
+            document.getElementById("applyForm").reset();
+            
+            document.getElementById("applyModal").style.display = "flex";
+        }
+
+        function closeModal() {
+            document.getElementById("applyModal").style.display = "none";
+        }
+
+        function submitApplication(event) {
+            event.preventDefault(); // Stop page from refreshing
+            
+            const name = document.getElementById("applicantName").value;
+            const phone = document.getElementById("applicantPhone").value;
+            const jobId = document.getElementById("jobIdInput").value;
+            const jobTitle = document.getElementById("jobTitleInput").value;
+
+            // Show loading
+            document.getElementById("submitBtn").style.display = "none";
+            document.getElementById("loadingSpinner").style.display = "block";
+
+            // Prepare data for Apps Script
+            const formData = new URLSearchParams();
+            formData.append("name", name);
+            formData.append("phone", phone);
+            formData.append("jobId", jobId);
+            formData.append("jobTitle", jobTitle);
+
+            // Send POST request
+            fetch(WEB_APP_URL, {
+                method: "POST",
+                body: formData
+            })
+            .then(response => {
+                // Switch to Success Screen
+                document.getElementById("formScreen").style.display = "none";
+                document.getElementById("successScreen").style.display = "block";
+                
+                // Reset buttons for next time
+                document.getElementById("submitBtn").style.display = "block";
+                document.getElementById("loadingSpinner").style.display = "none";
+            })
+            .catch(error => {
+                alert("Something went wrong. Please try again.");
+                document.getElementById("submitBtn").style.display = "block";
+                document.getElementById("loadingSpinner").style.display = "none";
+            });
+        }
+    </script>
+</body>
+</html>
