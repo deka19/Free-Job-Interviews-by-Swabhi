@@ -167,14 +167,15 @@
         
         .job-title-area { margin-bottom: 12px; }
         .job-title { font-size: 1.25rem; font-weight: 800; line-height: 1.2; color: var(--brand-dark); }
-        .job-subtitle { font-size: 0.9rem; font-weight: 700; color: #4B5563; margin-top: 2px; }
+        .job-subtitle { font-size: 0.9rem; font-weight: 700; color: #111827; margin-top: 3px; }
         
         .meta-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
         .tag { background: var(--brand-light); padding: 5px 10px; border-radius: 6px; font-size: 0.8rem; font-weight: 600; color: #4B5563; }
         
+        /* Two-Tier Salary Design */
         .salary-box { margin-bottom: 15px; border-bottom: 1px dashed var(--border-color); padding-bottom: 14px; }
         .salary-main { font-size: 1.2rem; font-weight: 800; color: var(--brand-red); display: flex; align-items: center; gap: 4px; }
-        .salary-sub { font-size: 0.75rem; font-weight: 800; color: #111827; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 3px; }
+        .salary-sub { font-size: 0.75rem; font-weight: 800; color: #111827; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px; }
 
         .requirements { flex-grow: 1; font-size: 0.95rem; color: #4B5563; margin-bottom: 20px; }
         .requirements ul { padding-left: 18px; margin-top: 5px; }
@@ -327,32 +328,79 @@
     <script>
         const SHEET_ID = "19N7jV-E8nE5OrEEFS2w5GxqlzFAS3RHER6JIv0ipDZg"; 
         const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbx4_A9GMJA-2h_2gS_u9-e4iHgDCOLfWIUMQ_AjD4p18oXQKcduqkDIART6KwnxjnKA/exec"; 
-        const SHEET_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=Listings`;
+        // Using CSV output instead of JSON so Google Sheets NEVER deletes mixed text/number cells
+        const SHEET_CSV_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=Listings`;
 
         let allJobs = [];
         let appliedJobs = JSON.parse(localStorage.getItem('swabhi_applied')) || [];
 
         document.addEventListener("DOMContentLoaded", fetchJobs);
 
-        const getVal = (row, idx) => (row.c && row.c[idx] && row.c[idx].v != null) ? String(row.c[idx].v) : "";
+        // Full multi-line CSV parser that preserves Alt+Enter line breaks, commas, and text inside cells
+        function parseCSV(csvText) {
+            const rows = [];
+            let currentRow = [];
+            let currentCell = '';
+            let inQuotes = false;
+
+            for (let i = 0; i < csvText.length; i++) {
+                const char = csvText[i];
+                const nextChar = csvText[i + 1];
+
+                if (inQuotes) {
+                    if (char === '"' && nextChar === '"') {
+                        currentCell += '"';
+                        i++;
+                    } else if (char === '"') {
+                        inQuotes = false;
+                    } else {
+                        currentCell += char;
+                    }
+                } else {
+                    if (char === '"') {
+                        inQuotes = true;
+                    } else if (char === ',') {
+                        currentRow.push(currentCell);
+                        currentCell = '';
+                    } else if (char === '\r' && nextChar === '\n') {
+                        currentRow.push(currentCell);
+                        rows.push(currentRow);
+                        currentRow = [];
+                        currentCell = '';
+                        i++;
+                    } else if (char === '\n') {
+                        currentRow.push(currentCell);
+                        rows.push(currentRow);
+                        currentRow = [];
+                        currentCell = '';
+                    } else {
+                        currentCell += char;
+                    }
+                }
+            }
+            if (currentCell !== '' || currentRow.length > 0) {
+                currentRow.push(currentCell);
+                rows.push(currentRow);
+            }
+            return rows;
+        }
 
         function fetchJobs() {
-            fetch(SHEET_URL)
+            fetch(SHEET_CSV_URL)
             .then(res => res.text())
-            .then(text => {
-                const jsonStr = text.match(/(?<=.*\().*(?=\);)/s)[0];
-                const data = JSON.parse(jsonStr);
-                
-                allJobs = data.table.rows.map(row => ({
-                    id: getVal(row, 0),
-                    title: getVal(row, 1),
-                    type: getVal(row, 2),
-                    experience: getVal(row, 3),
-                    location: getVal(row, 4),
-                    salary: getVal(row, 5),
-                    requirements: getVal(row, 6),
-                    status: getVal(row, 8) 
-                })).filter(job => job.status.toLowerCase() === "open" || job.status === ""); 
+            .then(csvText => {
+                const rows = parseCSV(csvText);
+                // Slice(1) skips the header row (Job ID, Job Title, etc.)
+                allJobs = rows.slice(1).map(row => ({
+                    id: (row[0] || "").trim(),
+                    title: (row[1] || "").trim(),
+                    type: (row[2] || "").trim(),
+                    experience: (row[3] || "").trim(),
+                    location: (row[4] || "").trim(),
+                    salary: (row[5] || "").trim(),
+                    requirements: (row[6] || "").trim(),
+                    status: (row[8] || "").trim()
+                })).filter(job => job.title !== "" && (job.status.toLowerCase() === "open" || job.status === ""));
 
                 populateFilters();
                 filterJobs();
@@ -406,31 +454,29 @@
             jobsToRender.forEach(job => {
                 const isApplied = appliedJobs.includes(job.id);
                 
-                // Bulletproof title parser: handles missing subtitles safely
+                // Split Job Title & Subtitle on Either Pipe (|) OR Line Break (\n)
                 let rawTitle = job.title || 'Untitled Role';
-                let mainTitle = rawTitle;
-                let subTitle = '';
-                
-                if (rawTitle.includes('|')) {
-                    let parts = rawTitle.split('|');
-                    mainTitle = parts[0].trim();
-                    subTitle = parts[1] ? parts[1].trim() : '';
-                }
+                let titleParts = rawTitle.split(/\||\n/);
+                let mainTitle = titleParts[0] ? titleParts[0].trim() : 'Untitled Role';
+                let subTitle = titleParts.slice(1).join(' ').trim();
 
-                // Clean Salary: automatically strips out any typed '₹' so it doesn't duplicate
+                // Split Salary & Perks on Either Line Break (\n) OR Pipe (|)
                 let rawSalary = (job.salary || '').replace(/₹/g, '').trim();
-                let salaryParts = rawSalary.split('\n');
+                let salaryParts = rawSalary.split(/\n|\|/);
                 let salaryMain = salaryParts[0] ? salaryParts[0].trim() : '';
-                let salarySub = salaryParts[1] ? salaryParts[1].trim() : '';
+                let salarySub = salaryParts.slice(1).join(' + ').trim();
 
                 let metaTags = '';
                 if(job.location) metaTags += `<span class="tag">📍 ${job.location}</span>`;
                 if(job.type) metaTags += `<span class="tag">⏱️ ${job.type}</span>`;
                 if(job.experience) metaTags += `<span class="tag">🎓 ${job.experience}</span>`;
 
+                // Split Requirements on Either Pipe (|) OR Line Break (\n)
                 const reqListHtml = job.requirements 
-                    ? job.requirements.split('|').map(r => `<li>${r.trim()}</li>`).join('')
+                    ? job.requirements.split(/\||\n/).filter(r => r.trim() !== '').map(r => `<li>${r.trim()}</li>`).join('')
                     : `<li>Details provided upon application</li>`;
+
+                const safeModalTitle = mainTitle.replace(/'/g, "\\'");
 
                 const cardHTML = `
                     <div class="job-card">
@@ -455,7 +501,7 @@
                         
                         ${isApplied 
                             ? `<button class="apply-btn applied" disabled>✓ Application Submitted</button>`
-                            : `<button class="apply-btn" onclick="openModal('${job.id}', '${mainTitle}')">Apply Now</button>`
+                            : `<button class="apply-btn" onclick="openModal('${job.id}', '${safeModalTitle}')">Apply Now</button>`
                         }
                     </div>
                 `;
