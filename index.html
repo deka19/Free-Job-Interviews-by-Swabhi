@@ -161,8 +161,6 @@
             color: var(--brand-dark);
             text-transform: uppercase;
             letter-spacing: -0.5px;
-            
-            /* Hidden initially */
             max-height: 0;
             opacity: 0;
             transform: translateY(-8px);
@@ -175,7 +173,6 @@
             letter-spacing: 1.5px;
             font-weight: 800;
         }
-        /* Activated when scroll hits the top */
         .sticky-filter-wrapper.is-stuck .sticky-brand {
             max-height: 40px; 
             opacity: 1;
@@ -210,101 +207,72 @@
             .filter-container select { padding: 12px 18px; font-size: 0.92rem; }
         }
 
-        /* ==================== MAIN CONTENT & CARDS ==================== */
+        /* ==================== MAIN CONTENT & CARDS (NEW STRUCTURE) ==================== */
         .content-main { flex: 1; }
         .container { max-width: 1100px; margin: 35px auto; padding: 0 16px; }
         
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            margin-bottom: 22px;
-        }
-        .eyebrow {
-            font-size: 0.72rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: var(--brand-red);
-            margin-bottom: 4px;
-        }
-        .section-title { font-size: 1.55rem; font-weight: 800; letter-spacing: -0.4px; color: var(--brand-dark); }
-        .role-count-pill {
-            font-size: 0.82rem;
-            font-weight: 600;
-            color: var(--text-muted);
-            background: #fff;
-            border: 1px solid var(--border-color);
-            padding: 6px 14px;
-            border-radius: 50px;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.02);
-        }
-        
-        .job-grid { display: grid; grid-template-columns: 1fr; gap: 18px; }
-        @media(min-width: 768px) { .job-grid { grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 22px; } }
+        .job-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
+        @media(min-width: 768px) { .job-grid { grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 24px; } }
         
         .job-card {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
             border-radius: 16px;
-            padding: 22px;
+            padding: 24px;
             display: flex;
             flex-direction: column;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
-            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
         .job-card:hover {
             transform: translateY(-2px);
-            box-shadow: 0 12px 25px -5px rgba(0,0,0,0.06);
-            border-color: #D1D5DB;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.06);
         }
         
-        .job-title-area { margin-bottom: 10px; }
-        .job-title { font-size: 1.22rem; font-weight: 800; line-height: 1.25; color: var(--brand-dark); }
-        .job-subtitle { font-size: 0.9rem; font-weight: 700; color: #4B5563; margin-top: 2px; }
+        .job-title-area { margin-bottom: 12px; }
+        .job-title { font-size: 1.3rem; font-weight: 900; line-height: 1.2; color: var(--brand-dark); }
+        .job-subtitle { font-size: 0.95rem; font-weight: 700; color: #6B7280; margin-top: 4px; }
         
-        .meta-row { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-bottom: 16px; font-size: 0.83rem; font-weight: 600; color: var(--text-muted); }
-        .meta-item { display: inline-flex; align-items: center; gap: 5px; }
+        /* Minimalist Tags */
+        .meta-tags { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 16px; }
+        .tag { display: inline-flex; align-items: center; gap: 4px; font-size: 0.85rem; font-weight: 600; color: #6B7280; }
         
-        .salary-box { margin-bottom: 16px; background: var(--brand-light); border: 1px solid var(--border-color); border-radius: 10px; padding: 12px 14px; }
-        .salary-main { font-size: 1.2rem; font-weight: 800; color: var(--brand-red); display: flex; align-items: center; gap: 4px; line-height: 1.2; }
-        .salary-sub { font-size: 0.74rem; font-weight: 800; color: var(--brand-dark); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px; }
+        /* New Light Gray Salary Box */
+        .salary-box { 
+            background: #F8FAFC; 
+            border: 1px solid #E2E8F0; 
+            border-radius: 8px; 
+            padding: 12px 16px; 
+            display: flex; 
+            align-items: center; 
+            flex-wrap: wrap; 
+            gap: 12px; 
+            margin-bottom: 20px; 
+        }
+        .salary-main { font-size: 1.35rem; font-weight: 900; color: var(--brand-red); display: flex; align-items: center; line-height: 1; }
+        .salary-sub { font-size: 0.75rem; font-weight: 800; color: var(--brand-dark); text-transform: uppercase; letter-spacing: 0.5px; line-height: 1.2; }
 
-        .requirements { flex-grow: 1; font-size: 0.9rem; color: #4B5563; margin-bottom: 20px; }
-        .requirements strong { color: var(--brand-dark); font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 6px; }
-        .requirements ul { padding-left: 18px; }
-        .requirements li { margin-bottom: 5px; line-height: 1.45; }
+        .requirements { flex-grow: 1; margin-bottom: 20px; }
+        .requirements strong { color: #374151; font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 8px; }
+        .requirements ul { padding-left: 18px; color: #6B7280; font-size: 0.95rem; font-weight: 500; }
+        .requirements li { margin-bottom: 6px; }
         
-        .apply-btn { background: var(--brand-dark); color: #fff; font-weight: 700; font-size: 0.98rem; padding: 14px; border: none; border-radius: 12px; cursor: pointer; width: 100%; transition: background 0.2s ease, transform 0.1s ease; box-shadow: 0 2px 6px rgba(17, 24, 39, 0.15); }
-        .apply-btn:hover { background: var(--brand-red); }
-        .apply-btn:active { transform: scale(0.99); }
+        .apply-btn { background: var(--brand-dark); color: #fff; font-weight: 700; font-size: 1rem; padding: 14px; border: none; border-radius: 12px; cursor: pointer; width: 100%; transition: background 0.2s ease, transform 0.1s ease; }
+        .apply-btn:hover { background: #1f2937; }
+        .apply-btn:active { transform: scale(0.98); }
         .apply-btn.applied { background: var(--success-green); box-shadow: none; cursor: default; }
 
         /* ==================== MINIMAL FOOTER ==================== */
-        .site-footer {
-            background-color: #fff;
-            border-top: 1px solid var(--border-color);
-            padding: 50px 20px 40px;
-            margin-top: 60px;
-        }
-        .footer-container {
-            max-width: 1100px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-        }
+        .site-footer { background-color: #fff; border-top: 1px solid var(--border-color); padding: 50px 20px 40px; margin-top: 60px; }
+        .footer-container { max-width: 1100px; margin: 0 auto; display: flex; flex-direction: column; gap: 25px; }
         .footer-left { display: flex; flex-direction: column; gap: 8px; }
         .footer-brand { font-size: 1.25rem; font-weight: 900; color: var(--brand-dark); text-transform: uppercase; letter-spacing: -0.5px; }
         .footer-brand span { color: var(--brand-red); font-size: 0.85rem; letter-spacing: 1.5px; }
-        
         .footer-address { font-size: 0.9rem; color: var(--text-muted); font-weight: 500; margin-top: 4px; }
         .footer-phone { font-size: 0.95rem; font-weight: 700; color: var(--brand-dark); text-decoration: none; display: inline-block; margin-top: 5px; transition: color 0.2s; }
         .footer-phone:hover { color: var(--brand-red); }
-        
         .footer-right { display: flex; flex-direction: column; justify-content: flex-end; }
         .footer-copyright { font-size: 0.85rem; color: #9CA3AF; }
-        
         @media(min-width: 768px) {
             .footer-container { flex-direction: row; justify-content: space-between; align-items: flex-end; }
             .footer-brand span { margin-left: 5px; }
@@ -344,7 +312,6 @@
     <!-- ZOMATO-STYLE FULL SCREEN HERO -->
     <header class="hero-section" id="top">
         <video class="hero-video-bg" autoplay loop muted playsinline>
-            <!-- Put your video links back here! -->
             <source src="DESKTOP_HORIZONTAL_VIDEO.mp4" media="(min-width: 768px)">
             <source src="MOBILE_VERTICAL_VIDEO.mp4">
         </video>
@@ -369,7 +336,6 @@
     <!-- STICKY FILTER BAR WITH 'THE ORDINARY' REVEAL ANIMATION -->
     <div class="sticky-filter-wrapper" id="openings">
         
-        <!-- The brand that smoothly appears when the bar sticks -->
         <div class="sticky-brand">
             Free Job Interviews <span>BY SWABHI</span>
         </div>
@@ -384,14 +350,6 @@
     <!-- MAIN JOB LISTINGS SECTION -->
     <div class="content-main">
         <div class="container">
-            <div class="section-header">
-                <div>
-                    <div class="eyebrow">Fresh Listings</div>
-                    <h2 class="section-title">Latest opportunities</h2>
-                </div>
-                <div class="role-count-pill" id="roleCount">Loading...</div>
-            </div>
-
             <div class="job-grid" id="jobGrid">
                 <div class="empty-state">Loading available roles...</div>
             </div>
@@ -526,7 +484,6 @@
             fetch(SHEET_JSON_URL)
             .then(res => res.text())
             .then(text => {
-                // Safely extract the JSON part from the response
                 const startIdx = text.indexOf('(') + 1;
                 const endIdx = text.lastIndexOf(')');
                 const jsonStr = text.substring(startIdx, endIdx);
@@ -542,7 +499,6 @@
                     requirements: getVal(row, 6).trim(),
                     status: getVal(row, 8).trim()
                 })).filter(job => {
-                    // Actively filters out unwanted words
                     const rawData = JSON.stringify(job).toLowerCase();
                     const hasBannedWords = rawData.includes("pcconstruction site") || rawData.includes("psconstruction site");
                     
@@ -555,7 +511,6 @@
             .catch(error => {
                 console.error("Database error:", error);
                 document.getElementById("jobGrid").innerHTML = `<div class="empty-state">Could not load jobs. Please check network connection.</div>`;
-                document.getElementById("roleCount").innerText = "Error";
             });
         }
 
@@ -592,11 +547,8 @@
 
         function renderJobs(jobsToRender) {
             const grid = document.getElementById("jobGrid");
-            const countBadge = document.getElementById("roleCount");
             let htmlString = ""; 
             
-            countBadge.innerText = `${jobsToRender.length} ${jobsToRender.length === 1 ? 'role' : 'roles'}`;
-
             if(jobsToRender.length === 0) {
                 grid.innerHTML = `<div class="empty-state">No roles match your current search criteria.</div>`;
                 return;
@@ -605,20 +557,23 @@
             jobsToRender.forEach(job => {
                 const isApplied = appliedJobs.includes(job.id);
                 
+                // Parse Title & Subtitle
                 let rawTitle = job.title || 'Untitled Role';
                 let titleParts = rawTitle.split(/\||\n/);
                 let mainTitle = titleParts[0] ? titleParts[0].trim() : 'Untitled Role';
                 let subTitle = titleParts.slice(1).join(' ').trim();
 
+                // Parse Salary
                 let rawSalary = (job.salary || '').replace(/₹/g, '').trim();
                 let salaryParts = rawSalary.split(/\n|\|/);
                 let salaryMain = salaryParts[0] ? salaryParts[0].trim() : '';
                 let salarySub = salaryParts.slice(1).join(' + ').trim();
 
-                let metaHTML = '';
-                if(job.location) metaHTML += `<span class="meta-item">📍 ${job.location}</span>`;
-                if(job.type) metaHTML += `<span class="meta-item">⏱️ ${job.type}</span>`;
-                if(job.experience) metaHTML += `<span class="meta-item">🎓 ${job.experience}</span>`;
+                // Minimalistic Tags (Icon + Text only, no background)
+                let metaTags = '';
+                if(job.location) metaTags += `<span class="tag">📍 ${job.location}</span>`;
+                if(job.type) metaTags += `<span class="tag">⏱️ ${job.type}</span>`;
+                if(job.experience) metaTags += `<span class="tag">🎓 ${job.experience}</span>`;
 
                 const reqListHtml = job.requirements 
                     ? job.requirements.split(/\||\n/).filter(r => r.trim() !== '').map(r => `<li>${r.trim()}</li>`).join('')
@@ -633,7 +588,7 @@
                             ${subTitle ? `<div class="job-subtitle">${subTitle}</div>` : ''}
                         </div>
                         
-                        ${metaHTML ? `<div class="meta-row">${metaHTML}</div>` : ''}
+                        ${metaTags ? `<div class="meta-tags">${metaTags}</div>` : ''}
                         
                         ${salaryMain ? `
                             <div class="salary-box">
@@ -643,7 +598,7 @@
                         ` : ''}
                         
                         <div class="requirements">
-                            <strong>Key Requirements:</strong>
+                            <strong>KEY REQUIREMENTS:</strong>
                             <ul>${reqListHtml}</ul>
                         </div>
                         
