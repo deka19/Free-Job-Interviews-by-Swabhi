@@ -18,9 +18,9 @@
         
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', system-ui, -apple-system, sans-serif; }
         html { scroll-behavior: smooth; }
-        body { background-color: var(--brand-light); color: var(--brand-dark); line-height: 1.5; -webkit-font-smoothing: antialiased; }
+        body { background-color: var(--brand-light); color: var(--brand-dark); line-height: 1.5; -webkit-font-smoothing: antialiased; display: flex; flex-direction: column; min-height: 100vh; }
 
-        /* ==================== HERO SECTION ==================== */
+        /* ==================== HERO SECTION (ZOMATO STYLE) ==================== */
         .hero-section {
             position: relative;
             width: 100%;
@@ -54,7 +54,6 @@
             z-index: 2;
         }
 
-        /* Added will-change for buttery smooth parallax animation */
         .hero-content {
             position: relative;
             z-index: 3;
@@ -134,7 +133,7 @@
             .scroll-indicator { bottom: 25px; }
         }
 
-        /* ==================== STICKY FILTER BAR ==================== */
+        /* ==================== STICKY FILTER BAR (THE ORDINARY ANIMATION) ==================== */
         .sticky-filter-wrapper {
             position: sticky;
             top: 0;
@@ -152,7 +151,6 @@
             box-shadow: 0 8px 25px -5px rgba(0,0,0,0.08);
         }
 
-        /* The Ordinary Style Brand Reveal inside Sticky Bar */
         .sticky-brand {
             display: flex;
             align-items: center;
@@ -205,9 +203,7 @@
             background: #fff;
             transition: border-color 0.15s ease;
         }
-        .filter-container select:focus {
-            border-color: var(--brand-red);
-        }
+        .filter-container select:focus { border-color: var(--brand-red); }
         @media(min-width: 768px) {
             .sticky-filter-wrapper { padding: 16px 24px; }
             .filter-container { gap: 14px; }
@@ -215,6 +211,7 @@
         }
 
         /* ==================== MAIN CONTENT & CARDS ==================== */
+        .content-main { flex: 1; }
         .container { max-width: 1100px; margin: 35px auto; padding: 0 16px; }
         
         .section-header {
@@ -283,39 +280,16 @@
             flex-shrink: 0;
             box-shadow: 0 2px 6px rgba(220, 38, 38, 0.25);
         }
-        .role-type-label {
-            font-size: 0.82rem;
-            font-weight: 600;
-            color: var(--text-muted);
-        }
+        .role-type-label { font-size: 0.82rem; font-weight: 600; color: var(--text-muted); }
         
         .job-title-area { margin-bottom: 10px; }
         .job-title { font-size: 1.22rem; font-weight: 800; line-height: 1.25; color: var(--brand-dark); }
         .job-subtitle { font-size: 0.9rem; font-weight: 700; color: #4B5563; margin-top: 2px; }
         
-        .meta-row {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 14px;
-            margin-bottom: 16px;
-            font-size: 0.83rem;
-            font-weight: 600;
-            color: var(--text-muted);
-        }
-        .meta-item {
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-        }
+        .meta-row { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-bottom: 16px; font-size: 0.83rem; font-weight: 600; color: var(--text-muted); }
+        .meta-item { display: inline-flex; align-items: center; gap: 5px; }
         
-        .salary-box {
-            margin-bottom: 16px;
-            background: var(--brand-light);
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
-            padding: 12px 14px;
-        }
+        .salary-box { margin-bottom: 16px; background: var(--brand-light); border: 1px solid var(--border-color); border-radius: 10px; padding: 12px 14px; }
         .salary-main { font-size: 1.2rem; font-weight: 800; color: var(--brand-red); display: flex; align-items: center; gap: 4px; line-height: 1.2; }
         .salary-sub { font-size: 0.74rem; font-weight: 800; color: var(--brand-dark); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px; }
 
@@ -324,23 +298,47 @@
         .requirements ul { padding-left: 18px; }
         .requirements li { margin-bottom: 5px; line-height: 1.45; }
         
-        .apply-btn { 
-            background: var(--brand-dark); 
-            color: #fff; 
-            font-weight: 700; 
-            font-size: 0.98rem; 
-            padding: 14px; 
-            border: none; 
-            border-radius: 12px; 
-            cursor: pointer; 
-            width: 100%; 
-            transition: background 0.2s ease, transform 0.1s ease; 
-            box-shadow: 0 2px 6px rgba(17, 24, 39, 0.15);
-        }
+        .apply-btn { background: var(--brand-dark); color: #fff; font-weight: 700; font-size: 0.98rem; padding: 14px; border: none; border-radius: 12px; cursor: pointer; width: 100%; transition: background 0.2s ease, transform 0.1s ease; box-shadow: 0 2px 6px rgba(17, 24, 39, 0.15); }
         .apply-btn:hover { background: var(--brand-red); }
         .apply-btn:active { transform: scale(0.99); }
         .apply-btn.applied { background: var(--success-green); box-shadow: none; cursor: default; }
+
+        /* ==================== PROFESSIONAL FOOTER ==================== */
+        .site-footer {
+            background-color: #fff;
+            border-top: 1px solid var(--border-color);
+            padding: 50px 20px 40px;
+            margin-top: 60px;
+        }
+        .footer-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 35px;
+        }
+        .footer-left { display: flex; flex-direction: column; gap: 10px; }
+        .footer-brand { font-size: 1.25rem; font-weight: 900; color: var(--brand-dark); text-transform: uppercase; letter-spacing: -0.5px; }
+        .footer-brand span { color: var(--brand-red); font-size: 0.85rem; letter-spacing: 1.5px; }
         
+        .footer-address { font-size: 0.9rem; color: var(--text-muted); font-weight: 500; margin-top: 4px; }
+        .footer-phone { font-size: 0.95rem; font-weight: 700; color: var(--brand-dark); text-decoration: none; display: inline-block; margin-top: 5px; transition: color 0.2s; }
+        .footer-phone:hover { color: var(--brand-red); }
+        
+        .footer-right { display: flex; flex-direction: column; gap: 20px; }
+        .footer-links { display: flex; flex-direction: column; gap: 14px; }
+        .footer-links a { color: #4B5563; text-decoration: none; font-size: 0.95rem; font-weight: 600; transition: color 0.2s; }
+        .footer-links a:hover { color: var(--brand-red); }
+        .footer-copyright { font-size: 0.85rem; color: #9CA3AF; margin-top: 15px; }
+        
+        @media(min-width: 768px) {
+            .footer-container { flex-direction: row; justify-content: space-between; align-items: flex-end; }
+            .footer-brand span { margin-left: 5px; }
+            .footer-right { align-items: flex-end; text-align: right; }
+            .footer-links { flex-direction: row; gap: 25px; }
+            .footer-copyright { margin-top: 0; }
+        }
+
         /* ==================== MODAL ==================== */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(17,24,39,0.7); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); display: none; align-items: flex-end; z-index: 1000; }
         .modal-content { background: #fff; padding: 28px 22px 38px 22px; border-radius: 24px 24px 0 0; width: 100%; max-height: 90vh; overflow-y: auto; position: relative; animation: slideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1); box-shadow: 0 -10px 40px rgba(0,0,0,0.2); }
@@ -354,7 +352,6 @@
 
         .close-modal { position: absolute; top: 18px; right: 20px; font-size: 1.4rem; cursor: pointer; color: #9CA3AF; padding: 5px; transition: color 0.15s; }
         .close-modal:hover { color: var(--brand-dark); }
-        
         .modal-title { font-size: 1.35rem; font-weight: 800; margin-bottom: 4px; color: var(--brand-dark); }
         .modal-subtitle { font-size: 0.92rem; color: var(--text-muted); margin-bottom: 20px; padding-bottom: 14px; border-bottom: 1px solid var(--border-color); }
         
@@ -366,7 +363,6 @@
         
         .success-screen { display: none; text-align: center; padding: 20px 0; }
         .success-screen h3 { color: var(--success-green); font-size: 1.4rem; margin-bottom: 10px; font-weight: 800; }
-        
         #loadingSpinner { display: none; text-align: center; color: var(--brand-red); font-weight: bold; margin-top: 16px; font-size: 1rem; }
         .empty-state { text-align: center; padding: 50px 20px; color: var(--text-muted); font-size: 1rem; background: #fff; border-radius: 16px; border: 1px dashed #D1D5DB; grid-column: 1 / -1; }
     </style>
@@ -376,7 +372,6 @@
     <!-- ZOMATO-STYLE FULL SCREEN HERO -->
     <header class="hero-section" id="top">
         <video class="hero-video-bg" autoplay loop muted playsinline>
-            <!-- REMEMBER TO REPLACE THESE WITH YOUR VIDEO LINKS -->
             <source src="DESKTOP_HORIZONTAL_VIDEO.mp4" media="(min-width: 768px)">
             <source src="MOBILE_VERTICAL_VIDEO.mp4">
         </video>
@@ -398,7 +393,7 @@
         </a>
     </header>
 
-    <!-- STICKY FILTER BAR WITH BRAND REVEAL ANIMATION -->
+    <!-- STICKY FILTER BAR WITH 'THE ORDINARY' REVEAL ANIMATION -->
     <div class="sticky-filter-wrapper" id="openings">
         
         <!-- The brand that smoothly appears when the bar sticks -->
@@ -414,19 +409,44 @@
     </div>
 
     <!-- MAIN JOB LISTINGS SECTION -->
-    <div class="container">
-        <div class="section-header">
-            <div>
-                <div class="eyebrow">Fresh Listings</div>
-                <h2 class="section-title">Latest opportunities</h2>
+    <div class="content-main">
+        <div class="container">
+            <div class="section-header">
+                <div>
+                    <div class="eyebrow">Fresh Listings</div>
+                    <h2 class="section-title">Latest opportunities</h2>
+                </div>
+                <div class="role-count-pill" id="roleCount">Loading...</div>
             </div>
-            <div class="role-count-pill" id="roleCount">Loading...</div>
-        </div>
 
-        <div class="job-grid" id="jobGrid">
-            <div class="empty-state">Loading available roles...</div>
+            <div class="job-grid" id="jobGrid">
+                <div class="empty-state">Loading available roles...</div>
+            </div>
         </div>
     </div>
+
+    <!-- PROFESSIONAL FOOTER -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-left">
+                <div class="footer-brand">
+                    Free Job Interviews <span>BY SWABHI</span>
+                </div>
+                <p class="footer-address">Kahilipara, Guwahati, Assam 781019</p>
+                <a href="tel:+916002413305" class="footer-phone">📞 +91 60024 13305</a>
+            </div>
+            
+            <div class="footer-right">
+                <div class="footer-links">
+                    <a href="#top">Back to Top</a>
+                    <a href="#openings">Latest Openings</a>
+                </div>
+                <div class="footer-copyright">
+                    &copy; 2026 Swabhi. All rights reserved.
+                </div>
+            </div>
+        </div>
+    </footer>
 
     <!-- APPLY MODAL -->
     <div class="modal-overlay" id="applyModal" onclick="closeModalOutside(event)">
@@ -509,9 +529,6 @@
             setupScrollAnimations();
         });
 
-        // ==========================================
-        // THE BUTTERY SMOOTH SCROLL ANIMATION LOGIC
-        // ==========================================
         function setupScrollAnimations() {
             const stickyEl = document.getElementById('openings');
             const heroContent = document.getElementById('heroContent');
@@ -520,15 +537,11 @@
                 const scrollY = window.scrollY;
                 const windowHeight = window.innerHeight;
 
-                // 1. Hero Content Parallax & Fade-out Effect
                 if (scrollY < windowHeight) {
-                    // Moves text down slightly slower than the scroll, fading out gracefully
                     heroContent.style.transform = `translateY(${scrollY * 0.35}px)`;
                     heroContent.style.opacity = Math.max(1 - (scrollY / (windowHeight * 0.45)), 0);
                 }
 
-                // 2. Sticky Bar Brand Reveal Trigger
-                // When the filter bar touches the absolute top, apply the 'is-stuck' class
                 if (stickyEl.getBoundingClientRect().top <= 1) {
                     stickyEl.classList.add('is-stuck');
                 } else {
@@ -537,9 +550,6 @@
             });
         }
 
-        // ==========================================
-        // ROBUST GOOGLE SHEETS CSV PARSER
-        // ==========================================
         function parseCSV(csvText) {
             const rows = [];
             let currentRow = [];
