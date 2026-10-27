@@ -73,8 +73,8 @@
         
         .form-group { margin-bottom: 15px; }
         .form-group label { display: block; font-weight: 600; margin-bottom: 5px; font-size: 0.9rem; }
-        .form-group input { width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 6px; font-size: 1rem; outline: none; }
-        .form-group input:focus { border-color: var(--brand-red); }
+        .form-group input, .form-group select { width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 6px; font-size: 1rem; outline: none; }
+        .form-group input:focus, .form-group select:focus { border-color: var(--brand-red); }
         
         .success-screen { display: none; text-align: center; }
         .success-screen h3 { color: var(--success-green); font-size: 1.5rem; margin-bottom: 10px; }
@@ -128,25 +128,33 @@
                     <input type="hidden" id="jobTitleInput">
                     <div class="form-group">
                         <label>Full Name *</label>
-                        <input type="text" id="applicantName" required placeholder="Enter full name">
+                        <input type="text" id="applicantName" required placeholder="Enter your full name">
                     </div>
                     <div class="form-group">
                         <label>Phone Number *</label>
                         <input type="tel" id="applicantPhone" required placeholder="10-digit number">
                     </div>
+                    
+                    <!-- NEW DROPDOWN ADDED HERE -->
                     <div class="form-group">
-                        <label>LinkedIn or Portfolio URL (Optional)</label>
-                        <input type="url" id="applicantLink" placeholder="https://linkedin.com/in/...">
+                        <label>Current Status *</label>
+                        <select id="applicantStatus" required>
+                            <option value="" disabled selected>Select your current status...</option>
+                            <option value="Fresher">Fresher (Never Worked)</option>
+                            <option value="Working">Working currently</option>
+                            <option value="Not Working">Not Working currently</option>
+                        </select>
                     </div>
-                    <button type="submit" class="apply-btn" id="submitBtn">Submit to Hiring Team</button>
-                    <div id="loadingSpinner">Transmitting...</div>
+
+                    <button type="submit" class="apply-btn" id="submitBtn">Submit Application</button>
+                    <div id="loadingSpinner">Sending to our team...</div>
                 </form>
             </div>
 
             <div id="successScreen" class="success-screen">
                 <h3>Application Tracked!</h3>
-                <p>Your profile is now under review.</p>
-                <p style="margin-top: 15px; font-size: 0.9rem;">To verify your application immediately, call our hiring coordinators.</p>
+                <p>Your profile is now under review with our team.</p>
+                <p style="margin-top: 15px; font-size: 0.9rem;">To verify your application immediately, you can call us directly.</p>
                 <a href="tel:+916002413305" class="apply-btn" style="display:block; text-decoration:none; margin-top:15px; background:var(--brand-red);">📞 Call 60024 13305</a>
             </div>
         </div>
@@ -155,14 +163,15 @@
     <script>
         // === PORTAL CONFIGURATION ===
         const SHEET_ID = "19N7jV-E8nE5OrEEFS2w5GxqlzFAS3RHER6JIv0ipDZg"; 
-        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzXotBKl3H0ftym24g8D28Q51GFV4rChcdTUd5MrRtNPssOQSJItYrwbUwcSiVpckvU/exec";
+        
+        // PASTE YOUR NEW APPS SCRIPT URL HERE AFTER DEPLOYING STEP 1
+        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyCDV122h3vbrkrnf_TJCC2wiIxpQi_zdYhT2WnK1Bg_TyEKuZZtmwvgsXjoUBMfunA/exec"; 
+        
         const SHEET_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=Listings`;
 
         // === STATE MANAGEMENT ===
         let allJobs = [];
         let currentTab = 'all'; 
-        
-        // Load user's saved & applied jobs from local storage
         let savedJobs = JSON.parse(localStorage.getItem('swabhi_saved')) || [];
         let appliedJobs = JSON.parse(localStorage.getItem('swabhi_applied')) || [];
 
@@ -206,7 +215,7 @@
             const title = document.getElementById('sectionTitle');
             
             if (tab === 'saved') {
-                header.style.display = 'none'; // Hide search on saved page
+                header.style.display = 'none'; 
                 title.innerText = 'My Saved Opportunities';
             } else {
                 header.style.display = 'block';
@@ -224,7 +233,7 @@
             }
             localStorage.setItem('swabhi_saved', JSON.stringify(savedJobs));
             updateSaveCount();
-            filterJobs(); // Re-render instantly
+            filterJobs(); 
         }
 
         function updateSaveCount() {
@@ -233,9 +242,15 @@
 
         // === SEARCH & RENDER ===
         function populateFilters() {
+            // Get unique, non-empty values from the columns
             const types = [...new Set(allJobs.map(j => j.type).filter(Boolean))];
             const exps = [...new Set(allJobs.map(j => j.experience).filter(Boolean))];
             const locs = [...new Set(allJobs.map(j => j.location).filter(Boolean))];
+
+            // Clear existing options except the first "All" option
+            document.getElementById('filterType').options.length = 1;
+            document.getElementById('filterExperience').options.length = 1;
+            document.getElementById('filterLocation').options.length = 1;
 
             types.forEach(t => document.getElementById('filterType').add(new Option(t, t)));
             exps.forEach(e => document.getElementById('filterExperience').add(new Option(e, e)));
@@ -245,11 +260,9 @@
         function filterJobs() {
             let filtered = allJobs;
 
-            // If on Saved tab, only show saved jobs
             if (currentTab === 'saved') {
                 filtered = allJobs.filter(job => savedJobs.includes(job.id));
             } else {
-                // Apply Search & Dropdown Filters
                 const searchQ = document.getElementById('searchInput').value.toLowerCase();
                 const typeVal = document.getElementById('filterType').value;
                 const expVal = document.getElementById('filterExperience').value;
@@ -334,7 +347,7 @@
             event.preventDefault(); 
             const name = document.getElementById("applicantName").value;
             const phone = document.getElementById("applicantPhone").value;
-            const link = document.getElementById("applicantLink").value || "Not provided";
+            const status = document.getElementById("applicantStatus").value; // Grab new dropdown value
             const jobId = document.getElementById("jobIdInput").value;
             const jobTitle = document.getElementById("jobTitleInput").value;
 
@@ -344,16 +357,15 @@
             const formData = new URLSearchParams();
             formData.append("name", name);
             formData.append("phone", phone);
-            // Append link to the phone column temporarily or update Apps Script later to add a column
+            formData.append("status", status); // Send to Apps Script
             formData.append("jobId", jobId);
-            formData.append("jobTitle", jobTitle + " | Link: " + link);
+            formData.append("jobTitle", jobTitle);
 
             fetch(WEB_APP_URL, {
                 method: "POST",
                 body: formData
             })
             .then(() => {
-                // Save to local storage so UI updates to "Applied"
                 if (!appliedJobs.includes(jobId)) {
                     appliedJobs.push(jobId);
                     localStorage.setItem('swabhi_applied', JSON.stringify(appliedJobs));
@@ -364,7 +376,7 @@
                 document.getElementById("submitBtn").style.display = "block";
                 document.getElementById("loadingSpinner").style.display = "none";
                 
-                filterJobs(); // Update button to green checkmark behind the modal
+                filterJobs(); 
             })
             .catch(() => {
                 alert("Network error. Please try submitting again.");
