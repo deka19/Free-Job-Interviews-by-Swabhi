@@ -3,211 +3,304 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>We Are Hiring</title>
+    <title>Careers | Professional Job Board</title>
     <style>
-        /* CSS styling matching your aggressive red/black brand guidelines */
+        /* Matured Brand Palette */
         :root {
-            --brand-red: #FF0000;
-            --brand-black: #000000;
-            --bg-gray: #f9f9f9;
+            --brand-red: #DC2626; 
+            --brand-red-hover: #B91C1C;
+            --brand-dark: #111827; 
+            --brand-light: #F8F9FA;
+            --border-color: #E5E7EB;
         }
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: var(--bg-gray); padding: 20px; color: var(--brand-black); }
         
-        .header { text-align: center; margin-bottom: 40px; margin-top: 20px; }
-        .header h1 { font-size: 3rem; font-weight: 900; letter-spacing: 2px; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', 'Segoe UI', system-ui, sans-serif; }
+        body { background-color: var(--brand-light); color: var(--brand-dark); line-height: 1.5; }
         
-        /* CSS Grid for Job Cards */
-        .job-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; max-width: 1200px; margin: 0 auto; }
+        /* Navigation & Hero */
+        .navbar { background: #fff; padding: 20px 5%; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; }
+        .navbar h1 { font-size: 1.5rem; font-weight: 900; letter-spacing: -0.5px; }
+        .navbar h1 span { color: var(--brand-red); }
         
+        .hero { text-align: center; padding: 60px 20px; background: var(--brand-dark); color: #fff; }
+        .hero h2 { font-size: 2.5rem; font-weight: 800; margin-bottom: 15px; }
+        .hero p { font-size: 1.1rem; color: #9CA3AF; max-width: 600px; margin: 0 auto; }
+
+        /* Filter Section */
+        .filter-section {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            max-width: 1000px;
+            margin: -30px auto 40px auto;
+            position: relative;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .filter-group { display: flex; flex-direction: column; }
+        .filter-group label { font-size: 0.85rem; font-weight: 600; text-transform: uppercase; margin-bottom: 5px; color: #6B7280; }
+        .filter-group select { 
+            padding: 10px; border: 1px solid var(--border-color); border-radius: 6px; 
+            font-size: 1rem; outline: none; cursor: pointer; background: var(--brand-light);
+        }
+        .filter-group select:focus { border-color: var(--brand-dark); }
+
+        /* Job Grid */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px 60px 20px; }
+        .job-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 24px; }
+        
+        /* Job Card Design */
         .job-card {
             background: #fff;
-            border: 2px solid var(--brand-black);
-            padding: 25px;
-            position: relative;
-            box-shadow: 6px 6px 0px var(--brand-black);
-            transition: transform 0.1s;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
         }
-        .job-card:hover { transform: translate(-2px, -2px); box-shadow: 8px 8px 0px var(--brand-black); }
+        .job-card:hover { transform: translateY(-4px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); border-color: var(--brand-red); }
         
-        .urgency-tag {
-            background: var(--brand-red);
-            color: #fff;
-            padding: 5px 12px;
-            font-size: 0.85rem;
-            font-weight: bold;
-            display: inline-block;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-        }
+        .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+        .job-title { font-size: 1.4rem; font-weight: 800; color: var(--brand-dark); line-height: 1.2; }
+        .urgency-badge { background: #FEF2F2; color: var(--brand-red); padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; border: 1px solid #FCA5A5; }
         
-        .job-title { font-size: 2.2rem; font-weight: 900; color: var(--brand-red); line-height: 1.1; margin-bottom: 15px; text-transform: uppercase; }
-        .salary { font-size: 1.8rem; font-weight: 900; margin-bottom: 5px; }
-        .perks { font-size: 1rem; font-weight: bold; margin-bottom: 20px; text-transform: uppercase; }
+        .meta-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+        .tag { background: var(--brand-light); border: 1px solid var(--border-color); padding: 4px 10px; border-radius: 6px; font-size: 0.85rem; font-weight: 600; color: #4B5563; }
         
-        .requirements-title { font-size: 1.2rem; font-weight: 900; text-decoration: underline; margin-bottom: 10px; text-transform: uppercase; }
-        .requirements-list { margin-left: 20px; margin-bottom: 25px; font-size: 1.1rem; line-height: 1.5; }
-        .requirements-list li { margin-bottom: 5px; }
+        .salary { font-size: 1.2rem; font-weight: 800; color: var(--brand-red); margin-bottom: 15px; border-bottom: 1px dashed var(--border-color); padding-bottom: 15px; }
         
-        .location { font-size: 1.2rem; font-weight: 900; margin-bottom: 20px; text-transform: uppercase; }
+        .requirements { flex-grow: 1; }
+        .req-title { font-size: 0.9rem; font-weight: 700; text-transform: uppercase; color: #6B7280; margin-bottom: 8px; }
+        .req-list { list-style: none; margin-bottom: 24px; }
+        .req-list li { font-size: 0.95rem; margin-bottom: 6px; position: relative; padding-left: 20px; color: #374151; }
+        .req-list li::before { content: '→'; position: absolute; left: 0; color: var(--brand-red); font-weight: bold; }
         
         .apply-btn {
-            background: var(--brand-black); color: #fff; font-size: 1.2rem; font-weight: bold; width: 100%;
-            padding: 15px; border: none; cursor: pointer; text-transform: uppercase;
+            background: var(--brand-dark); color: #fff; text-align: center; font-weight: 600; font-size: 1rem;
+            padding: 12px; border: none; border-radius: 6px; cursor: pointer; transition: background 0.2s; width: 100%;
         }
         .apply-btn:hover { background: var(--brand-red); }
 
-        /* Modal Overlay */
-        .modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8);
-            display: none; justify-content: center; align-items: center; z-index: 1000; padding: 20px;
-        }
-        .modal-content { background: #fff; padding: 40px 30px; border: 4px solid var(--brand-black); width: 100%; max-width: 450px; position: relative; }
-        .close-modal { position: absolute; top: 10px; right: 15px; font-size: 1.5rem; font-weight: bold; cursor: pointer; }
+        /* Modal Styles */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(17, 24, 39, 0.8); backdrop-filter: blur(4px); display: none; justify-content: center; align-items: center; z-index: 1000; padding: 20px; }
+        .modal-content { background: #fff; padding: 40px; border-radius: 12px; width: 100%; max-width: 450px; position: relative; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); }
+        .close-modal { position: absolute; top: 15px; right: 20px; font-size: 1.5rem; color: #9CA3AF; cursor: pointer; transition: color 0.2s; }
+        .close-modal:hover { color: var(--brand-dark); }
         
-        .modal-title { font-size: 1.8rem; font-weight: 900; margin-bottom: 5px; text-transform: uppercase; }
-        .modal-subtitle { font-size: 1rem; color: #555; margin-bottom: 25px; }
+        .modal-title { font-size: 1.8rem; font-weight: 800; margin-bottom: 5px; color: var(--brand-dark); }
+        .modal-subtitle { font-size: 1rem; color: #6B7280; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid var(--border-color); }
         
         .form-group { margin-bottom: 20px; }
-        .form-group label { display: block; font-weight: bold; margin-bottom: 8px; font-size: 1.1rem; }
-        .form-group input { width: 100%; padding: 12px; border: 2px solid var(--brand-black); font-size: 1.1rem; outline: none; }
-        .form-group input:focus { border-color: var(--brand-red); }
+        .form-group label { display: block; font-weight: 600; margin-bottom: 8px; font-size: 0.95rem; }
+        .form-group input { width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 6px; font-size: 1rem; outline: none; transition: border-color 0.2s; }
+        .form-group input:focus { border-color: var(--brand-red); box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1); }
         
-        /* Success State */
         .success-screen { display: none; text-align: center; }
-        .success-title { font-size: 2rem; font-weight: 900; color: #000; margin-bottom: 10px; }
-        .success-subtitle { font-size: 1.2rem; margin-bottom: 30px; }
+        .success-title { font-size: 1.8rem; font-weight: 800; color: #059669; margin-bottom: 10px; }
         
         .call-btn {
-            display: inline-block; background: var(--brand-red); color: #fff; text-decoration: none;
-            font-size: 1.5rem; font-weight: 900; padding: 20px; width: 100%; border-radius: 8px;
-            animation: pulse 1.5s infinite;
+            display: block; background: var(--brand-red); color: #fff; text-decoration: none;
+            font-size: 1.2rem; font-weight: 700; padding: 16px; border-radius: 8px; margin-top: 20px;
+            transition: transform 0.2s, background 0.2s;
         }
-        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.03); } 100% { transform: scale(1); } }
+        .call-btn:hover { background: var(--brand-red-hover); transform: scale(1.02); }
         
-        #loadingSpinner { display: none; text-align: center; font-weight: bold; font-size: 1.2rem; margin-top: 15px; color: var(--brand-red); }
+        #loadingSpinner { display: none; text-align: center; font-weight: 600; color: var(--brand-red); margin-top: 15px; }
+        #noResults { display: none; text-align: center; grid-column: 1 / -1; padding: 40px; color: #6B7280; font-size: 1.2rem; }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <h1>WE ARE HIRING</h1>
+    <nav class="navbar">
+        <h1>ORBT<span>°</span> CAREERS</h1>
+    </nav>
+
+    <header class="hero">
+        <h2>Find Your Next Role</h2>
+        <p>Join our fast-growing team. Browse our open positions below and apply instantly.</p>
+    </header>
+
+    <div class="container">
+        <!-- Dynamic Filter Bar -->
+        <div class="filter-section">
+            <div class="filter-group">
+                <label>Job Type</label>
+                <select id="filterType" onchange="applyFilters()">
+                    <option value="all">All Types</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>Experience</label>
+                <select id="filterExperience" onchange="applyFilters()">
+                    <option value="all">All Experience Levels</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>Location</label>
+                <select id="filterLocation" onchange="applyFilters()">
+                    <option value="all">All Locations</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Job Grid -->
+        <div class="job-grid" id="jobGrid">
+            <h3 style="text-align:center; grid-column: 1/-1;">Loading opportunities...</h3>
+        </div>
+        <div id="noResults">No jobs match your selected filters. Try broadening your search.</div>
     </div>
 
-    <div class="job-grid" id="jobGrid">
-        <h2 style="text-align:center; width:100%;">Loading open positions...</h2>
-    </div>
-
-    <!-- Apply Popup Modal -->
+    <!-- Apply Modal -->
     <div class="modal-overlay" id="applyModal">
         <div class="modal-content">
-            <span class="close-modal" onclick="closeModal()">X</span>
+            <span class="close-modal" onclick="closeModal()">✖</span>
             
-            <!-- Step 1: The Form -->
             <div id="formScreen">
-                <div class="modal-title">Apply Now</div>
-                <div class="modal-subtitle" id="modalJobTitle">Job Title Placeholder</div>
+                <div class="modal-title">Submit Application</div>
+                <div class="modal-subtitle" id="modalJobTitle">Job Title</div>
                 <form id="applyForm" onsubmit="submitApplication(event)">
                     <input type="hidden" id="jobIdInput">
                     <input type="hidden" id="jobTitleInput">
                     <div class="form-group">
                         <label>Full Name</label>
-                        <input type="text" id="applicantName" required placeholder="Enter your full name">
+                        <input type="text" id="applicantName" required placeholder="John Doe">
                     </div>
                     <div class="form-group">
                         <label>Phone Number</label>
-                        <input type="tel" id="applicantPhone" required placeholder="e.g. 9876543210">
+                        <input type="tel" id="applicantPhone" required placeholder="9876543210">
                     </div>
-                    <button type="submit" class="apply-btn" id="submitBtn">Submit Application</button>
-                    <div id="loadingSpinner">Sending application...</div>
+                    <button type="submit" class="apply-btn" id="submitBtn">Apply Now</button>
+                    <div id="loadingSpinner">Processing application...</div>
                 </form>
             </div>
 
-            <!-- Step 2: The Success Screen -->
             <div id="successScreen" class="success-screen">
-                <div class="success-title">APPLICATION RECEIVED!</div>
-                <div class="success-subtitle">Step 2: Call us right now to confirm your interview.</div>
-                <a href="tel:+916002413305" class="call-btn">📞 CALL: 60024 13305</a>
-                <p style="margin-top: 15px; font-weight: bold;">(Call between 10 AM to 5 PM)</p>
+                <div class="success-title">Application Secured!</div>
+                <p>To fast-track your application, call our hiring team right now to confirm your details.</p>
+                <a href="tel:+916002413305" class="call-btn">📞 Call: 60024 13305</a>
+                <p style="margin-top: 15px; font-size: 0.85rem; color: #6B7280;">(Lines open 10 AM - 5 PM)</p>
             </div>
         </div>
     </div>
 
     <script>
-        // ==========================================
-        // 1. ADD YOUR IDS HERE
-        // ==========================================
         const SHEET_ID = "19N7jV-E8nE5OrEEFS2w5GxqlzFAS3RHER6JIv0ipDZg"; 
         const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzXotBKl3H0ftym24g8D28Q51GFV4rChcdTUd5MrRtNPssOQSJItYrwbUwcSiVpckvU/exec";
-        
-        // Google Sheets API endpoint for public data reading
         const SHEET_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=Listings`;
 
-        // Load jobs immediately when page opens
+        let allJobs = []; // Store jobs globally for filtering
+
         document.addEventListener("DOMContentLoaded", fetchJobs);
 
         function fetchJobs() {
             fetch(SHEET_URL)
             .then(res => res.text())
             .then(text => {
-                // Remove Google's weird function wrapper to get clean JSON
                 const jsonStr = text.match(/(?<=.*\().*(?=\);)/s)[0];
                 const data = JSON.parse(jsonStr);
-                const rows = data.table.rows;
                 
-                const grid = document.getElementById("jobGrid");
-                grid.innerHTML = ""; // Clear loading text
+                // Parse rows into objects based on NEW schema
+                allJobs = data.table.rows.map(row => ({
+                    id: row.c[0] ? row.c[0].v : "",
+                    title: row.c[1] ? row.c[1].v : "",
+                    type: row.c[2] ? row.c[2].v : "",
+                    experience: row.c[3] ? row.c[3].v : "",
+                    location: row.c[4] ? row.c[4].v : "",
+                    salary: row.c[5] ? row.c[5].v : "",
+                    requirements: row.c[6] ? row.c[6].v : "",
+                    vacancies: row.c[7] ? row.c[7].v : "",
+                    status: row.c[8] ? row.c[8].v : ""
+                })).filter(job => job.status.toLowerCase() === "open");
 
-                rows.forEach(row => {
-                    const status = row.c[7] ? row.c[7].v : "";
-                    
-                    // ONLY SHOW JOBS WHERE STATUS IS "Open"
-                    if (status.toLowerCase() === "open") {
-                        const id = row.c[0] ? row.c[0].v : "";
-                        const title = row.c[1] ? row.c[1].v : "";
-                        const salary = row.c[2] ? row.c[2].v : "";
-                        const perks = row.c[3] ? row.c[3].v : "";
-                        const reqs = row.c[4] ? row.c[4].v : "";
-                        const location = row.c[5] ? row.c[5].v : "";
-                        const vacancies = row.c[6] ? row.c[6].v : "";
-
-                        // Convert requirement string separated by | into HTML list items
-                        const reqListHtml = reqs.split('|').map(r => `<li>${r.trim()}</li>`).join('');
-
-                        const cardHTML = `
-                            <div class="job-card">
-                                <div class="urgency-tag">🔥 Only ${vacancies} vacancies left!</div>
-                                <div class="job-title">${title}</div>
-                                <div class="salary">SALARY up to ${salary}</div>
-                                <div class="perks">+ ${perks}</div>
-                                
-                                <div class="requirements-title">Requirement</div>
-                                <ul class="requirements-list">
-                                    ${reqListHtml}
-                                </ul>
-                                
-                                <div class="location">LOCATION: ${location}</div>
-                                
-                                <button class="apply-btn" onclick="openModal('${id}', '${title}')">Apply Now</button>
-                            </div>
-                        `;
-                        grid.insertAdjacentHTML('beforeend', cardHTML);
-                    }
-                });
-
-                if(grid.innerHTML === "") {
-                    grid.innerHTML = "<h2 style='text-align:center; width:100%;'>No open positions right now. Check back later!</h2>";
-                }
+                populateFilters();
+                renderJobs(allJobs);
             })
             .catch(error => console.error("Error fetching jobs:", error));
+        }
+
+        function populateFilters() {
+            // Get unique values for dropdowns
+            const types = [...new Set(allJobs.map(j => j.type).filter(Boolean))];
+            const experiences = [...new Set(allJobs.map(j => j.experience).filter(Boolean))];
+            const locations = [...new Set(allJobs.map(j => j.location).filter(Boolean))];
+
+            const typeSelect = document.getElementById('filterType');
+            const expSelect = document.getElementById('filterExperience');
+            const locSelect = document.getElementById('filterLocation');
+
+            types.forEach(t => typeSelect.add(new Option(t, t)));
+            experiences.forEach(e => expSelect.add(new Option(e, e)));
+            locations.forEach(l => locSelect.add(new Option(l, l)));
+        }
+
+        function applyFilters() {
+            const typeVal = document.getElementById('filterType').value;
+            const expVal = document.getElementById('filterExperience').value;
+            const locVal = document.getElementById('filterLocation').value;
+
+            const filteredJobs = allJobs.filter(job => {
+                const matchType = (typeVal === "all" || job.type === typeVal);
+                const matchExp = (expVal === "all" || job.experience === expVal);
+                const matchLoc = (locVal === "all" || job.location === locVal);
+                return matchType && matchExp && matchLoc;
+            });
+
+            renderJobs(filteredJobs);
+        }
+
+        function renderJobs(jobsToRender) {
+            const grid = document.getElementById("jobGrid");
+            const noResults = document.getElementById("noResults");
+            grid.innerHTML = ""; 
+            
+            if(jobsToRender.length === 0) {
+                noResults.style.display = "block";
+                return;
+            }
+            
+            noResults.style.display = "none";
+
+            jobsToRender.forEach(job => {
+                const reqListHtml = job.requirements.split('|').map(r => `<li>${r.trim()}</li>`).join('');
+
+                const cardHTML = `
+                    <div class="job-card">
+                        <div class="card-header">
+                            <div class="job-title">${job.title}</div>
+                            ${job.vacancies ? `<div class="urgency-badge">${job.vacancies} Left</div>` : ''}
+                        </div>
+                        
+                        <div class="meta-tags">
+                            ${job.location ? `<span class="tag">📍 ${job.location}</span>` : ''}
+                            ${job.type ? `<span class="tag">⏱️ ${job.type}</span>` : ''}
+                            ${job.experience ? `<span class="tag">🎓 ${job.experience}</span>` : ''}
+                        </div>
+                        
+                        <div class="salary">₹ ${job.salary}</div>
+                        
+                        <div class="requirements">
+                            <div class="req-title">Requirements</div>
+                            <ul class="req-list">
+                                ${reqListHtml}
+                            </ul>
+                        </div>
+                        
+                        <button class="apply-btn" onclick="openModal('${job.id}', '${job.title}')">Apply for this role</button>
+                    </div>
+                `;
+                grid.insertAdjacentHTML('beforeend', cardHTML);
+            });
         }
 
         function openModal(id, title) {
             document.getElementById("jobIdInput").value = id;
             document.getElementById("jobTitleInput").value = title;
-            document.getElementById("modalJobTitle").innerText = "For: " + title;
+            document.getElementById("modalJobTitle").innerText = title;
             
-            // Reset screens
             document.getElementById("formScreen").style.display = "block";
             document.getElementById("successScreen").style.display = "none";
             document.getElementById("applyForm").reset();
@@ -220,40 +313,34 @@
         }
 
         function submitApplication(event) {
-            event.preventDefault(); // Stop page from refreshing
-            
+            event.preventDefault(); 
             const name = document.getElementById("applicantName").value;
             const phone = document.getElementById("applicantPhone").value;
             const jobId = document.getElementById("jobIdInput").value;
             const jobTitle = document.getElementById("jobTitleInput").value;
 
-            // Show loading
             document.getElementById("submitBtn").style.display = "none";
             document.getElementById("loadingSpinner").style.display = "block";
 
-            // Prepare data for Apps Script
             const formData = new URLSearchParams();
             formData.append("name", name);
             formData.append("phone", phone);
             formData.append("jobId", jobId);
             formData.append("jobTitle", jobTitle);
 
-            // Send POST request
             fetch(WEB_APP_URL, {
                 method: "POST",
                 body: formData
             })
             .then(response => {
-                // Switch to Success Screen
                 document.getElementById("formScreen").style.display = "none";
                 document.getElementById("successScreen").style.display = "block";
                 
-                // Reset buttons for next time
                 document.getElementById("submitBtn").style.display = "block";
                 document.getElementById("loadingSpinner").style.display = "none";
             })
             .catch(error => {
-                alert("Something went wrong. Please try again.");
+                alert("Connection failed. Please try again.");
                 document.getElementById("submitBtn").style.display = "block";
                 document.getElementById("loadingSpinner").style.display = "none";
             });
