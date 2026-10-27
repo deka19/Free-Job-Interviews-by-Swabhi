@@ -17,94 +17,174 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', system-ui, sans-serif; }
         body { background-color: var(--brand-light); color: var(--brand-dark); line-height: 1.5; -webkit-font-smoothing: antialiased; }
         
-        /* Navigation */
-        .navbar { background: #fff; padding: 12px 20px; border-bottom: 1px solid var(--border-color); text-align: center; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
-        .navbar h1 { font-size: 1.2rem; font-weight: 900; text-transform: uppercase; letter-spacing: -0.5px; margin: 0; line-height: 1.2; }
-        .navbar h1 span { color: var(--brand-red); font-size: 0.85rem; display: block; letter-spacing: 1px; }
-
-        /* Hero Video Section - Zomato Style Responsive Switching */
-        .hero-section { background: var(--brand-dark); padding: 20px; text-align: center; }
-        
-        .hero-video-wrapper {
+        /* Zomato-Style Hero Section */
+        .hero-section {
+            position: relative;
             width: 100%;
-            max-width: 340px; /* Default mobile size (Vertical 9:16) */
-            aspect-ratio: 9 / 16;
-            margin: 0 auto 20px auto;
-            border-radius: 12px;
+            min-height: 380px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            background-color: #000;
-            border: 2px solid #374151;
+            padding: 40px 20px;
+            text-align: center;
         }
 
-        .hero-video-wrapper video {
+        /* Background Video Layer */
+        .hero-video-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
             object-fit: cover;
+            z-index: 1;
         }
 
-        /* Search Header */
-        .search-container { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 8px; }
-        .search-box { width: 100%; padding: 12px; border-radius: 8px; border: none; font-size: 0.95rem; outline: none; }
-        .search-btn { width: 100%; background: var(--brand-red); color: #fff; border: none; padding: 12px; border-radius: 8px; font-weight: bold; font-size: 1rem; cursor: pointer; transition: 0.2s; }
-        
-        .filter-row { max-width: 800px; margin: 10px auto 0; display: grid; grid-template-columns: 1fr; gap: 8px; }
-        .filter-row select { width: 100%; padding: 12px; border-radius: 8px; border: none; font-size: 0.95rem; outline: none; cursor: pointer; background: #fff; }
+        /* Dark Overlay so text is readable over the video */
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.55);
+            z-index: 2;
+        }
 
-        /* Desktop Adjustments: Switches wrapper to horizontal layout (16:9) */
+        /* Hero Content (Text & Search over Video) */
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            width: 100%;
+            max-width: 800px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .hero-title {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+        }
+        .hero-title span {
+            color: var(--brand-red);
+            font-size: 1.1rem;
+            display: block;
+            letter-spacing: 1px;
+            margin-top: 4px;
+        }
+
+        .search-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(8px);
+            padding: 12px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 14px;
+            border-radius: 8px;
+            border: none;
+            font-size: 1rem;
+            outline: none;
+            background: #fff;
+        }
+
+        .search-btn {
+            width: 100%;
+            background: var(--brand-red);
+            color: #fff;
+            border: none;
+            padding: 14px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .search-btn:hover { background: var(--brand-red-hover); }
+
+        .filter-row {
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+        .filter-row select {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: none;
+            font-size: 0.95rem;
+            outline: none;
+            cursor: pointer;
+            background: #fff;
+        }
+
         @media(min-width: 768px) {
-            .hero-section { padding: 40px 20px; }
-            .hero-video-wrapper {
-                max-width: 700px; /* Wider container for PC */
-                aspect-ratio: 16 / 9; /* Switches to Horizontal format */
-            }
-            .search-container { flex-direction: row; }
+            .hero-section { min-height: 420px; padding: 60px 20px; }
+            .hero-title { font-size: 2.5rem; }
+            .search-container { flex-direction: row; padding: 15px; }
             .search-box { flex-grow: 1; }
-            .search-btn { width: 180px; }
+            .search-btn { width: 160px; }
             .filter-row { grid-template-columns: repeat(3, 1fr); }
         }
 
         /* Portal Body */
-        .container { max-width: 1100px; margin: 25px auto; padding: 0 15px; }
-        .section-title { font-size: 1.25rem; font-weight: 800; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid var(--border-color); }
+        .container { max-width: 1100px; margin: 30px auto; padding: 0 15px; }
+        .section-title { font-size: 1.3rem; font-weight: 800; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid var(--border-color); }
         
+        /* Job Grid */
         .job-grid { display: grid; grid-template-columns: 1fr; gap: 15px; }
-        @media(min-width: 768px) { .job-grid { grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; } }
+        @media(min-width: 768px) { .job-grid { grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 20px; } }
         
-        .job-card { background: #fff; border: 1px solid var(--border-color); border-radius: 10px; padding: 16px; display: flex; flex-direction: column; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
-        .job-title { font-size: 1.15rem; font-weight: 800; line-height: 1.2; margin-bottom: 10px; color: var(--brand-dark); }
+        /* Job Cards */
+        .job-card { background: #fff; border: 1px solid var(--border-color); border-radius: 12px; padding: 20px; display: flex; flex-direction: column; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+        .job-title { font-size: 1.2rem; font-weight: 800; line-height: 1.2; margin-bottom: 12px; color: var(--brand-dark); }
         
-        .meta-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
-        .tag { background: var(--brand-light); padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 600; color: #4B5563; }
+        .meta-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 15px; }
+        .tag { background: var(--brand-light); padding: 5px 10px; border-radius: 6px; font-size: 0.8rem; font-weight: 600; color: #4B5563; }
         
-        .salary { font-size: 1.05rem; font-weight: 700; color: var(--brand-red); margin-bottom: 10px; border-bottom: 1px dashed var(--border-color); padding-bottom: 10px; }
-        .requirements { flex-grow: 1; font-size: 0.9rem; color: #4B5563; margin-bottom: 15px; }
+        .salary { font-size: 1.1rem; font-weight: 700; color: var(--brand-red); margin-bottom: 12px; border-bottom: 1px dashed var(--border-color); padding-bottom: 12px; }
+        .requirements { flex-grow: 1; font-size: 0.95rem; color: #4B5563; margin-bottom: 20px; }
         .requirements ul { padding-left: 20px; margin-top: 5px; }
         
-        .apply-btn { background: var(--brand-dark); color: #fff; font-weight: 700; font-size: 0.95rem; padding: 12px; border: none; border-radius: 8px; cursor: pointer; width: 100%; transition: background 0.2s; }
+        .apply-btn { background: var(--brand-dark); color: #fff; font-weight: 700; font-size: 1rem; padding: 14px; border: none; border-radius: 8px; cursor: pointer; width: 100%; transition: background 0.2s; }
         .apply-btn:hover { background: var(--brand-red); }
         .apply-btn.applied { background: var(--success-green); cursor: default; }
         
         /* Modal */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.75); backdrop-filter: blur(3px); display: none; align-items: flex-end; z-index: 1000; }
-        .modal-content { background: #fff; padding: 20px 15px 30px 15px; border-radius: 16px 16px 0 0; width: 100%; max-height: 90vh; overflow-y: auto; position: relative; animation: slideUp 0.3s ease-out; }
+        .modal-content { background: #fff; padding: 25px 20px 40px 20px; border-radius: 20px 20px 0 0; width: 100%; max-height: 90vh; overflow-y: auto; position: relative; animation: slideUp 0.3s ease-out; }
         @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
         
         @media(min-width: 768px) {
             .modal-overlay { align-items: center; justify-content: center; padding: 20px; }
-            .modal-content { border-radius: 12px; max-width: 450px; padding: 30px; }
+            .modal-content { border-radius: 12px; max-width: 480px; padding: 35px; }
             @keyframes slideUp { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
         }
 
-        .close-modal { position: absolute; top: 12px; right: 15px; font-size: 1.5rem; cursor: pointer; color: #9CA3AF; padding: 5px; }
+        .close-modal { position: absolute; top: 15px; right: 20px; font-size: 1.5rem; cursor: pointer; color: #9CA3AF; padding: 5px; }
         
-        .modal-title { font-size: 1.25rem; font-weight: 800; margin-bottom: 5px; }
-        .modal-subtitle { font-size: 0.9rem; color: #6B7280; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid var(--border-color); }
+        .modal-title { font-size: 1.3rem; font-weight: 800; margin-bottom: 5px; }
+        .modal-subtitle { font-size: 0.95rem; color: #6B7280; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid var(--border-color); }
         
         .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; font-weight: 600; margin-bottom: 5px; font-size: 0.85rem; color: #374151; }
-        
-        .form-group input, .form-group select { width: 100%; padding: 12px; border: 1px solid #D1D5DB; border-radius: 8px; font-size: 0.95rem; outline: none; background: #fff; }
+        .form-group label { display: block; font-weight: 600; margin-bottom: 6px; font-size: 0.9rem; color: #374151; }
+        .form-group input, .form-group select { width: 100%; padding: 12px; border: 1px solid #D1D5DB; border-radius: 8px; font-size: 1rem; outline: none; background: #fff; }
         .form-group input:focus, .form-group select:focus { border-color: var(--brand-red); box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.1); }
         .form-group input[type="file"] { padding: 8px; background: var(--brand-light); border: 1px dashed var(--border-color); }
         
@@ -112,38 +192,39 @@
         .success-screen h3 { color: var(--success-green); font-size: 1.4rem; margin-bottom: 10px; }
         
         #loadingSpinner { display: none; text-align: center; color: var(--brand-red); font-weight: bold; margin-top: 15px; font-size: 1rem; }
-        .empty-state { text-align: center; padding: 30px 15px; color: #6B7280; font-size: 1rem; background: #fff; border-radius: 10px; border: 1px dashed #D1D5DB; }
+        .empty-state { text-align: center; padding: 40px 20px; color: #6B7280; font-size: 1rem; background: #fff; border-radius: 12px; border: 1px dashed #D1D5DB; }
     </style>
 </head>
 <body>
 
-    <nav class="navbar">
-        <h1>FREE JOB INTERVIEWS <span>BY SWABHI</span></h1>
-    </nav>
+    <!-- Zomato-Style Hero Section with Video Background -->
+    <header class="hero-section">
+        <!-- Background Video -->
+        <video class="hero-video-bg" src="YOUR_VIDEO_URL_HERE.mp4" autoplay loop muted playsinline></video>
+        <!-- Dark Overlay for Readability -->
+        <div class="hero-overlay"></div>
 
-    <!-- Hero Section with Zomato-Style Responsive Video Switcher -->
-    <header class="hero-section" id="portalHeader">
-        <div class="hero-video-wrapper">
-            <video autoplay loop muted playsinline>
-                <!-- Automatically plays Vertical video on Mobile Phones -->
-                <source src="VERTICAL_VIDEO_URL_HERE.mp4" media="(max-width: 767px)">
-                <!-- Automatically plays Horizontal video on Laptops / PCs -->
-                <source src="HORIZONTAL_VIDEO_URL_HERE.mp4" media="(min-width: 768px)">
-                Your browser does not support the video tag.
-            </video>
-        </div>
+        <!-- Overlaid Content -->
+        <div class="hero-content">
+            <h1 class="hero-title">
+                Free Job Interviews
+                <span>BY SWABHI</span>
+            </h1>
 
-        <div class="search-container">
-            <input type="text" id="searchInput" class="search-box" placeholder="Search job titles or keywords..." onkeyup="filterJobs()">
-            <button class="search-btn" onclick="filterJobs()">Search Jobs</button>
-        </div>
-        <div class="filter-row">
-            <select id="filterType" onchange="filterJobs()"><option value="all">All Job Types</option></select>
-            <select id="filterExperience" onchange="filterJobs()"><option value="all">All Experience</option></select>
-            <select id="filterLocation" onchange="filterJobs()"><option value="all">All Locations</option></select>
+            <div class="search-container">
+                <input type="text" id="searchInput" class="search-box" placeholder="Search job titles or keywords..." onkeyup="filterJobs()">
+                <button class="search-btn" onclick="filterJobs()">Search Jobs</button>
+            </div>
+            
+            <div class="filter-row">
+                <select id="filterType" onchange="filterJobs()"><option value="all">All Job Types</option></select>
+                <select id="filterExperience" onchange="filterJobs()"><option value="all">All Experience</option></select>
+                <select id="filterLocation" onchange="filterJobs()"><option value="all">All Locations</option></select>
+            </div>
         </div>
     </header>
 
+    <!-- Main Content Area -->
     <div class="container">
         <h2 class="section-title" id="sectionTitle">Current Openings</h2>
         <div class="job-grid" id="jobGrid">
@@ -207,9 +288,10 @@
             <div id="successScreen" class="success-screen">
                 <h3>Application Submitted Successfully!</h3>
                 <p>We have received your details.</p>
-                <p style="margin-top: 15px; font-size: 0.9rem; color: #4B5563;">To confirm your application immediately, please call us directly.</p>
+                <p style="margin-top: 15px; font-size: 0.95rem; color: #4B5563;">To confirm your application immediately, please call us directly.</p>
                 
                 <a href="tel:+916002413305" class="apply-btn" style="display:flex; justify-content:center; align-items:center; text-decoration:none; margin-top:20px; background:var(--brand-red);">
+                    <!-- Pure White SVG Phone Icon -->
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px;">
                         <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
                     </svg>
@@ -229,7 +311,7 @@
 
         document.addEventListener("DOMContentLoaded", fetchJobs);
 
-        const getVal = (row, idx) => (row.c && row.c[idx] && row.c[idx].v != null) ? String(row.c[idx].v).trim() : "";
+        const getVal = (row, idx) => (row.c && row.c[idx] && row.c[idx].v != null) ? String(row.c[idx].v) : "";
 
         function fetchJobs() {
             fetch(SHEET_URL)
@@ -246,8 +328,8 @@
                     location: getVal(row, 4),
                     salary: getVal(row, 5),
                     requirements: getVal(row, 6),
-                    status: getVal(row, 8)
-                })).filter(job => job.title !== "" && (job.status.toLowerCase() === "open" || job.status === "")); 
+                    status: getVal(row, 8) 
+                })).filter(job => job.status.toLowerCase() === "open" || job.status === ""); 
 
                 populateFilters();
                 filterJobs();
@@ -307,12 +389,12 @@
                 if(job.experience) metaTags += `<span class="tag">🎓 ${job.experience}</span>`;
 
                 const reqListHtml = job.requirements 
-                    ? job.requirements.split('|').map(r => `<li>${r.trim()}</li>`).join('')
+                    ? job.requirements.split('|').slice(0, 3).map(r => `<li>${r.trim()}</li>`).join('')
                     : `<li>Details provided upon application</li>`;
 
                 const cardHTML = `
                     <div class="job-card">
-                        <div class="job-title">${job.title}</div>
+                        <div class="job-title">${job.title || 'Untitled Role'}</div>
                         
                         ${metaTags ? `<div class="meta-tags">${metaTags}</div>` : ''}
                         
@@ -325,7 +407,7 @@
                         
                         ${isApplied 
                             ? `<button class="apply-btn applied" disabled>✓ Application Submitted</button>`
-                            : `<button class="apply-btn" onclick="openModal('${job.id}', '${job.title}')">Apply Now</button>`
+                            : `<button class="apply-btn" onclick="openModal('${job.id}', '${job.title || 'Role'}')">Apply Now</button>`
                         }
                     </div>
                 `;
@@ -333,6 +415,7 @@
             });
         }
 
+        // === MODAL LOGIC ===
         function openModal(id, title) {
             document.getElementById("jobIdInput").value = id;
             document.getElementById("jobTitleInput").value = title;
