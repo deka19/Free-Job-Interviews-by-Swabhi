@@ -7,14 +7,12 @@
     <style>
         :root {
             --brand-red: #DC2626; 
-            --brand-red-hover: #B91C1C;
             --brand-dark: #111827; 
             --brand-light: #F9FAFB;
             --wa-green: #25D366;
             --wa-green-hover: #1EBE5A;
             --border-color: #E5E7EB;
             --text-muted: #6B7280;
-            --success-green: #059669;
         }
         
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', system-ui, sans-serif; }
@@ -54,7 +52,6 @@
         /* ================= LEFT: ADVANCED FORM ================= */
         .form-panel { background: #fff; border: 1px solid var(--border-color); border-radius: 16px; padding: 25px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); max-height: calc(100vh - 100px); overflow-y: auto; }
         
-        /* Custom Scrollbar for Form */
         .form-panel::-webkit-scrollbar { width: 6px; }
         .form-panel::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
         .form-panel::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 10px; }
@@ -67,54 +64,56 @@
         .form-group label { display: block; font-weight: 700; margin-bottom: 6px; font-size: 0.8rem; color: #4B5563; text-transform: uppercase; }
         .form-group input, .form-group textarea { width: 100%; padding: 12px 14px; border: 1px solid #D1D5DB; border-radius: 8px; font-size: 0.95rem; outline: none; background: #fff; transition: border-color 0.15s; }
         .form-group input:focus, .form-group textarea:focus { border-color: var(--brand-red); box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.12); }
-        .form-group textarea { resize: vertical; min-height: 100px; }
+        .form-group textarea { resize: vertical; min-height: 80px; }
         
         .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 
-        .dynamic-block { background: var(--brand-light); border: 1px solid var(--border-color); padding: 15px; border-radius: 10px; margin-bottom: 15px; position: relative; }
+        .dynamic-block { background: var(--brand-light); border: 1px solid var(--border-color); padding: 20px 15px 15px; border-radius: 10px; margin-bottom: 15px; position: relative; }
         .remove-btn { position: absolute; top: 10px; right: 10px; background: none; border: none; color: var(--brand-red); font-size: 0.8rem; font-weight: bold; cursor: pointer; }
-        .add-btn { background: #E5E7EB; color: var(--brand-dark); border: none; padding: 10px 15px; border-radius: 8px; font-weight: 700; font-size: 0.85rem; cursor: pointer; width: 100%; transition: background 0.2s; margin-bottom: 10px; }
+        .add-btn { background: #E5E7EB; color: var(--brand-dark); border: none; padding: 12px 15px; border-radius: 8px; font-weight: 800; font-size: 0.85rem; cursor: pointer; width: 100%; transition: background 0.2s; margin-bottom: 10px; display: flex; justify-content: center; gap: 8px; align-items: center; }
         .add-btn:hover { background: #D1D5DB; }
 
         /* ================= RIGHT: PREVIEW & ACTIONS ================= */
         .preview-panel { display: flex; flex-direction: column; gap: 20px; }
         
-        /* ATS SCORE METER */
-        .ats-meter-card { background: #fff; border: 1px solid var(--border-color); border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 10px; }
-        .ats-header { display: flex; justify-content: space-between; font-weight: 800; font-size: 0.95rem; }
-        .ats-score-text { color: var(--brand-red); transition: color 0.3s; }
-        .ats-bar-bg { width: 100%; height: 10px; background: var(--border-color); border-radius: 50px; overflow: hidden; }
-        .ats-bar-fill { height: 100%; width: 0%; background: var(--brand-red); transition: width 0.4s ease, background 0.4s ease; }
-        .ats-note { font-size: 0.75rem; color: var(--text-muted); font-weight: 600; }
-
         /* THE ATS RESUME PAPER (Strict Professional Format) */
         .resume-paper-wrapper { background: #fff; padding: 40px 50px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); border-radius: 4px; overflow-x: auto; }
+        
         .resume-paper {
             font-family: 'Times New Roman', Times, serif;
             color: #000;
-            line-height: 1.5;
+            line-height: 1.4;
             min-height: 800px; /* A4 aspect feel */
-            max-width: 800px;
+            max-width: 850px;
             margin: 0 auto;
             text-align: left;
+            background: #fff;
         }
         
-        /* Resume Typographic Styles */
-        .res-name { font-size: 24pt; font-weight: bold; text-align: center; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 1px; }
-        .res-contact { text-align: center; font-size: 10pt; margin-bottom: 20px; }
-        .res-contact a { color: #000; text-decoration: none; }
+        /* Typography Matching the Provided PDF */
+        .res-name { font-size: 16pt; font-weight: bold; text-align: center; margin-bottom: 2px; text-transform: uppercase; }
+        .res-contact { text-align: center; font-size: 10pt; margin-bottom: 15px; }
+        .res-contact-line { margin-bottom: 2px; }
         
-        .res-section-title { font-size: 11pt; font-weight: bold; text-transform: uppercase; margin-top: 18px; margin-bottom: 8px; border-bottom: 1px solid #000; padding-bottom: 2px; }
+        .res-section-title { font-size: 11pt; font-weight: bold; text-transform: uppercase; margin-top: 14px; margin-bottom: 8px; border-bottom: 1pt solid #000; padding-bottom: 2px; }
         
-        .res-text { font-size: 10.5pt; margin-bottom: 10px; }
+        .res-text { font-size: 10pt; margin-bottom: 8px; text-align: justify; }
         
-        /* Experience/Education Block Formatting */
-        .res-item-header { display: flex; justify-content: space-between; align-items: baseline; font-weight: bold; font-size: 10.5pt; margin-top: 10px; }
-        .res-item-sub { display: flex; justify-content: space-between; align-items: baseline; font-style: italic; font-size: 10.5pt; margin-bottom: 4px; }
+        /* Core Competencies Grid */
+        .comp-row { display: flex; align-items: flex-start; margin-bottom: 4px; font-size: 10pt; }
+        .comp-cat { font-weight: bold; width: 180px; flex-shrink: 0; }
+        .comp-val { flex-grow: 1; }
         
-        /* Bullet point styling */
-        .res-bullets { padding-left: 20px; font-size: 10.5pt; margin-bottom: 10px; }
-        .res-bullets li { margin-bottom: 4px; }
+        /* Experience/Education Formatting */
+        .res-item-header { display: flex; justify-content: space-between; align-items: baseline; font-size: 10pt; margin-top: 8px; }
+        .res-company-loc { font-weight: bold; }
+        .res-date { font-weight: normal; }
+        
+        .res-item-sub { font-style: italic; font-size: 10pt; margin-bottom: 4px; display: flex; justify-content: space-between; }
+        .res-role { font-weight: normal; font-style: normal; }
+        
+        .res-bullets { padding-left: 20px; font-size: 10pt; margin-bottom: 10px; }
+        .res-bullets li { margin-bottom: 3px; }
 
         /* ACTIONS (WhatsApp + Download) */
         .action-area { display: flex; flex-direction: column; gap: 12px; margin-top: 10px; }
@@ -163,9 +162,9 @@
         .mini-salary { color: var(--brand-red); font-weight: 800; font-size: 0.95rem; margin-bottom: 10px; }
         .mini-link { font-size: 0.8rem; font-weight: 700; color: var(--brand-dark); text-transform: uppercase; margin-top: auto; }
 
-        /* ================= PRINT CSS (CRITICAL FOR PDF) ================= */
+        /* ================= PRINT CSS (CRITICAL FOR PERFECT PDF) ================= */
         @media print {
-            @page { margin: 1cm; }
+            @page { margin: 1.5cm; } /* Standard Resume Margins */
             body { background: #fff; }
             body * { visibility: hidden; }
             #resumePaper, #resumePaper * { visibility: visible; }
@@ -178,76 +177,68 @@
                 margin: 0;
                 padding: 0;
             }
-            .compact-header, .form-panel, .ats-meter-card, .action-area, .upsell-section, footer { display: none !important; }
+            .resume-paper-wrapper { padding: 0; box-shadow: none; }
+            .compact-header, .form-panel, .action-area, .upsell-section, footer { display: none !important; }
         }
     </style>
 </head>
 <body>
 
-    <!-- COMPACT HEADER -->
     <header class="compact-header">
         <a href="index.html" class="header-brand">Free Job Interviews <span>BY SWABHI</span></a>
         <a href="index.html" class="back-link">← Back to Jobs</a>
     </header>
 
     <div class="builder-container">
+        
         <!-- LEFT: DYNAMIC INPUT FORM -->
         <div class="form-panel" id="formPanel">
             <h2 class="panel-title">Build Your ATS Resume</h2>
             
             <div class="section-label">Personal Details</div>
-            <div class="form-group"><label>Full Name</label><input type="text" id="inpName" placeholder="e.g. Rahul Sharma" value="LUCKY KASHYAP"></div>
+            <!-- Blank slate for a professional start -->
+            <div class="form-group"><label>Full Name</label><input type="text" id="inpName" placeholder="e.g. Lucky Kashyap"></div>
+            <div class="form-group"><label>Complete Address</label><input type="text" id="inpAddress" placeholder="e.g. Flat 402, GS Road, Guwahati, Assam 781005"></div>
+            
             <div class="grid-2">
-                <div class="form-group"><label>Phone</label><input type="tel" id="inpPhone" placeholder="+91 98765 43210"></div>
-                <div class="form-group"><label>Email</label><input type="email" id="inpEmail" placeholder="rahul@email.com"></div>
+                <div class="form-group"><label>Phone</label><input type="tel" id="inpPhone" placeholder="e.g. +91 60265 72771"></div>
+                <div class="form-group"><label>Email</label><input type="email" id="inpEmail" placeholder="e.g. lucky@email.com"></div>
             </div>
-            <div class="form-group"><label>Location / Address</label><input type="text" id="inpLocation" placeholder="Guwahati, Assam"></div>
-            <div class="form-group"><label>LinkedIn / Portfolio URL (Optional)</label><input type="text" id="inpLink" placeholder="linkedin.com/in/rahul"></div>
+            <div class="form-group"><label>LinkedIn URL</label><input type="text" id="inpLink" placeholder="e.g. linkedin.com/in/lucky-kashyap"></div>
 
             <div class="section-label">Professional Summary</div>
             <div class="form-group">
-                <textarea id="inpSummary" placeholder="Detail-oriented professional with 3+ years of experience in..."></textarea>
+                <textarea id="inpSummary" placeholder="Detail-oriented professional with 3+ years of comprehensive experience in..."></textarea>
             </div>
 
-            <div class="section-label">Skills / Competencies</div>
-            <div class="form-group">
-                <label>Key Skills (Separate by comma)</label>
-                <textarea id="inpSkills" placeholder="Statutory Audit, Advanced Excel, GST Returns, Communication..." style="min-height: 60px;"></textarea>
-            </div>
+            <div class="section-label">Core Competencies</div>
+            <div id="competencyContainer"></div>
+            <button class="add-btn" onclick="addCompetency()">+ Add Skill Category</button>
 
-            <div class="section-label">Experience</div>
+            <div class="section-label">Professional Experience</div>
             <div id="experienceContainer"></div>
             <button class="add-btn" onclick="addExperience()">+ Add Experience</button>
 
-            <div class="section-label">Education</div>
+            <div class="section-label">Education & Credentials</div>
             <div id="educationContainer"></div>
             <button class="add-btn" onclick="addEducation()">+ Add Education</button>
             
             <div class="section-label">Languages</div>
             <div class="form-group">
-                <input type="text" id="inpLangs" placeholder="e.g. English (Fluent), Assamese (Native)">
+                <label>Languages (Press Enter for new bullet)</label>
+                <textarea id="inpLangs" placeholder="English (Fluent - Professional Working Proficiency)&#10;Assamese (Native)&#10;Hindi (Fluent)" style="min-height: 80px;"></textarea>
             </div>
         </div>
 
         <!-- RIGHT: PREVIEW & ACTIONS -->
         <div class="preview-panel">
             
-            <!-- ATS METER -->
-            <div class="ats-meter-card">
-                <div class="ats-header">
-                    <span>ATS Formatting Score</span>
-                    <span class="ats-score-text" id="scoreText">0%</span>
-                </div>
-                <div class="ats-bar-bg"><div class="ats-bar-fill" id="scoreFill"></div></div>
-                <div class="ats-note">A score above 85% ensures HR software won't auto-reject your formatting.</div>
-            </div>
-
             <!-- LIVE RESUME PAPER -->
             <div class="resume-paper-wrapper">
                 <div class="resume-paper" id="resumePaper">
                     
-                    <div class="res-name" id="outName">LUCKY KASHYAP</div>
-                    <div class="res-contact" id="outContact"></div>
+                    <!-- Header gets populated dynamically -->
+                    <div id="outHeader"></div>
                     
                     <div id="secSummary" style="display:none;">
                         <div class="res-section-title">Professional Summary</div>
@@ -256,7 +247,7 @@
 
                     <div id="secSkills" style="display:none;">
                         <div class="res-section-title">Core Competencies</div>
-                        <div class="res-text" id="outSkills"></div>
+                        <div id="outSkillsList"></div>
                     </div>
 
                     <div id="secExp" style="display:none;">
@@ -278,12 +269,13 @@
 
             <!-- ACTION BUTTONS -->
             <div class="action-area">
-                <a href="#" class="wa-btn" target="_blank">
+                <a href="https://whatsapp.com/channel/0029Vb95jUBBVJkvPuyslk3h" class="wa-btn" target="_blank">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
                     Join our WhatsApp Channel for Daily Jobs
                 </a>
                 
-                <button class="download-btn" onclick="window.print()">Download ATS PDF</button>
+                <!-- CHANGED BUTTON TEXT HERE -->
+                <button class="download-btn" onclick="window.print()">Download Resume</button>
             </div>
 
             <!-- INSTANT JOB MATCH UPSELL -->
@@ -295,43 +287,57 @@
         </div>
     </div>
 
-    <!-- ATS BUILDER LOGIC -->
     <script>
-        // Event Delegation: Any keystroke in the form updates the resume
         document.getElementById('formPanel').addEventListener('input', updateResume);
 
+        let compIndex = 0;
         let expIndex = 0;
         let eduIndex = 0;
+
+        // Dynamic Competency Blocks
+        function addCompetency() {
+            const html = `
+                <div class="dynamic-block comp-block" id="comp-${compIndex}">
+                    <button class="remove-btn" onclick="removeBlock('comp-${compIndex}')">✖</button>
+                    <div class="form-group"><label>Category Name</label><input type="text" class="c-cat" placeholder="e.g. Financial & Reporting:"></div>
+                    <div class="form-group"><label>Skills (Pipe or Comma Separated)</label><input type="text" class="c-skills" placeholder="e.g. | Statutory Audit, Internal Audit, Ind AS"></div>
+                </div>`;
+            document.getElementById('competencyContainer').insertAdjacentHTML('beforeend', html);
+            compIndex++;
+            updateResume();
+        }
 
         // Dynamic Experience Blocks
         function addExperience() {
             const html = `
                 <div class="dynamic-block exp-block" id="exp-${expIndex}">
-                    <button class="remove-btn" onclick="removeBlock('exp-${expIndex}')">Remove ✖</button>
-                    <div class="form-group"><label>Job Title</label><input type="text" class="e-title" placeholder="e.g. Senior Executive"></div>
+                    <button class="remove-btn" onclick="removeBlock('exp-${expIndex}')">✖</button>
                     <div class="grid-2">
-                        <div class="form-group"><label>Company Name</label><input type="text" class="e-comp" placeholder="e.g. B.K. Sharma & Assoc."></div>
-                        <div class="form-group"><label>Location</label><input type="text" class="e-loc" placeholder="Guwahati, Assam"></div>
+                        <div class="form-group"><label>Company / Organization</label><input type="text" class="e-comp" placeholder="e.g. B.K. Sharma & Associates"></div>
+                        <div class="form-group"><label>Location</label><input type="text" class="e-loc" placeholder="e.g. Guwahati, Assam"></div>
                     </div>
-                    <div class="form-group"><label>Dates (Start - End)</label><input type="text" class="e-dates" placeholder="Aug 2023 - Present"></div>
-                    <div class="form-group"><label>Responsibilities (Press Enter for new bullet)</label><textarea class="e-resp" placeholder="• Spearheaded statutory audits...&#10;• Reconciled monthly bank statements..."></textarea></div>
+                    <div class="grid-2">
+                        <div class="form-group"><label>Job Title / Role</label><input type="text" class="e-title" placeholder="e.g. Audit Executive"></div>
+                        <div class="form-group"><label>Dates</label><input type="text" class="e-dates" placeholder="e.g. August 2023 - Present"></div>
+                    </div>
+                    <div class="form-group"><label>Responsibilities (Press Enter for new bullet)</label><textarea class="e-resp" placeholder="Spearheaded statutory and tax audits...&#10;Prepared and filed complex GST returns..."></textarea></div>
                 </div>`;
             document.getElementById('experienceContainer').insertAdjacentHTML('beforeend', html);
             expIndex++;
             updateResume();
         }
 
-        // Dynamic Education Blocks
+         // Dynamic Education Blocks
         function addEducation() {
             const html = `
                 <div class="dynamic-block edu-block" id="edu-${eduIndex}">
-                    <button class="remove-btn" onclick="removeBlock('edu-${eduIndex}')">Remove ✖</button>
-                    <div class="form-group"><label>Degree / Qualification</label><input type="text" class="ed-deg" placeholder="e.g. Bachelor of Commerce"></div>
-                    <div class="form-group"><label>Institution / University</label><input type="text" class="ed-inst" placeholder="e.g. Gauhati University"></div>
+                    <button class="remove-btn" onclick="removeBlock('edu-${eduIndex}')">✖</button>
+                    <div class="form-group"><label>Institution / University</label><input type="text" class="ed-inst" placeholder="e.g. Institute of Chartered Accountants of India (ICAI)"></div>
                     <div class="grid-2">
-                        <div class="form-group"><label>Year of Passing</label><input type="text" class="ed-year" placeholder="May 2022"></div>
-                        <div class="form-group"><label>Grade / Extra (Optional)</label><input type="text" class="ed-grade" placeholder="First Class / Honors"></div>
+                        <div class="form-group"><label>Degree / Certification</label><input type="text" class="ed-deg" placeholder="e.g. Chartered Accountant (CA)"></div>
+                        <div class="form-group"><label>Date / Year</label><input type="text" class="ed-year" placeholder="e.g. May 2026"></div>
                     </div>
+                    <div class="form-group"><label>Details / Honors (Optional, Press Enter for bullets)</label><textarea class="ed-bullets" placeholder="Cleared CA Final Group 1 & 2 in the first attempt."></textarea></div>
                 </div>`;
             document.getElementById('educationContainer').insertAdjacentHTML('beforeend', html);
             eduIndex++;
@@ -343,33 +349,55 @@
             updateResume();
         }
 
-         // Main Engine to construct the preview and ATS score
         function updateResume() {
-            // 1. Personal Details
-            const name = document.getElementById('inpName').value || 'YOUR NAME';
+            // 1. Header (Name & Contact)
+            const name = document.getElementById('inpName').value;
+            const address = document.getElementById('inpAddress').value;
             const phone = document.getElementById('inpPhone').value;
             const email = document.getElementById('inpEmail').value;
-            const loc = document.getElementById('inpLocation').value;
             const link = document.getElementById('inpLink').value;
 
-            document.getElementById('outName').innerText = name;
+            let headerHTML = '';
+            if (name) headerHTML += `<div class="res-name">${name}</div>`;
             
-            let contactArr = [];
-            if(loc) contactArr.push(loc);
-            if(phone) contactArr.push(phone);
-            if(email) contactArr.push(email);
-            if(link) contactArr.push(link);
-            document.getElementById('outContact').innerHTML = contactArr.join(' &nbsp;|&nbsp; ');
+            let contactHTML = '';
+            if (address) contactHTML += `<div class="res-contact-line">${address}</div>`;
+            
+            let bottomLine = [];
+            if (phone) bottomLine.push(phone);
+            if (email) bottomLine.push(email);
+            if (link) bottomLine.push(link);
+            
+            if (bottomLine.length > 0) {
+                contactHTML += `<div class="res-contact-line">${bottomLine.join(' &nbsp;|&nbsp; ')}</div>`;
+            }
+
+            if (contactHTML) {
+                headerHTML += `<div class="res-contact">${contactHTML}</div>`;
+            }
+            document.getElementById('outHeader').innerHTML = headerHTML;
 
             // 2. Summary
             const summary = document.getElementById('inpSummary').value;
             document.getElementById('outSummary').innerText = summary;
             document.getElementById('secSummary').style.display = summary ? 'block' : 'none';
 
-            // 3. Skills
-            const skills = document.getElementById('inpSkills').value;
-            document.getElementById('outSkills').innerText = skills;
-            document.getElementById('secSkills').style.display = skills ? 'block' : 'none';
+            // 3. Competencies Rendering
+            const compBlocks = document.querySelectorAll('.comp-block');
+            let compHTML = '';
+            compBlocks.forEach(block => {
+                const cat = block.querySelector('.c-cat').value;
+                const skills = block.querySelector('.c-skills').value;
+                if (cat || skills) {
+                    compHTML += `
+                        <div class="comp-row">
+                            <div class="comp-cat">${cat}</div>
+                            <div class="comp-val">${skills}</div>
+                        </div>`;
+                }
+            });
+            document.getElementById('outSkillsList').innerHTML = compHTML;
+            document.getElementById('secSkills').style.display = compHTML ? 'block' : 'none';
 
             // 4. Experience Rendering
             const expBlocks = document.querySelectorAll('.exp-block');
@@ -384,10 +412,15 @@
                 // Convert text area lines to bullet points
                 const bullets = respText.split('\n').filter(line => line.trim() !== '').map(line => `<li>${line.replace(/^[•\-\*]\s*/, '').trim()}</li>`).join('');
 
-                if (title || comp) {
+                if (comp || title) {
                     expHTML += `
-                        <div class="res-item-header"><span>${comp}${comp && loc ? ' | ' : ''}${loc}</span><span>${dates}</span></div>
-                        <div class="res-item-sub"><span>${title}</span></div>
+                        <div class="res-item-header">
+                            <span class="res-company-loc">${comp}${comp && loc ? ' | ' : ''}${loc}</span>
+                        </div>
+                        <div class="res-item-sub">
+                            <span class="res-role">${title}</span>
+                            <span class="res-date">${dates}</span>
+                        </div>
                         ${bullets ? `<ul class="res-bullets">${bullets}</ul>` : ''}
                     `;
                 }
@@ -399,16 +432,23 @@
             const eduBlocks = document.querySelectorAll('.edu-block');
             let eduHTML = '';
             eduBlocks.forEach(block => {
-                const deg = block.querySelector('.ed-deg').value;
                 const inst = block.querySelector('.ed-inst').value;
+                const deg = block.querySelector('.ed-deg').value;
                 const year = block.querySelector('.ed-year').value;
-                const grade = block.querySelector('.ed-grade').value;
+                const detailsText = block.querySelector('.ed-bullets').value;
 
-                if (deg || inst) {
+                const bullets = detailsText.split('\n').filter(line => line.trim() !== '').map(line => `<li>${line.replace(/^[•\-\*]\s*/, '').trim()}</li>`).join('');
+
+                if (inst || deg) {
                     eduHTML += `
-                        <div class="res-item-header"><span>${inst}</span><span>${year}</span></div>
-                        <div class="res-item-sub"><span>${deg}</span></div>
-                        ${grade ? `<ul class="res-bullets"><li>${grade}</li></ul>` : ''}
+                        <div class="res-item-header">
+                            <span class="res-company-loc">${inst}</span>
+                        </div>
+                        <div class="res-item-sub">
+                            <span class="res-role">${deg}</span>
+                            <span class="res-date">${year}</span>
+                        </div>
+                        ${bullets ? `<ul class="res-bullets">${bullets}</ul>` : ''}
                     `;
                 }
             });
@@ -416,47 +456,18 @@
             document.getElementById('secEdu').style.display = eduHTML ? 'block' : 'none';
 
             // 6. Languages
-            const langs = document.getElementById('inpLangs').value;
-            if(langs) {
-                const langBullets = langs.split(',').filter(l => l.trim() !== '').map(l => `<li>${l.trim()}</li>`).join('');
+            const langsText = document.getElementById('inpLangs').value;
+            if(langsText.trim()) {
+                const langBullets = langsText.split('\n').filter(l => l.trim() !== '').map(l => `<li>${l.replace(/^[•\-\*]\s*/, '').trim()}</li>`).join('');
                 document.getElementById('outLangs').innerHTML = langBullets;
                 document.getElementById('secLangs').style.display = 'block';
             } else {
                 document.getElementById('secLangs').style.display = 'none';
             }
-
-            // 7. Calculate ATS Score
-            let score = 0;
-            if(name.length > 2) score += 10;
-            if(phone.length > 8) score += 10;
-            if(email.includes('@')) score += 10;
-            if(loc.length > 2) score += 5;
-            if(summary.length > 30) score += 15;
-            if(skills.length > 10) score += 15;
-            if(expBlocks.length > 0 && expBlocks[0].querySelector('.e-title').value.length > 2) score += 25;
-            if(eduBlocks.length > 0 && eduBlocks[0].querySelector('.ed-deg').value.length > 2) score += 10;
-            
-            // Cap at 100%
-            score = Math.min(score, 100);
-
-            const scoreFill = document.getElementById('scoreFill');
-            const scoreText = document.getElementById('scoreText');
-            scoreFill.style.width = score + '%';
-            scoreText.innerText = score + '%';
-            
-            if (score >= 85) {
-                scoreFill.style.background = 'var(--success-green)';
-                scoreText.style.color = 'var(--success-green)';
-            } else if (score >= 50) {
-                scoreFill.style.background = '#F59E0B'; // Warning Orange
-                scoreText.style.color = '#F59E0B';
-            } else {
-                scoreFill.style.background = 'var(--brand-red)';
-                scoreText.style.color = 'var(--brand-red)';
-            }
         }
 
-        // Initialize with one empty experience and education block
+        // Initialize empty blocks (No placeholder data)
+        addCompetency();
         addExperience();
         addEducation();
         updateResume();
