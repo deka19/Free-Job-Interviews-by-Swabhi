@@ -14,6 +14,7 @@
             --wa-green-hover: #1EBE5A;
             --border-color: #E5E7EB;
             --text-muted: #6B7280;
+            --success-green: #059669;
         }
         
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', system-ui, sans-serif; }
@@ -39,25 +40,41 @@
 
         /* ================= LAYOUT GRID ================= */
         .builder-container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 30px auto;
             padding: 0 16px;
             display: grid;
             grid-template-columns: 1fr;
             gap: 40px;
         }
-        @media(min-width: 992px) {
-            .builder-container { grid-template-columns: 400px 1fr; }
+        @media(min-width: 1024px) {
+            .builder-container { grid-template-columns: 500px 1fr; }
         }
 
-        /* ================= LEFT: FORM ================= */
-        .form-panel { background: #fff; border: 1px solid var(--border-color); border-radius: 16px; padding: 25px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
-        .panel-title { font-size: 1.25rem; font-weight: 900; margin-bottom: 20px; }
+        /* ================= LEFT: ADVANCED FORM ================= */
+        .form-panel { background: #fff; border: 1px solid var(--border-color); border-radius: 16px; padding: 25px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); max-height: calc(100vh - 100px); overflow-y: auto; }
+        
+        /* Custom Scrollbar for Form */
+        .form-panel::-webkit-scrollbar { width: 6px; }
+        .form-panel::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
+        .form-panel::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 10px; }
+        .form-panel::-webkit-scrollbar-thumb:hover { background: #9ca3af; }
+
+        .panel-title { font-size: 1.25rem; font-weight: 900; margin-bottom: 25px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; }
+        .section-label { font-size: 1rem; font-weight: 800; color: var(--brand-red); text-transform: uppercase; margin-top: 25px; margin-bottom: 15px; letter-spacing: 0.5px; }
+        
         .form-group { margin-bottom: 16px; }
-        .form-group label { display: block; font-weight: 700; margin-bottom: 6px; font-size: 0.85rem; color: #374151; text-transform: uppercase; letter-spacing: 0.5px;}
+        .form-group label { display: block; font-weight: 700; margin-bottom: 6px; font-size: 0.8rem; color: #4B5563; text-transform: uppercase; }
         .form-group input, .form-group textarea { width: 100%; padding: 12px 14px; border: 1px solid #D1D5DB; border-radius: 8px; font-size: 0.95rem; outline: none; background: #fff; transition: border-color 0.15s; }
         .form-group input:focus, .form-group textarea:focus { border-color: var(--brand-red); box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.12); }
         .form-group textarea { resize: vertical; min-height: 100px; }
+        
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+        .dynamic-block { background: var(--brand-light); border: 1px solid var(--border-color); padding: 15px; border-radius: 10px; margin-bottom: 15px; position: relative; }
+        .remove-btn { position: absolute; top: 10px; right: 10px; background: none; border: none; color: var(--brand-red); font-size: 0.8rem; font-weight: bold; cursor: pointer; }
+        .add-btn { background: #E5E7EB; color: var(--brand-dark); border: none; padding: 10px 15px; border-radius: 8px; font-weight: 700; font-size: 0.85rem; cursor: pointer; width: 100%; transition: background 0.2s; margin-bottom: 10px; }
+        .add-btn:hover { background: #D1D5DB; }
 
         /* ================= RIGHT: PREVIEW & ACTIONS ================= */
         .preview-panel { display: flex; flex-direction: column; gap: 20px; }
@@ -65,26 +82,39 @@
         /* ATS SCORE METER */
         .ats-meter-card { background: #fff; border: 1px solid var(--border-color); border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 10px; }
         .ats-header { display: flex; justify-content: space-between; font-weight: 800; font-size: 0.95rem; }
-        .ats-score-text { color: var(--brand-red); }
+        .ats-score-text { color: var(--brand-red); transition: color 0.3s; }
         .ats-bar-bg { width: 100%; height: 10px; background: var(--border-color); border-radius: 50px; overflow: hidden; }
-        .ats-bar-fill { height: 100%; width: 10%; background: var(--brand-red); transition: width 0.4s ease, background 0.4s ease; }
+        .ats-bar-fill { height: 100%; width: 0%; background: var(--brand-red); transition: width 0.4s ease, background 0.4s ease; }
         .ats-note { font-size: 0.75rem; color: var(--text-muted); font-weight: 600; }
 
-        /* THE ATS RESUME PAPER (Harvard Style) */
+        /* THE ATS RESUME PAPER (Strict Professional Format) */
+        .resume-paper-wrapper { background: #fff; padding: 40px 50px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); border-radius: 4px; overflow-x: auto; }
         .resume-paper {
-            background: #fff;
-            padding: 40px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-            border-radius: 4px;
             font-family: 'Times New Roman', Times, serif;
             color: #000;
-            line-height: 1.6;
-            min-height: 600px;
+            line-height: 1.5;
+            min-height: 800px; /* A4 aspect feel */
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: left;
         }
-        .res-name { font-size: 2rem; font-weight: bold; text-align: center; margin-bottom: 5px; text-transform: uppercase; }
-        .res-contact { text-align: center; font-size: 0.95rem; margin-bottom: 20px; border-bottom: 1px solid #000; padding-bottom: 15px; }
-        .res-section-title { font-size: 1.1rem; font-weight: bold; text-transform: uppercase; margin-top: 20px; margin-bottom: 5px; border-bottom: 1px solid #000; }
-        .res-text { font-size: 1rem; white-space: pre-wrap; margin-bottom: 10px; }
+        
+        /* Resume Typographic Styles */
+        .res-name { font-size: 24pt; font-weight: bold; text-align: center; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 1px; }
+        .res-contact { text-align: center; font-size: 10pt; margin-bottom: 20px; }
+        .res-contact a { color: #000; text-decoration: none; }
+        
+        .res-section-title { font-size: 11pt; font-weight: bold; text-transform: uppercase; margin-top: 18px; margin-bottom: 8px; border-bottom: 1px solid #000; padding-bottom: 2px; }
+        
+        .res-text { font-size: 10.5pt; margin-bottom: 10px; }
+        
+        /* Experience/Education Block Formatting */
+        .res-item-header { display: flex; justify-content: space-between; align-items: baseline; font-weight: bold; font-size: 10.5pt; margin-top: 10px; }
+        .res-item-sub { display: flex; justify-content: space-between; align-items: baseline; font-style: italic; font-size: 10.5pt; margin-bottom: 4px; }
+        
+        /* Bullet point styling */
+        .res-bullets { padding-left: 20px; font-size: 10.5pt; margin-bottom: 10px; }
+        .res-bullets li { margin-bottom: 4px; }
 
         /* ACTIONS (WhatsApp + Download) */
         .action-area { display: flex; flex-direction: column; gap: 12px; margin-top: 10px; }
@@ -135,6 +165,8 @@
 
         /* ================= PRINT CSS (CRITICAL FOR PDF) ================= */
         @media print {
+            @page { margin: 1cm; }
+            body { background: #fff; }
             body * { visibility: hidden; }
             #resumePaper, #resumePaper * { visibility: visible; }
             #resumePaper {
@@ -142,11 +174,10 @@
                 left: 0;
                 top: 0;
                 width: 100%;
+                max-width: 100%;
                 margin: 0;
-                padding: 20px;
-                box-shadow: none;
+                padding: 0;
             }
-            /* Hide headers/borders for clean PDF export */
             .compact-header, .form-panel, .ats-meter-card, .action-area, .upsell-section, footer { display: none !important; }
         }
     </style>
@@ -160,48 +191,41 @@
     </header>
 
     <div class="builder-container">
-        <!-- LEFT: INPUT FORM -->
-        <div class="form-panel">
+        <!-- LEFT: DYNAMIC INPUT FORM -->
+        <div class="form-panel" id="formPanel">
             <h2 class="panel-title">Build Your ATS Resume</h2>
             
-            <div class="form-group">
-                <label>Full Name</label>
-                <input type="text" id="inpName" placeholder="e.g. Rahul Sharma" oninput="updateResume()">
+            <div class="section-label">Personal Details</div>
+            <div class="form-group"><label>Full Name</label><input type="text" id="inpName" placeholder="e.g. Rahul Sharma" value="LUCKY KASHYAP"></div>
+            <div class="grid-2">
+                <div class="form-group"><label>Phone</label><input type="tel" id="inpPhone" placeholder="+91 98765 43210"></div>
+                <div class="form-group"><label>Email</label><input type="email" id="inpEmail" placeholder="rahul@email.com"></div>
             </div>
+            <div class="form-group"><label>Location / Address</label><input type="text" id="inpLocation" placeholder="Guwahati, Assam"></div>
+            <div class="form-group"><label>LinkedIn / Portfolio URL (Optional)</label><input type="text" id="inpLink" placeholder="linkedin.com/in/rahul"></div>
+
+            <div class="section-label">Professional Summary</div>
+            <div class="form-group">
+                <textarea id="inpSummary" placeholder="Detail-oriented professional with 3+ years of experience in..."></textarea>
+            </div>
+
+            <div class="section-label">Skills / Competencies</div>
+            <div class="form-group">
+                <label>Key Skills (Separate by comma)</label>
+                <textarea id="inpSkills" placeholder="Statutory Audit, Advanced Excel, GST Returns, Communication..." style="min-height: 60px;"></textarea>
+            </div>
+
+            <div class="section-label">Experience</div>
+            <div id="experienceContainer"></div>
+            <button class="add-btn" onclick="addExperience()">+ Add Experience</button>
+
+            <div class="section-label">Education</div>
+            <div id="educationContainer"></div>
+            <button class="add-btn" onclick="addEducation()">+ Add Education</button>
             
+            <div class="section-label">Languages</div>
             <div class="form-group">
-                <label>Phone Number</label>
-                <input type="tel" id="inpPhone" placeholder="e.g. +91 98765 43210" oninput="updateResume()">
-            </div>
-            
-            <div class="form-group">
-                <label>Email Address</label>
-                <input type="email" id="inpEmail" placeholder="e.g. rahul@email.com" oninput="updateResume()">
-            </div>
-            
-            <div class="form-group">
-                <label>Location</label>
-                <input type="text" id="inpLocation" placeholder="e.g. Guwahati, Assam" oninput="updateResume()">
-            </div>
-
-            <div class="form-group">
-                <label>Professional Summary</label>
-                <textarea id="inpSummary" placeholder="Briefly describe your goals and top skills..." oninput="updateResume()"></textarea>
-            </div>
-
-            <div class="form-group">
-                <label>Work Experience</label>
-                <textarea id="inpExp" placeholder="Company Name - Role&#10;• Did this&#10;• Achieved that" oninput="updateResume()"></textarea>
-            </div>
-
-            <div class="form-group">
-                <label>Education</label>
-                <textarea id="inpEdu" placeholder="Degree Name - University/College (Year)" oninput="updateResume()"></textarea>
-            </div>
-
-            <div class="form-group">
-                <label>Key Skills (Comma Separated)</label>
-                <input type="text" id="inpSkills" placeholder="e.g. Sales, Marketing, Excel, Communication" oninput="updateResume()">
+                <input type="text" id="inpLangs" placeholder="e.g. English (Fluent), Assamese (Native)">
             </div>
         </div>
 
@@ -211,49 +235,51 @@
             <!-- ATS METER -->
             <div class="ats-meter-card">
                 <div class="ats-header">
-                    <span>ATS Compatibility Score</span>
-                    <span class="ats-score-text" id="scoreText">10%</span>
+                    <span>ATS Formatting Score</span>
+                    <span class="ats-score-text" id="scoreText">0%</span>
                 </div>
-                <div class="ats-bar-bg">
-                    <div class="ats-bar-fill" id="scoreFill"></div>
-                </div>
-                <div class="ats-note">A 100% score ensures HR software won't auto-reject your formatting.</div>
+                <div class="ats-bar-bg"><div class="ats-bar-fill" id="scoreFill"></div></div>
+                <div class="ats-note">A score above 85% ensures HR software won't auto-reject your formatting.</div>
             </div>
 
             <!-- LIVE RESUME PAPER -->
-            <div class="resume-paper" id="resumePaper">
-                <div class="res-name" id="outName">YOUR NAME</div>
-                <div class="res-contact" id="outContact">Phone • Email • Location</div>
-                
-                <div id="secSummary" style="display:none;">
-                    <div class="res-section-title">Professional Summary</div>
-                    <div class="res-text" id="outSummary"></div>
-                </div>
+            <div class="resume-paper-wrapper">
+                <div class="resume-paper" id="resumePaper">
+                    
+                    <div class="res-name" id="outName">LUCKY KASHYAP</div>
+                    <div class="res-contact" id="outContact"></div>
+                    
+                    <div id="secSummary" style="display:none;">
+                        <div class="res-section-title">Professional Summary</div>
+                        <div class="res-text" id="outSummary"></div>
+                    </div>
 
-                <div id="secExp" style="display:none;">
-                    <div class="res-section-title">Work Experience</div>
-                    <div class="res-text" id="outExp"></div>
-                </div>
+                    <div id="secSkills" style="display:none;">
+                        <div class="res-section-title">Core Competencies</div>
+                        <div class="res-text" id="outSkills"></div>
+                    </div>
 
-                <div id="secEdu" style="display:none;">
-                    <div class="res-section-title">Education</div>
-                    <div class="res-text" id="outEdu"></div>
-                </div>
+                    <div id="secExp" style="display:none;">
+                        <div class="res-section-title">Professional Experience</div>
+                        <div id="outExpList"></div>
+                    </div>
 
-                <div id="secSkills" style="display:none;">
-                    <div class="res-section-title">Key Skills</div>
-                    <div class="res-text" id="outSkills"></div>
+                    <div id="secEdu" style="display:none;">
+                        <div class="res-section-title">Education & Credentials</div>
+                        <div id="outEduList"></div>
+                    </div>
+
+                    <div id="secLangs" style="display:none;">
+                        <div class="res-section-title">Languages</div>
+                        <ul class="res-bullets" id="outLangs"></ul>
+                    </div>
                 </div>
             </div>
 
             <!-- ACTION BUTTONS -->
             <div class="action-area">
-                <!-- WhatsApp Channel Join Button -->
-                <!-- REMEMBER TO REPLACE THIS # WITH YOUR ACTUAL WHATSAPP CHANNEL LINK -->
-                <a href="https://whatsapp.com/channel/0029Vb95jUBBVJkvPuyslk3h" class="wa-btn" target="_blank">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
-                    </svg>
+                <a href="#" class="wa-btn" target="_blank">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
                     Join our WhatsApp Channel for Daily Jobs
                 </a>
                 
@@ -263,70 +289,177 @@
             <!-- INSTANT JOB MATCH UPSELL -->
             <div class="upsell-section">
                 <div class="upsell-title">Ready to apply? Try these new roles:</div>
-                <div class="mini-job-grid" id="miniJobGrid">
-                    <!-- Javascript will inject 3 jobs here -->
-                    Loading latest roles...
-                </div>
+                <div class="mini-job-grid" id="miniJobGrid">Loading latest roles...</div>
             </div>
 
         </div>
     </div>
 
-    <!-- SCRIPT FOR LIVE PREVIEW & ATS LOGIC -->
+    <!-- ATS BUILDER LOGIC -->
     <script>
-        // Update the Live Preview and calculate ATS Score dynamically
-        function updateResume() {
-            const name = document.getElementById('inpName').value || 'YOUR NAME';
-            const phone = document.getElementById('inpPhone').value || 'Phone';
-            const email = document.getElementById('inpEmail').value || 'Email';
-            const loc = document.getElementById('inpLocation').value || 'Location';
-            
-            const summary = document.getElementById('inpSummary').value;
-            const exp = document.getElementById('inpExp').value;
-            const edu = document.getElementById('inpEdu').value;
-            const skills = document.getElementById('inpSkills').value;
+        // Event Delegation: Any keystroke in the form updates the resume
+        document.getElementById('formPanel').addEventListener('input', updateResume);
 
-            // Output to Paper
+        let expIndex = 0;
+        let eduIndex = 0;
+
+        // Dynamic Experience Blocks
+        function addExperience() {
+            const html = `
+                <div class="dynamic-block exp-block" id="exp-${expIndex}">
+                    <button class="remove-btn" onclick="removeBlock('exp-${expIndex}')">Remove ✖</button>
+                    <div class="form-group"><label>Job Title</label><input type="text" class="e-title" placeholder="e.g. Senior Executive"></div>
+                    <div class="grid-2">
+                        <div class="form-group"><label>Company Name</label><input type="text" class="e-comp" placeholder="e.g. B.K. Sharma & Assoc."></div>
+                        <div class="form-group"><label>Location</label><input type="text" class="e-loc" placeholder="Guwahati, Assam"></div>
+                    </div>
+                    <div class="form-group"><label>Dates (Start - End)</label><input type="text" class="e-dates" placeholder="Aug 2023 - Present"></div>
+                    <div class="form-group"><label>Responsibilities (Press Enter for new bullet)</label><textarea class="e-resp" placeholder="• Spearheaded statutory audits...&#10;• Reconciled monthly bank statements..."></textarea></div>
+                </div>`;
+            document.getElementById('experienceContainer').insertAdjacentHTML('beforeend', html);
+            expIndex++;
+            updateResume();
+        }
+
+        // Dynamic Education Blocks
+        function addEducation() {
+            const html = `
+                <div class="dynamic-block edu-block" id="edu-${eduIndex}">
+                    <button class="remove-btn" onclick="removeBlock('edu-${eduIndex}')">Remove ✖</button>
+                    <div class="form-group"><label>Degree / Qualification</label><input type="text" class="ed-deg" placeholder="e.g. Bachelor of Commerce"></div>
+                    <div class="form-group"><label>Institution / University</label><input type="text" class="ed-inst" placeholder="e.g. Gauhati University"></div>
+                    <div class="grid-2">
+                        <div class="form-group"><label>Year of Passing</label><input type="text" class="ed-year" placeholder="May 2022"></div>
+                        <div class="form-group"><label>Grade / Extra (Optional)</label><input type="text" class="ed-grade" placeholder="First Class / Honors"></div>
+                    </div>
+                </div>`;
+            document.getElementById('educationContainer').insertAdjacentHTML('beforeend', html);
+            eduIndex++;
+            updateResume();
+        }
+
+        function removeBlock(id) {
+            document.getElementById(id).remove();
+            updateResume();
+        }
+
+         // Main Engine to construct the preview and ATS score
+        function updateResume() {
+            // 1. Personal Details
+            const name = document.getElementById('inpName').value || 'YOUR NAME';
+            const phone = document.getElementById('inpPhone').value;
+            const email = document.getElementById('inpEmail').value;
+            const loc = document.getElementById('inpLocation').value;
+            const link = document.getElementById('inpLink').value;
+
             document.getElementById('outName').innerText = name;
-            document.getElementById('outContact').innerText = `${phone}  •  ${email}  •  ${loc}`;
             
+            let contactArr = [];
+            if(loc) contactArr.push(loc);
+            if(phone) contactArr.push(phone);
+            if(email) contactArr.push(email);
+            if(link) contactArr.push(link);
+            document.getElementById('outContact').innerHTML = contactArr.join(' &nbsp;|&nbsp; ');
+
+            // 2. Summary
+            const summary = document.getElementById('inpSummary').value;
             document.getElementById('outSummary').innerText = summary;
             document.getElementById('secSummary').style.display = summary ? 'block' : 'none';
 
-            document.getElementById('outExp').innerText = exp;
-            document.getElementById('secExp').style.display = exp ? 'block' : 'none';
-
-            document.getElementById('outEdu').innerText = edu;
-            document.getElementById('secEdu').style.display = edu ? 'block' : 'none';
-
+            // 3. Skills
+            const skills = document.getElementById('inpSkills').value;
             document.getElementById('outSkills').innerText = skills;
             document.getElementById('secSkills').style.display = skills ? 'block' : 'none';
 
-            // ATS Score Calculator Logic
-            let score = 10; // Base score for showing up
-            if(document.getElementById('inpName').value.length > 2) score += 10;
-            if(document.getElementById('inpPhone').value.length > 5) score += 15;
-            if(document.getElementById('inpEmail').value.includes('@')) score += 15;
-            if(summary.length > 20) score += 15;
-            if(exp.length > 20) score += 20;
-            if(edu.length > 5) score += 5;
-            if(skills.length > 5) score += 10;
+            // 4. Experience Rendering
+            const expBlocks = document.querySelectorAll('.exp-block');
+            let expHTML = '';
+            expBlocks.forEach(block => {
+                const title = block.querySelector('.e-title').value;
+                const comp = block.querySelector('.e-comp').value;
+                const loc = block.querySelector('.e-loc').value;
+                const dates = block.querySelector('.e-dates').value;
+                const respText = block.querySelector('.e-resp').value;
+                
+                // Convert text area lines to bullet points
+                const bullets = respText.split('\n').filter(line => line.trim() !== '').map(line => `<li>${line.replace(/^[•\-\*]\s*/, '').trim()}</li>`).join('');
+
+                if (title || comp) {
+                    expHTML += `
+                        <div class="res-item-header"><span>${comp}${comp && loc ? ' | ' : ''}${loc}</span><span>${dates}</span></div>
+                        <div class="res-item-sub"><span>${title}</span></div>
+                        ${bullets ? `<ul class="res-bullets">${bullets}</ul>` : ''}
+                    `;
+                }
+            });
+            document.getElementById('outExpList').innerHTML = expHTML;
+            document.getElementById('secExp').style.display = expHTML ? 'block' : 'none';
+
+            // 5. Education Rendering
+            const eduBlocks = document.querySelectorAll('.edu-block');
+            let eduHTML = '';
+            eduBlocks.forEach(block => {
+                const deg = block.querySelector('.ed-deg').value;
+                const inst = block.querySelector('.ed-inst').value;
+                const year = block.querySelector('.ed-year').value;
+                const grade = block.querySelector('.ed-grade').value;
+
+                if (deg || inst) {
+                    eduHTML += `
+                        <div class="res-item-header"><span>${inst}</span><span>${year}</span></div>
+                        <div class="res-item-sub"><span>${deg}</span></div>
+                        ${grade ? `<ul class="res-bullets"><li>${grade}</li></ul>` : ''}
+                    `;
+                }
+            });
+            document.getElementById('outEduList').innerHTML = eduHTML;
+            document.getElementById('secEdu').style.display = eduHTML ? 'block' : 'none';
+
+            // 6. Languages
+            const langs = document.getElementById('inpLangs').value;
+            if(langs) {
+                const langBullets = langs.split(',').filter(l => l.trim() !== '').map(l => `<li>${l.trim()}</li>`).join('');
+                document.getElementById('outLangs').innerHTML = langBullets;
+                document.getElementById('secLangs').style.display = 'block';
+            } else {
+                document.getElementById('secLangs').style.display = 'none';
+            }
+
+            // 7. Calculate ATS Score
+            let score = 0;
+            if(name.length > 2) score += 10;
+            if(phone.length > 8) score += 10;
+            if(email.includes('@')) score += 10;
+            if(loc.length > 2) score += 5;
+            if(summary.length > 30) score += 15;
+            if(skills.length > 10) score += 15;
+            if(expBlocks.length > 0 && expBlocks[0].querySelector('.e-title').value.length > 2) score += 25;
+            if(eduBlocks.length > 0 && eduBlocks[0].querySelector('.ed-deg').value.length > 2) score += 10;
+            
+            // Cap at 100%
+            score = Math.min(score, 100);
 
             const scoreFill = document.getElementById('scoreFill');
             const scoreText = document.getElementById('scoreText');
-            
             scoreFill.style.width = score + '%';
             scoreText.innerText = score + '%';
             
-            // Change color to green if it reaches a good score
-            if (score > 75) {
+            if (score >= 85) {
                 scoreFill.style.background = 'var(--success-green)';
                 scoreText.style.color = 'var(--success-green)';
+            } else if (score >= 50) {
+                scoreFill.style.background = '#F59E0B'; // Warning Orange
+                scoreText.style.color = '#F59E0B';
             } else {
                 scoreFill.style.background = 'var(--brand-red)';
                 scoreText.style.color = 'var(--brand-red)';
             }
         }
+
+        // Initialize with one empty experience and education block
+        addExperience();
+        addEducation();
+        updateResume();
 
         // =========================================
         // PULL LATEST JOBS FOR THE UPSELL SECTION
@@ -347,31 +480,20 @@
         .then(text => {
             const startIdx = text.indexOf('(') + 1;
             const endIdx = text.lastIndexOf(')');
-            const jsonStr = text.substring(startIdx, endIdx);
-            const data = JSON.parse(jsonStr);
+            const data = JSON.parse(text.substring(startIdx, endIdx));
             
-            // Filter out closed and construction roles, just like the main page
             const validJobs = data.table.rows.map(row => ({
                 title: getVal(row, 1).trim(),
                 salary: getVal(row, 5).trim(),
                 status: getVal(row, 8).trim()
-            })).filter(job => {
-                const rawData = JSON.stringify(job).toLowerCase();
-                const hasBannedWords = rawData.includes("pcconstruction site") || rawData.includes("psconstruction site");
-                return !hasBannedWords && job.title !== "" && (job.status.toLowerCase() === "open" || job.status === "");
-            });
+            })).filter(job => !JSON.stringify(job).toLowerCase().includes("construction") && job.title !== "" && (job.status.toLowerCase() === "open" || job.status === ""));
 
-            // Grab the latest 3 jobs for the upsell section
             const latestThree = validJobs.slice(0, 3);
             const grid = document.getElementById("miniJobGrid");
             grid.innerHTML = "";
 
             latestThree.forEach(job => {
-                // Parse Title
-                let titleParts = job.title.split(/\||\n/);
-                let mainTitle = titleParts[0] ? titleParts[0].trim() : 'Role';
-                
-                // Parse Salary
+                let mainTitle = job.title.split(/\||\n/)[0] ? job.title.split(/\||\n/)[0].trim() : 'Role';
                 let rawSal = job.salary.replace(/₹/g, '').trim();
                 let salMain = rawSal.includes('|') ? rawSal.split(/\|/)[0].trim() : rawSal.match(/^([\d,\.]+)/)?.[1] || rawSal;
 
@@ -380,14 +502,9 @@
                         <div class="mini-title">${mainTitle}</div>
                         ${salMain ? `<div class="mini-salary">₹ ${salMain}</div>` : ''}
                         <div class="mini-link">Apply Now →</div>
-                    </a>
-                `;
+                    </a>`;
             });
-        })
-        .catch(err => {
-            document.getElementById("miniJobGrid").innerHTML = "<p>Head to our homepage to see active roles.</p>";
-        });
+        }).catch(() => document.getElementById("miniJobGrid").innerHTML = "<p>Head to our homepage to see active roles.</p>");
     </script>
 </body>
 </html>
-  
