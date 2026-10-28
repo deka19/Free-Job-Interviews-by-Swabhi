@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ATS Resume Builder | Free Job Interviews by Swabhi</title>
+    <style>
+        :root {
+            --brand-red: #DC2626; 
+            --brand-red-hover: #B91C1C;
+            --brand-dark: #111827; 
+            --brand-light: #F9FAFB;
+            --wa-green: #25D366;
+            --wa-green-hover: #1EBE5A;
+            --border-color: #E5E7EB;
+            --text-muted: #6B7280;
+        }
+        
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', system-ui, sans-serif; }
+        body { background-color: var(--brand-light); color: var(--brand-dark); line-height: 1.5; -webkit-font-smoothing: antialiased; }
+
+        /* ================= COMPACT HEADER ================= */
+        .compact-header {
+            background: #fff;
+            padding: 15px 20px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px -2px rgba(0,0,0,0.04);
+        }
+        .header-brand { font-size: 1.15rem; font-weight: 900; color: var(--brand-dark); text-transform: uppercase; text-decoration: none; display: flex; align-items: center; gap: 6px; }
+        .header-brand span { color: var(--brand-red); font-size: 0.8rem; letter-spacing: 1.5px; font-weight: 800; }
+        .back-link { font-size: 0.9rem; font-weight: 700; color: var(--text-muted); text-decoration: none; }
+        .back-link:hover { color: var(--brand-dark); }
+
+        /* ================= LAYOUT GRID ================= */
+        .builder-container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 16px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+        }
+        @media(min-width: 992px) {
+            .builder-container { grid-template-columns: 400px 1fr; }
+        }
+
+        /* ================= LEFT: FORM ================= */
+        .form-panel { background: #fff; border: 1px solid var(--border-color); border-radius: 16px; padding: 25px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+        .panel-title { font-size: 1.25rem; font-weight: 900; margin-bottom: 20px; }
+        .form-group { margin-bottom: 16px; }
+        .form-group label { display: block; font-weight: 700; margin-bottom: 6px; font-size: 0.85rem; color: #374151; text-transform: uppercase; letter-spacing: 0.5px;}
+        .form-group input, .form-group textarea { width: 100%; padding: 12px 14px; border: 1px solid #D1D5DB; border-radius: 8px; font-size: 0.95rem; outline: none; background: #fff; transition: border-color 0.15s; }
+        .form-group input:focus, .form-group textarea:focus { border-color: var(--brand-red); box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.12); }
+        .form-group textarea { resize: vertical; min-height: 100px; }
+
+        /* ================= RIGHT: PREVIEW & ACTIONS ================= */
+        .preview-panel { display: flex; flex-direction: column; gap: 20px; }
+        
+        /* ATS SCORE METER */
+        .ats-meter-card { background: #fff; border: 1px solid var(--border-color); border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 10px; }
+        .ats-header { display: flex; justify-content: space-between; font-weight: 800; font-size: 0.95rem; }
+        .ats-score-text { color: var(--brand-red); }
+        .ats-bar-bg { width: 100%; height: 10px; background: var(--border-color); border-radius: 50px; overflow: hidden; }
+        .ats-bar-fill { height: 100%; width: 10%; background: var(--brand-red); transition: width 0.4s ease, background 0.4s ease; }
+        .ats-note { font-size: 0.75rem; color: var(--text-muted); font-weight: 600; }
+
+        /* THE ATS RESUME PAPER (Harvard Style) */
+        .resume-paper {
+            background: #fff;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            border-radius: 4px;
+            font-family: 'Times New Roman', Times, serif;
+            color: #000;
+            line-height: 1.6;
+            min-height: 600px;
+        }
+        .res-name { font-size: 2rem; font-weight: bold; text-align: center; margin-bottom: 5px; text-transform: uppercase; }
+        .res-contact { text-align: center; font-size: 0.95rem; margin-bottom: 20px; border-bottom: 1px solid #000; padding-bottom: 15px; }
+        .res-section-title { font-size: 1.1rem; font-weight: bold; text-transform: uppercase; margin-top: 20px; margin-bottom: 5px; border-bottom: 1px solid #000; }
+        .res-text { font-size: 1rem; white-space: pre-wrap; margin-bottom: 10px; }
+
+        /* ACTIONS (WhatsApp + Download) */
+        .action-area { display: flex; flex-direction: column; gap: 12px; margin-top: 10px; }
+        
+        .wa-btn {
+            background: var(--wa-green);
+            color: #fff;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 16px;
+            border-radius: 12px;
+            font-weight: 800;
+            font-size: 1.05rem;
+            transition: transform 0.1s, background 0.2s;
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.25);
+        }
+        .wa-btn:hover { background: var(--wa-green-hover); }
+        .wa-btn:active { transform: scale(0.98); }
+        
+        .download-btn {
+            background: var(--brand-dark);
+            color: #fff;
+            border: none;
+            padding: 16px;
+            border-radius: 12px;
+            font-weight: 800;
+            font-size: 1.05rem;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+        }
+        .download-btn:hover { background: #1f2937; }
+        .download-btn:active { transform: scale(0.98); }
+
+        /* INSTANT JOB MATCH (UPSELL) */
+        .upsell-section { margin-top: 30px; }
+        .upsell-title { font-size: 1.25rem; font-weight: 900; margin-bottom: 15px; border-top: 1px solid var(--border-color); padding-top: 30px; }
+        .mini-job-grid { display: grid; grid-template-columns: 1fr; gap: 15px; }
+        @media(min-width: 768px) { .mini-job-grid { grid-template-columns: repeat(3, 1fr); } }
+        
+        .mini-card { background: #fff; border: 1px solid var(--border-color); border-radius: 12px; padding: 16px; display: flex; flex-direction: column; text-decoration: none; color: inherit; transition: box-shadow 0.2s; }
+        .mini-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.05); border-color: var(--brand-dark); }
+        .mini-title { font-size: 1rem; font-weight: 800; margin-bottom: 4px; }
+        .mini-salary { color: var(--brand-red); font-weight: 800; font-size: 0.95rem; margin-bottom: 10px; }
+        .mini-link { font-size: 0.8rem; font-weight: 700; color: var(--brand-dark); text-transform: uppercase; margin-top: auto; }
+
+        /* ================= PRINT CSS (CRITICAL FOR PDF) ================= */
+        @media print {
+            body * { visibility: hidden; }
+            #resumePaper, #resumePaper * { visibility: visible; }
+            #resumePaper {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                margin: 0;
+                padding: 20px;
+                box-shadow: none;
+            }
+            /* Hide headers/borders for clean PDF export */
+            .compact-header, .form-panel, .ats-meter-card, .action-area, .upsell-section, footer { display: none !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- COMPACT HEADER -->
+    <header class="compact-header">
+        <a href="index.html" class="header-brand">Free Job Interviews <span>BY SWABHI</span></a>
+        <a href="index.html" class="back-link">← Back to Jobs</a>
+    </header>
+
+    <div class="builder-container">
+        <!-- LEFT: INPUT FORM -->
+        <div class="form-panel">
+            <h2 class="panel-title">Build Your ATS Resume</h2>
+            
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" id="inpName" placeholder="e.g. Rahul Sharma" oninput="updateResume()">
+            </div>
+            
+            <div class="form-group">
+                <label>Phone Number</label>
+                <input type="tel" id="inpPhone" placeholder="e.g. +91 98765 43210" oninput="updateResume()">
+            </div>
+            
+            <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" id="inpEmail" placeholder="e.g. rahul@email.com" oninput="updateResume()">
+            </div>
+            
+            <div class="form-group">
+                <label>Location</label>
+                <input type="text" id="inpLocation" placeholder="e.g. Guwahati, Assam" oninput="updateResume()">
+            </div>
+
+            <div class="form-group">
+                <label>Professional Summary</label>
+                <textarea id="inpSummary" placeholder="Briefly describe your goals and top skills..." oninput="updateResume()"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Work Experience</label>
+                <textarea id="inpExp" placeholder="Company Name - Role&#10;• Did this&#10;• Achieved that" oninput="updateResume()"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Education</label>
+                <textarea id="inpEdu" placeholder="Degree Name - University/College (Year)" oninput="updateResume()"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Key Skills (Comma Separated)</label>
+                <input type="text" id="inpSkills" placeholder="e.g. Sales, Marketing, Excel, Communication" oninput="updateResume()">
+            </div>
+        </div>
+
+        <!-- RIGHT: PREVIEW & ACTIONS -->
+        <div class="preview-panel">
+            
+            <!-- ATS METER -->
+            <div class="ats-meter-card">
+                <div class="ats-header">
+                    <span>ATS Compatibility Score</span>
+                    <span class="ats-score-text" id="scoreText">10%</span>
+                </div>
+                <div class="ats-bar-bg">
+                    <div class="ats-bar-fill" id="scoreFill"></div>
+                </div>
+                <div class="ats-note">A 100% score ensures HR software won't auto-reject your formatting.</div>
+            </div>
+
+            <!-- LIVE RESUME PAPER -->
+            <div class="resume-paper" id="resumePaper">
+                <div class="res-name" id="outName">YOUR NAME</div>
+                <div class="res-contact" id="outContact">Phone • Email • Location</div>
+                
+                <div id="secSummary" style="display:none;">
+                    <div class="res-section-title">Professional Summary</div>
+                    <div class="res-text" id="outSummary"></div>
+                </div>
+
+                <div id="secExp" style="display:none;">
+                    <div class="res-section-title">Work Experience</div>
+                    <div class="res-text" id="outExp"></div>
+                </div>
+
+                <div id="secEdu" style="display:none;">
+                    <div class="res-section-title">Education</div>
+                    <div class="res-text" id="outEdu"></div>
+                </div>
+
+                <div id="secSkills" style="display:none;">
+                    <div class="res-section-title">Key Skills</div>
+                    <div class="res-text" id="outSkills"></div>
+                </div>
+            </div>
+
+            <!-- ACTION BUTTONS -->
+            <div class="action-area">
+                <!-- WhatsApp Channel Join Button -->
+                <!-- REMEMBER TO REPLACE THIS # WITH YOUR ACTUAL WHATSAPP CHANNEL LINK -->
+                <a href="#" class="wa-btn" target="_blank">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
+                    </svg>
+                    Join our WhatsApp Channel for Daily Jobs
+                </a>
+                
+                <button class="download-btn" onclick="window.print()">Download ATS PDF</button>
+            </div>
+
+            <!-- INSTANT JOB MATCH UPSELL -->
+            <div class="upsell-section">
+                <div class="upsell-title">Ready to apply? Try these new roles:</div>
+                <div class="mini-job-grid" id="miniJobGrid">
+                    <!-- Javascript will inject 3 jobs here -->
+                    Loading latest roles...
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- SCRIPT FOR LIVE PREVIEW & ATS LOGIC -->
+    <script>
+        // Update the Live Preview and calculate ATS Score dynamically
+        function updateResume() {
+            const name = document.getElementById('inpName').value || 'YOUR NAME';
+            const phone = document.getElementById('inpPhone').value || 'Phone';
+            const email = document.getElementById('inpEmail').value || 'Email';
+            const loc = document.getElementById('inpLocation').value || 'Location';
+            
+            const summary = document.getElementById('inpSummary').value;
+            const exp = document.getElementById('inpExp').value;
+            const edu = document.getElementById('inpEdu').value;
+            const skills = document.getElementById('inpSkills').value;
+
+            // Output to Paper
+            document.getElementById('outName').innerText = name;
+            document.getElementById('outContact').innerText = `${phone}  •  ${email}  •  ${loc}`;
+            
+            document.getElementById('outSummary').innerText = summary;
+            document.getElementById('secSummary').style.display = summary ? 'block' : 'none';
+
+            document.getElementById('outExp').innerText = exp;
+            document.getElementById('secExp').style.display = exp ? 'block' : 'none';
+
+            document.getElementById('outEdu').innerText = edu;
+            document.getElementById('secEdu').style.display = edu ? 'block' : 'none';
+
+            document.getElementById('outSkills').innerText = skills;
+            document.getElementById('secSkills').style.display = skills ? 'block' : 'none';
+
+            // ATS Score Calculator Logic
+            let score = 10; // Base score for showing up
+            if(document.getElementById('inpName').value.length > 2) score += 10;
+            if(document.getElementById('inpPhone').value.length > 5) score += 15;
+            if(document.getElementById('inpEmail').value.includes('@')) score += 15;
+            if(summary.length > 20) score += 15;
+            if(exp.length > 20) score += 20;
+            if(edu.length > 5) score += 5;
+            if(skills.length > 5) score += 10;
+
+            const scoreFill = document.getElementById('scoreFill');
+            const scoreText = document.getElementById('scoreText');
+            
+            scoreFill.style.width = score + '%';
+            scoreText.innerText = score + '%';
+            
+            // Change color to green if it reaches a good score
+            if (score > 75) {
+                scoreFill.style.background = 'var(--success-green)';
+                scoreText.style.color = 'var(--success-green)';
+            } else {
+                scoreFill.style.background = 'var(--brand-red)';
+                scoreText.style.color = 'var(--brand-red)';
+            }
+        }
+
+        // =========================================
+        // PULL LATEST JOBS FOR THE UPSELL SECTION
+        // =========================================
+        const SHEET_ID = "19N7jV-E8nE5OrEEFS2w5GxqlzFAS3RHER6JIv0ipDZg"; 
+        const SHEET_JSON_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=Listings`;
+
+        const getVal = (row, idx) => {
+            if (row.c && row.c[idx]) {
+                if (row.c[idx].f !== undefined && row.c[idx].f !== null) return String(row.c[idx].f);
+                if (row.c[idx].v !== undefined && row.c[idx].v !== null) return String(row.c[idx].v);
+            }
+            return "";
+        };
+
+        fetch(SHEET_JSON_URL)
+        .then(res => res.text())
+        .then(text => {
+            const startIdx = text.indexOf('(') + 1;
+            const endIdx = text.lastIndexOf(')');
+            const jsonStr = text.substring(startIdx, endIdx);
+            const data = JSON.parse(jsonStr);
+            
+            // Filter out closed and construction roles, just like the main page
+            const validJobs = data.table.rows.map(row => ({
+                title: getVal(row, 1).trim(),
+                salary: getVal(row, 5).trim(),
+                status: getVal(row, 8).trim()
+            })).filter(job => {
+                const rawData = JSON.stringify(job).toLowerCase();
+                const hasBannedWords = rawData.includes("pcconstruction site") || rawData.includes("psconstruction site");
+                return !hasBannedWords && job.title !== "" && (job.status.toLowerCase() === "open" || job.status === "");
+            });
+
+            // Grab the latest 3 jobs for the upsell section
+            const latestThree = validJobs.slice(0, 3);
+            const grid = document.getElementById("miniJobGrid");
+            grid.innerHTML = "";
+
+            latestThree.forEach(job => {
+                // Parse Title
+                let titleParts = job.title.split(/\||\n/);
+                let mainTitle = titleParts[0] ? titleParts[0].trim() : 'Role';
+                
+                // Parse Salary
+                let rawSal = job.salary.replace(/₹/g, '').trim();
+                let salMain = rawSal.includes('|') ? rawSal.split(/\|/)[0].trim() : rawSal.match(/^([\d,\.]+)/)?.[1] || rawSal;
+
+                grid.innerHTML += `
+                    <a href="index.html" class="mini-card">
+                        <div class="mini-title">${mainTitle}</div>
+                        ${salMain ? `<div class="mini-salary">₹ ${salMain}</div>` : ''}
+                        <div class="mini-link">Apply Now →</div>
+                    </a>
+                `;
+            });
+        })
+        .catch(err => {
+            document.getElementById("miniJobGrid").innerHTML = "<p>Head to our homepage to see active roles.</p>";
+        });
+    </script>
+</body>
+</html>
+  
