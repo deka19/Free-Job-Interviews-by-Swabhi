@@ -46,7 +46,7 @@
             gap: 40px;
         }
         @media(min-width: 1024px) {
-            .builder-container { grid-template-columns: 500px 1fr; }
+            .builder-container { grid-template-columns: 550px 1fr; }
         }
 
         /* ================= LEFT: ADVANCED FORM ================= */
@@ -57,95 +57,63 @@
         .form-panel::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 10px; }
         .form-panel::-webkit-scrollbar-thumb:hover { background: #9ca3af; }
 
-        .panel-title { font-size: 1.25rem; font-weight: 900; margin-bottom: 25px; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; }
+        .panel-title { font-size: 1.25rem; font-weight: 900; margin-bottom: 20px; text-align: center; }
+        
+        /* SPLIT PATH TOGGLE */
+        .path-toggle { display: flex; background: var(--brand-light); border-radius: 8px; padding: 4px; margin-bottom: 30px; border: 1px solid var(--border-color); }
+        .path-toggle input { display: none; }
+        .path-toggle label { flex: 1; text-align: center; padding: 12px; font-size: 0.95rem; font-weight: 800; cursor: pointer; border-radius: 6px; color: var(--text-muted); transition: all 0.2s; }
+        .path-toggle input:checked + label { background: #fff; color: var(--brand-dark); box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+
         .section-label { font-size: 1rem; font-weight: 800; color: var(--brand-red); text-transform: uppercase; margin-top: 25px; margin-bottom: 15px; letter-spacing: 0.5px; }
         
         .form-group { margin-bottom: 16px; }
         .form-group label { display: block; font-weight: 700; margin-bottom: 6px; font-size: 0.8rem; color: #4B5563; text-transform: uppercase; }
-        .form-group input, .form-group textarea { width: 100%; padding: 12px 14px; border: 1px solid #D1D5DB; border-radius: 8px; font-size: 0.95rem; outline: none; background: #fff; transition: border-color 0.15s; }
-        .form-group input:focus, .form-group textarea:focus { border-color: var(--brand-red); box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.12); }
+        .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 12px 14px; border: 1px solid #D1D5DB; border-radius: 8px; font-size: 0.95rem; outline: none; background: #fff; transition: border-color 0.15s; }
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--brand-red); box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.12); }
         .form-group textarea { resize: vertical; min-height: 80px; }
         
         .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 
         .dynamic-block { background: var(--brand-light); border: 1px solid var(--border-color); padding: 20px 15px 15px; border-radius: 10px; margin-bottom: 15px; position: relative; }
         .remove-btn { position: absolute; top: 10px; right: 10px; background: none; border: none; color: var(--brand-red); font-size: 0.8rem; font-weight: bold; cursor: pointer; }
+        
+        /* Buttons */
         .add-btn { background: #E5E7EB; color: var(--brand-dark); border: none; padding: 12px 15px; border-radius: 8px; font-weight: 800; font-size: 0.85rem; cursor: pointer; width: 100%; transition: background 0.2s; margin-bottom: 10px; display: flex; justify-content: center; gap: 8px; align-items: center; }
         .add-btn:hover { background: #D1D5DB; }
+        
+        .add-bullet-btn { background: #fff; border: 1px dashed var(--brand-dark); color: var(--brand-dark); font-weight: 700; font-size: 0.85rem; padding: 10px; border-radius: 6px; cursor: pointer; width: 100%; margin-top: 5px; transition: background 0.2s; }
+        .add-bullet-btn:hover { background: #F3F4F6; }
+        
+        /* The Guided Bullet Engine UI */
+        .bullet-engine { background: #fff; border: 1px solid #E5E7EB; padding: 15px; border-radius: 8px; margin-bottom: 10px; position: relative; }
+        .bullet-engine .remove-bullet { position: absolute; top: 8px; right: 10px; font-size: 0.7rem; color: #9CA3AF; cursor: pointer; background: none; border: none; font-weight: bold;}
+        .bullet-engine .remove-bullet:hover { color: var(--brand-red); }
+        .bullet-engine label { font-size: 0.75rem; text-transform: none; font-weight: 600; color: #374151; margin-bottom: 4px; }
+        .bullet-engine input { padding: 10px; font-size: 0.9rem; margin-bottom: 10px; }
+        .bullet-engine .form-group { margin-bottom: 0; }
 
         /* ================= RIGHT: ACTIONS & PREVIEW ================= */
         .preview-panel { display: flex; flex-direction: column; gap: 25px; }
         
-        /* ACTION STACK CARD */
         .action-card { background: #fff; border: 1px solid var(--border-color); border-radius: 16px; padding: 25px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); display: flex; flex-direction: column; gap: 12px; }
         .action-title { font-size: 1.15rem; font-weight: 900; margin-bottom: 5px; color: var(--brand-dark); }
         
-        .preview-btn {
-            background: #fff;
-            color: var(--brand-dark);
-            border: 2px solid var(--brand-dark);
-            padding: 16px;
-            border-radius: 12px;
-            font-weight: 800;
-            font-size: 1.05rem;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-        }
+        .preview-btn { background: #fff; color: var(--brand-dark); border: 2px solid var(--brand-dark); padding: 16px; border-radius: 12px; font-weight: 800; font-size: 1.05rem; cursor: pointer; transition: all 0.2s; display: flex; justify-content: center; align-items: center; gap: 10px; }
         .preview-btn:hover { background: #f3f4f6; }
         .preview-btn:active { transform: scale(0.98); }
 
-        .download-btn {
-            background: var(--brand-dark);
-            color: #fff;
-            border: none;
-            padding: 16px;
-            border-radius: 12px;
-            font-weight: 800;
-            font-size: 1.05rem;
-            cursor: pointer;
-            transition: background 0.2s, transform 0.1s;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-        }
+        .download-btn { background: var(--brand-dark); color: #fff; border: none; padding: 16px; border-radius: 12px; font-weight: 800; font-size: 1.05rem; cursor: pointer; transition: background 0.2s, transform 0.1s; display: flex; justify-content: center; align-items: center; gap: 10px; }
         .download-btn:hover { background: #1f2937; }
         .download-btn:active { transform: scale(0.98); }
 
-        .wa-btn {
-            background: var(--wa-green);
-            color: #fff;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            padding: 16px;
-            border-radius: 12px;
-            font-weight: 800;
-            font-size: 1.05rem;
-            transition: transform 0.1s, background 0.2s;
-        }
+        .wa-btn { background: var(--wa-green); color: #fff; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 16px; border-radius: 12px; font-weight: 800; font-size: 1.05rem; transition: transform 0.1s, background 0.2s; }
         .wa-btn:hover { background: var(--wa-green-hover); }
         .wa-btn:active { transform: scale(0.98); }
 
-        /* THE ATS RESUME PAPER (Hidden by default) */
-        .resume-paper-wrapper { background: #fff; padding: 40px 50px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); border-radius: 4px; overflow-x: auto; display: none; } /* HIDDEN */
-        
-        .resume-paper {
-            font-family: 'Times New Roman', Times, serif;
-            color: #000;
-            line-height: 1.4;
-            min-height: 800px;
-            max-width: 850px;
-            margin: 0 auto;
-            text-align: left;
-            background: #fff;
-        }
+        /* THE ATS RESUME PAPER */
+        .resume-paper-wrapper { background: #fff; padding: 40px 50px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); border-radius: 4px; overflow-x: auto; display: none; }
+        .resume-paper { font-family: 'Times New Roman', Times, serif; color: #000; line-height: 1.4; min-height: 800px; max-width: 850px; margin: 0 auto; text-align: left; background: #fff; }
         
         .res-name { font-size: 16pt; font-weight: bold; text-align: center; margin-bottom: 2px; text-transform: uppercase; }
         .res-contact { text-align: center; font-size: 10pt; margin-bottom: 15px; }
@@ -163,7 +131,6 @@
         .res-date { font-weight: normal; }
         
         .res-item-sub { font-style: italic; font-size: 10pt; margin-bottom: 4px; display: flex; justify-content: space-between; }
-        .res-role { font-weight: normal; font-style: normal; }
         
         .res-bullets { padding-left: 20px; font-size: 10pt; margin-bottom: 10px; }
         .res-bullets li { margin-bottom: 3px; }
@@ -182,22 +149,12 @@
 
         /* ================= PRINT CSS (CRITICAL FOR PERFECT PDF) ================= */
         @media print {
-            @page { margin: 1.5cm; } /* Standard Resume Margins */
+            @page { margin: 1.5cm; }
             body { background: #fff; }
             body * { visibility: hidden; }
-            
-            /* FORCE SHOW WRAPPER EVEN IF HIDDEN ON SCREEN */
             #resumePreviewWrapper { display: block !important; padding: 0; box-shadow: none; }
             #resumePaper, #resumePaper * { visibility: visible; }
-            #resumePaper {
-                position: absolute;
-                left: 0;
-                top: 0;
-                width: 100%;
-                max-width: 100%;
-                margin: 0;
-                padding: 0;
-            }
+            #resumePaper { position: absolute; left: 0; top: 0; width: 100%; max-width: 100%; margin: 0; padding: 0; }
             .compact-header, .form-panel, .action-card, .upsell-section, footer { display: none !important; }
         }
     </style>
@@ -213,7 +170,17 @@
         
         <!-- LEFT: DYNAMIC INPUT FORM -->
         <div class="form-panel" id="formPanel">
+            
             <h2 class="panel-title">Build Your ATS Resume</h2>
+            
+            <!-- THE SPLIT PATH ONBOARDING -->
+            <div class="path-toggle">
+                <input type="radio" id="pathExp" name="userPath" value="exp" checked onchange="toggleUserPath()">
+                <label for="pathExp">I have professional experience</label>
+                
+                <input type="radio" id="pathFresh" name="userPath" value="fresh" onchange="toggleUserPath()">
+                <label for="pathFresh">I am a fresher / student</label>
+            </div>
             
             <div class="section-label">Personal Details</div>
             <div class="form-group"><label>Full Name</label><input type="text" id="inpName" placeholder="e.g. Rahul Sharma"></div>
@@ -227,17 +194,19 @@
 
             <div class="section-label">Professional Summary</div>
             <div class="form-group">
-                <textarea id="inpSummary" placeholder="Detail-oriented professional with 3+ years of comprehensive experience in..."></textarea>
+                <textarea id="inpSummary" placeholder="Detail-oriented professional with comprehensive experience in..."></textarea>
             </div>
 
             <div class="section-label">Core Competencies</div>
             <div id="competencyContainer"></div>
             <button class="add-btn" onclick="addCompetency()">+ Add Skill Category</button>
 
-            <div class="section-label">Professional Experience</div>
+            <!-- DYNAMIC EXPERIENCE SECTION -->
+            <div class="section-label exp-section-title">Professional Experience</div>
             <div id="experienceContainer"></div>
             <button class="add-btn" onclick="addExperience()">+ Add Experience</button>
 
+            <!-- DYNAMIC EDUCATION SECTION -->
             <div class="section-label">Education & Credentials</div>
             <div id="educationContainer"></div>
             <button class="add-btn" onclick="addEducation()">+ Add Education</button>
@@ -245,14 +214,14 @@
             <div class="section-label">Languages</div>
             <div class="form-group">
                 <label>Languages (Press Enter for new bullet)</label>
-                <textarea id="inpLangs" placeholder="English (Fluent - Professional Working Proficiency)&#10;Assamese (Native)&#10;Hindi (Fluent)" style="min-height: 80px;"></textarea>
+                <textarea id="inpLangs" placeholder="English (Fluent)&#10;Assamese (Native)&#10;Hindi (Fluent)" style="min-height: 80px;"></textarea>
             </div>
         </div>
 
         <!-- RIGHT: ACTIONS & PREVIEW -->
         <div class="preview-panel">
             
-            <!-- ACTION STACK (Preview, Download, WhatsApp) -->
+            <!-- ACTION STACK -->
             <div class="action-card">
                 <div class="action-title">Resume Actions</div>
                 
@@ -272,10 +241,9 @@
                 </a>
             </div>
 
-            <!-- LIVE RESUME PAPER (Hidden until preview clicked) -->
+            <!-- LIVE RESUME PAPER -->
             <div class="resume-paper-wrapper" id="resumePreviewWrapper">
                 <div class="resume-paper" id="resumePaper">
-                    
                     <div id="outHeader"></div>
                     
                     <div id="secSummary" style="display:none;">
@@ -289,7 +257,7 @@
                     </div>
 
                     <div id="secExp" style="display:none;">
-                        <div class="res-section-title">Professional Experience</div>
+                        <div class="res-section-title exp-section-title-preview">Professional Experience</div>
                         <div id="outExpList"></div>
                     </div>
 
@@ -317,72 +285,115 @@
     <script>
         document.getElementById('formPanel').addEventListener('input', updateResume);
 
-        // Preview Toggle Logic
         function togglePreview() {
             const wrapper = document.getElementById('resumePreviewWrapper');
             const btnText = document.getElementById('previewBtnText');
-            
             if (wrapper.style.display === 'none' || wrapper.style.display === '') {
                 wrapper.style.display = 'block';
                 btnText.innerText = 'Hide Preview';
-                // Scroll to preview on mobile
-                if(window.innerWidth < 1024) {
-                    wrapper.scrollIntoView({ behavior: 'smooth' });
-                }
+                if(window.innerWidth < 1024) wrapper.scrollIntoView({ behavior: 'smooth' });
             } else {
                 wrapper.style.display = 'none';
                 btnText.innerText = 'Preview Resume';
             }
         }
 
+        function toggleUserPath() {
+            const isFresher = document.getElementById('pathFresh').checked;
+            
+            // Change Form Labels
+            document.querySelector('.exp-section-title').innerText = isFresher ? "Internships, Projects & Volunteer Work" : "Professional Experience";
+            document.querySelectorAll('.role-label').forEach(lbl => lbl.innerText = isFresher ? "Project Role / Position" : "Job Title / Role");
+            document.querySelectorAll('.comp-label').forEach(lbl => lbl.innerText = isFresher ? "Organization / Institution" : "Company / Organization");
+            
+            // Change Preview Label
+            document.querySelector('.exp-section-title-preview').innerText = isFresher ? "Internships, Projects & Volunteer Work" : "Professional Experience";
+        }
+
         let compIndex = 0;
         let expIndex = 0;
         let eduIndex = 0;
 
-        // Dynamic Competency Blocks
         function addCompetency() {
             const html = `
                 <div class="dynamic-block comp-block" id="comp-${compIndex}">
                     <button class="remove-btn" onclick="removeBlock('comp-${compIndex}')">✖</button>
                     <div class="form-group"><label>Category Name</label><input type="text" class="c-cat" placeholder="e.g. Financial & Reporting:"></div>
-                    <div class="form-group"><label>Skills (Pipe or Comma Separated)</label><input type="text" class="c-skills" placeholder="e.g. | Statutory Audit, Internal Audit, Ind AS"></div>
+                    <div class="form-group"><label>Skills (Comma or Pipe Separated)</label><input type="text" class="c-skills" placeholder="e.g. | Statutory Audit, Internal Audit, Ind AS"></div>
                 </div>`;
             document.getElementById('competencyContainer').insertAdjacentHTML('beforeend', html);
             compIndex++;
             updateResume();
         }
 
-        // Dynamic Experience Blocks
+        // ==========================================
+        // THE GUIDED BULLET ENGINE (Anti-Restaurant Bill)
+        // ==========================================
         function addExperience() {
+            const isFresher = document.getElementById('pathFresh').checked;
+            const roleText = isFresher ? "Project Role / Position" : "Job Title / Role";
+            const compText = isFresher ? "Organization / Institution" : "Company / Organization";
+
             const html = `
                 <div class="dynamic-block exp-block" id="exp-${expIndex}">
                     <button class="remove-btn" onclick="removeBlock('exp-${expIndex}')">✖</button>
                     <div class="grid-2">
-                        <div class="form-group"><label>Company / Organization</label><input type="text" class="e-comp" placeholder="e.g. B.K. Sharma & Associates"></div>
+                        <div class="form-group"><label class="comp-label">${compText}</label><input type="text" class="e-comp" placeholder="e.g. B.K. Sharma & Associates"></div>
                         <div class="form-group"><label>Location</label><input type="text" class="e-loc" placeholder="e.g. Guwahati, Assam"></div>
                     </div>
                     <div class="grid-2">
-                        <div class="form-group"><label>Job Title / Role</label><input type="text" class="e-title" placeholder="e.g. Audit Executive"></div>
+                        <div class="form-group"><label class="role-label">${roleText}</label><input type="text" class="e-title" placeholder="e.g. Audit Executive"></div>
                         <div class="form-group"><label>Dates</label><input type="text" class="e-dates" placeholder="e.g. August 2023 - Present"></div>
                     </div>
-                    <div class="form-group"><label>Responsibilities (Press Enter for new bullet)</label><textarea class="e-resp" placeholder="Spearheaded statutory and tax audits...&#10;Prepared and filed complex GST returns..."></textarea></div>
+                    
+                    <div class="section-label" style="font-size:0.85rem; margin-top:10px; margin-bottom:10px;">Achievements & Responsibilities</div>
+                    <div class="achievements-wrapper" id="achieve-wrap-${expIndex}"></div>
+                    <button class="add-bullet-btn" onclick="addBullet(${expIndex})">+ Add Bullet Point</button>
                 </div>`;
             document.getElementById('experienceContainer').insertAdjacentHTML('beforeend', html);
+            addBullet(expIndex); // Auto-add first bullet formula
             expIndex++;
             updateResume();
         }
 
-        // Dynamic Education Blocks
+        function addBullet(parentId) {
+            const wrapper = document.getElementById(`achieve-wrap-${parentId}`);
+            const html = `
+                <div class="bullet-engine">
+                    <button class="remove-bullet" onclick="this.parentElement.remove(); updateResume();">✖</button>
+                    <div class="form-group"><label>1. Action (What did you do? Start with a verb)</label><input type="text" class="b-action" placeholder="e.g. Spearheaded statutory audits"></div>
+                    <div class="form-group"><label>2. Tool / Method (How did you do it?)</label><input type="text" class="b-tool" placeholder="e.g. using Tally Prime and Excel"></div>
+                    <div class="form-group"><label>3. Result (What was the outcome? Include numbers)</label><input type="text" class="b-result" placeholder="e.g. ensuring 100% compliance for 15+ clients"></div>
+                </div>
+            `;
+            wrapper.insertAdjacentHTML('beforeend', html);
+        }
+
+        // ==========================================
+        // DYNAMIC EDUCATION STACK
+        // ==========================================
         function addEducation() {
             const html = `
                 <div class="dynamic-block edu-block" id="edu-${eduIndex}">
                     <button class="remove-btn" onclick="removeBlock('edu-${eduIndex}')">✖</button>
-                    <div class="form-group"><label>Institution / University</label><input type="text" class="ed-inst" placeholder="e.g. Institute of Chartered Accountants of India (ICAI)"></div>
                     <div class="grid-2">
-                        <div class="form-group"><label>Degree / Certification</label><input type="text" class="ed-deg" placeholder="e.g. Chartered Accountant (CA)"></div>
-                        <div class="form-group"><label>Date / Year</label><input type="text" class="ed-year" placeholder="e.g. May 2026"></div>
+                        <div class="form-group">
+                            <label>Degree Level</label>
+                            <select class="ed-level">
+                                <option value="" disabled selected>Select Level...</option>
+                                <option value="High School">High School (10th/12th)</option>
+                                <option value="Diploma/Certification">Diploma/Certification</option>
+                                <option value="Bachelor's">Bachelor's Degree</option>
+                                <option value="Master's">Master's Degree</option>
+                            </select>
+                        </div>
+                        <div class="form-group"><label>Field of Study / Major</label><input type="text" class="ed-field" placeholder="e.g. Accountancy Honors"></div>
                     </div>
-                    <div class="form-group"><label>Details / Honors (Optional, Press Enter for bullets)</label><textarea class="ed-bullets" placeholder="Cleared CA Final Group 1 & 2 in the first attempt."></textarea></div>
+                    <div class="grid-2">
+                        <div class="form-group"><label>Institution & Location</label><input type="text" class="ed-inst" placeholder="e.g. Gauhati University"></div>
+                        <div class="form-group"><label>Graduation Date</label><input type="text" class="ed-year" placeholder="e.g. May 2026"></div>
+                    </div>
+                    <div class="form-group"><label>Key Academic Achievements (Optional)</label><textarea class="ed-bullets" placeholder="e.g. Cleared exams in first attempt..."></textarea></div>
                 </div>`;
             document.getElementById('educationContainer').insertAdjacentHTML('beforeend', html);
             eduIndex++;
@@ -394,8 +405,11 @@
             updateResume();
         }
 
-        function updateResume() {
-            // 1. Header (Name & Contact)
+        function updateResume(e) {
+            // Stop form submission if a button was clicked inside the form
+            if (e && e.preventDefault) e.preventDefault();
+
+            // 1. Header
             const name = document.getElementById('inpName').value;
             const address = document.getElementById('inpAddress').value;
             const phone = document.getElementById('inpPhone').value;
@@ -404,22 +418,14 @@
 
             let headerHTML = '';
             if (name) headerHTML += `<div class="res-name">${name}</div>`;
-            
             let contactHTML = '';
             if (address) contactHTML += `<div class="res-contact-line">${address}</div>`;
-            
             let bottomLine = [];
             if (phone) bottomLine.push(phone);
             if (email) bottomLine.push(email);
             if (link) bottomLine.push(link);
-            
-            if (bottomLine.length > 0) {
-                contactHTML += `<div class="res-contact-line">${bottomLine.join(' &nbsp;|&nbsp; ')}</div>`;
-            }
-
-            if (contactHTML) {
-                headerHTML += `<div class="res-contact">${contactHTML}</div>`;
-            }
+            if (bottomLine.length > 0) contactHTML += `<div class="res-contact-line">${bottomLine.join(' &nbsp;|&nbsp; ')}</div>`;
+            if (contactHTML) headerHTML += `<div class="res-contact">${contactHTML}</div>`;
             document.getElementById('outHeader').innerHTML = headerHTML;
 
             // 2. Summary
@@ -427,24 +433,20 @@
             document.getElementById('outSummary').innerText = summary;
             document.getElementById('secSummary').style.display = summary ? 'block' : 'none';
 
-            // 3. Competencies Rendering
+            // 3. Competencies
             const compBlocks = document.querySelectorAll('.comp-block');
             let compHTML = '';
             compBlocks.forEach(block => {
                 const cat = block.querySelector('.c-cat').value;
                 const skills = block.querySelector('.c-skills').value;
                 if (cat || skills) {
-                    compHTML += `
-                        <div class="comp-row">
-                            <div class="comp-cat">${cat}</div>
-                            <div class="comp-val">${skills}</div>
-                        </div>`;
+                    compHTML += `<div class="comp-row"><div class="comp-cat">${cat}</div><div class="comp-val">${skills}</div></div>`;
                 }
             });
             document.getElementById('outSkillsList').innerHTML = compHTML;
             document.getElementById('secSkills').style.display = compHTML ? 'block' : 'none';
 
-            // 4. Experience Rendering
+            // 4. Experience (Stitching the Guided Engine)
             const expBlocks = document.querySelectorAll('.exp-block');
             let expHTML = '';
             expBlocks.forEach(block => {
@@ -452,46 +454,52 @@
                 const comp = block.querySelector('.e-comp').value;
                 const loc = block.querySelector('.e-loc').value;
                 const dates = block.querySelector('.e-dates').value;
-                const respText = block.querySelector('.e-resp').value;
                 
-                const bullets = respText.split('\n').filter(line => line.trim() !== '').map(line => `<li>${line.replace(/^[•\-\*]\s*/, '').trim()}</li>`).join('');
+                // Stitch the 3 inputs together
+                const bulletEngines = block.querySelectorAll('.bullet-engine');
+                let bulletsHTML = '';
+                bulletEngines.forEach(be => {
+                    const act = be.querySelector('.b-action').value.trim();
+                    const tool = be.querySelector('.b-tool').value.trim();
+                    const res = be.querySelector('.b-result').value.trim();
+                    
+                    let combined = act;
+                    if(tool) combined += ` ${tool}`;
+                    if(res) combined += ` ${res}`;
+                    
+                    if(combined) bulletsHTML += `<li>${combined}</li>`;
+                });
 
                 if (comp || title) {
                     expHTML += `
-                        <div class="res-item-header">
-                            <span class="res-company-loc">${comp}${comp && loc ? ' | ' : ''}${loc}</span>
-                        </div>
-                        <div class="res-item-sub">
-                            <span class="res-role">${title}</span>
-                            <span class="res-date">${dates}</span>
-                        </div>
-                        ${bullets ? `<ul class="res-bullets">${bullets}</ul>` : ''}
+                        <div class="res-item-header"><span class="res-company-loc">${comp}${comp && loc ? ' | ' : ''}${loc}</span></div>
+                        <div class="res-item-sub"><span class="res-role">${title}</span><span class="res-date">${dates}</span></div>
+                        ${bulletsHTML ? `<ul class="res-bullets">${bulletsHTML}</ul>` : ''}
                     `;
                 }
             });
             document.getElementById('outExpList').innerHTML = expHTML;
             document.getElementById('secExp').style.display = expHTML ? 'block' : 'none';
 
-            // 5. Education Rendering
+            // 5. Education
             const eduBlocks = document.querySelectorAll('.edu-block');
             let eduHTML = '';
             eduBlocks.forEach(block => {
+                const level = block.querySelector('.ed-level').value;
+                const field = block.querySelector('.ed-field').value;
                 const inst = block.querySelector('.ed-inst').value;
-                const deg = block.querySelector('.ed-deg').value;
                 const year = block.querySelector('.ed-year').value;
                 const detailsText = block.querySelector('.ed-bullets').value;
 
+                let degreeText = (level && level !== 'Select Level...') ? level : '';
+                if(field) degreeText += (degreeText ? ' - ' : '') + field;
+
                 const bullets = detailsText.split('\n').filter(line => line.trim() !== '').map(line => `<li>${line.replace(/^[•\-\*]\s*/, '').trim()}</li>`).join('');
 
-                if (inst || deg) {
+                if (inst || degreeText) {
                     eduHTML += `
-                        <div class="res-item-header">
-                            <span class="res-company-loc">${inst}</span>
-                        </div>
-                        <div class="res-item-sub">
-                            <span class="res-role">${deg}</span>
-                            <span class="res-date">${year}</span>
-                        </div>
+                        <div class="res-item-header"><span class="res-company-loc">${inst}</span></div>
+                        <div class="res-item-sub"><span class="res-role">${degreeText}</span><span class="res-date">${year}</span></div>
                         ${bullets ? `<ul class="res-bullets">${bullets}</ul>` : ''}
                     `;
                 }
@@ -510,7 +518,7 @@
             }
         }
 
-        // Initialize empty blocks (No placeholder data)
+        // Initialize empty blocks
         addCompetency();
         addExperience();
         addEducation();
